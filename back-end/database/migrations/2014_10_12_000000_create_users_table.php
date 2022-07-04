@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('employee_code')->unique();
+            $table->string('employee_code')->unique();
             $table->string('name');
             $table->string('employee_group');
             $table->string('employee_title');
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->foreignId('department_id')->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->string('phone');
             $table->double('salary', 6, 3);
-            $table->date('hired_at');
+            $table->date('hired_at')->default(Carbon::now());;
             $table->date('b_date');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
