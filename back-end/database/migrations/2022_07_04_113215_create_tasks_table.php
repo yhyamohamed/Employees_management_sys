@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamp('due_date');
             $table->foreignId('created_by')->constrained('users')->cascadeOnUpdate()->nullOnDelete();
             $table->integer('priority');
-            $table->set('status', ['opened', 'done','waiting','need-help']);
+            $table->enum('status', ['opened', 'done','waiting','need-help']);
             $table->timestamps();
         });
     }

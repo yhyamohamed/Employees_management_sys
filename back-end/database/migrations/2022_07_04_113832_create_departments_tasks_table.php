@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignId('department_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('task_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('note');
-            $table->set('status', ['opened', 'done','waiting','need-help']);
+            $table->enum('status', ['opened', 'done','waiting','need-help']);
             $table->timestamps();
         });
     }

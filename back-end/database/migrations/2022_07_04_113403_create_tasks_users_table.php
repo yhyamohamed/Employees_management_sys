@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('task_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->set('status', ['opened', 'done','waiting','need-help']);
+            $table->enum('status', ['opened', 'done','waiting','need-help']);
             $table->text('note');
             $table->text('role')->nullable();
             $table->timestamps();
