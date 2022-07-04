@@ -2,15 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Department;
+use App\Models\TasksUsers;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DepartmentSeeder extends Seeder
+class TasksUsersSeeder extends Seeder
 {
 
     public function run()
     {
-        Department::factory(6)->create();
+        TasksUsers::factory(150)->create();
     }
 }

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('employee_group');
             $table->string('employee_title');
             $table->enum('gender', ['Male', 'Female']);
-            $table->foreignId('supervisor_id')->constrained('users')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('department_id')->constrained()->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('supervisor_id')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('department_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->string('phone');
             $table->double('salary', 6, 3);
             $table->date('hired_at')->default(Carbon::now());;

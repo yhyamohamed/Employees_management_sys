@@ -2,18 +2,30 @@
 
 namespace Database\Seeders;
 
+
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+
     public function run()
     {
+        $this->call([
+            //create management
+            ManagementSeeder::class,
+            //create departments (6)
+            DepartmentSeeder::class,
+            //create rest of users 100
+            UserSeeder::class,
+            // create tasks
+            TaskSeeder::class,
+            //assign staff to tasks
+            TasksUsersSeeder::class,
+        ]);
+
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
