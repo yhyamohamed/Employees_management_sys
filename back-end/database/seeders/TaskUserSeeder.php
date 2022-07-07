@@ -2,15 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Leave;
+use App\Models\TaskUser;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class LeaveSeeder extends Seeder
+class TaskUserSeeder extends Seeder
 {
 
     public function run()
     {
-        Leave::factory(100)->create();
+        TaskUser::factory(150)->create();
     }
 }

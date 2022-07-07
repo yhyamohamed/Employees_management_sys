@@ -22,7 +22,7 @@ class Task extends Model
 */
     public function users()
     {
-        return $this->belongsToMany(User::class)->using(TasksUsers::class);
+        return $this->belongsToMany(User::class)->using(TaskUser::class);
     }
 
     public function departments()

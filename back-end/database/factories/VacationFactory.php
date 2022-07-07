@@ -2,22 +2,24 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vacation>
- */
 class VacationFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+
     public function definition()
     {
+        $user = $this->faker->randomElement(User::all());
         return [
-            //
+            'employee_id' => $user->id,
+            'department_id' => $user->department->id,
+            'duration' => $this->faker->numberBetween(1, 31),
+            'reasons' => $this->faker->realTextBetween($minNbChars = 50, $maxNbChars = 52, $indexSize = 2),
+            'paid' => $this->faker->randomElement([true, false]),
+            'start_date' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
+            'end_date' => $this->faker->dateTimeBetween('+1 week', '+4 week'),
+            'status' => $this->faker->randomElement( ['approved', 'pending','rejected'])
         ];
     }
 }

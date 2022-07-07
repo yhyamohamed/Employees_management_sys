@@ -2,15 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\TasksUsers;
+
+use App\Models\ComplaintsTo;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TasksUsersSeeder extends Seeder
+class ComplaintsToSeeder extends Seeder
 {
 
     public function run()
     {
-        TasksUsers::factory(150)->create();
+       ComplaintsTo::factory(20)->create();
     }
 }

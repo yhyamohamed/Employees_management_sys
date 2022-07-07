@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
-class TasksUsersFactory extends Factory
+class TaskUserFactory extends Factory
 {
     public function definition()
     {

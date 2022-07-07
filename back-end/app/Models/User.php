@@ -39,12 +39,12 @@ class User extends Authenticatable
 
     public function added_tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'created_by');
     }
 
     public function tasks()
     {
-        return $this->belongsToMany(Task::class)->using(TasksUsers::class);
+        return $this->belongsToMany(Task::class)->using(TaskUser::class);
     }
 
     public function requestedVacations()
