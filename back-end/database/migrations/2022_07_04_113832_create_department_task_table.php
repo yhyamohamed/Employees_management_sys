@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('department_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('task_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->enum('status', ['opened', 'done','waiting','need-help']);
             $table->timestamps();
         });
