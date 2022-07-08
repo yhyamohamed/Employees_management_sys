@@ -19,8 +19,8 @@ class Vacation extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function users()
+    public function signedBy()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class,'user_vacation','vacation_id','signed_by');
     }
 }

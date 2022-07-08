@@ -2,17 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Department;
+use App\Models\UserVacation;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DepartmentSeeder extends Seeder
+class UserVacationSeeder extends Seeder
 {
 
     public function run()
     {
-        Department::factory(5)->create();
-
-
+     UserVacation::factory(30)->create();
     }
 }

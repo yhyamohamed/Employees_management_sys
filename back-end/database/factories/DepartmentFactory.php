@@ -13,7 +13,7 @@ class DepartmentFactory extends Factory
     {
         $managers = User::all()->whereIn('employee_group',['higher-management', 'middle-management'])->pluck('id');
         return [
-           'name'=>$this->faker->unique()->randomElement(['hr','accounting','web-development','mobile-development','it','marketing','Management']),
+           'name'=>$this->faker->unique()->randomElement(['hr','accounting','web-development','mobile-development','it','marketing']),
 
             'manager_id'=>$this->faker->unique()->randomElement($managers),
             'manager_start_at'=>$this->faker->date()

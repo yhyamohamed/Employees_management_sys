@@ -49,37 +49,43 @@ class User extends Authenticatable
 
     public function requestedVacations()
     {
-        return $this->hasMany(Vacation::class);
+        return $this->hasMany(Vacation::class, 'employee_id');
     }
 
     public function vacations()
     {
-        return $this->belongsToMany(Vacation::class);
+        return $this->belongsToMany(Vacation::class, 'user_vacation', 'signed_by');
     }
 
     public function complaints()
     {
-        return $this->hasMany(Complaint::class);
-    }
-    public function attendances()
-    {
-        return $this->hasMany(Attendance::class);
-    }
-    public function abbsences()
-    {
-        return $this->hasMany(Absence::class);
-    }
-    public function leaves()
-    {
-        return $this->hasMany(Leave::class);
-    }
-    public function overTimes()
-    {
-        return $this->hasMany(OverTime::class);
+        return $this->hasMany(Complaint::class, 'employee_id');
     }
 
     public function all_complaints()
     {
         return $this->belongsToMany(Complaint::class, 'complaints_to', 'cc_to', 'complaint_id');
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function absences()
+    {
+        return $this->hasMany(Absence::class);
+    }
+
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class);
+    }
+
+    public function overTimes()
+    {
+        return $this->hasMany(OverTime::class);
+    }
+
+
 }

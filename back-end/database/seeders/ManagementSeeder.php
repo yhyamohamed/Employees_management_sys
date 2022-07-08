@@ -22,13 +22,15 @@ class ManagementSeeder extends Seeder
         User::factory(3)->create(
             [
                 'employee_group' => 'higher-management',
-                'employee_title' => 'higher-management'
+                'employee_title' => 'higher-management',
+                'department_id'=>1
             ]
         );
         User::factory(3)->create(
             [
                 'employee_group' => 'middle-management',
-                'employee_title' => 'middle-management'
+                'employee_title' => 'middle-management',
+                'department_id'=>1
             ]
         );
     }

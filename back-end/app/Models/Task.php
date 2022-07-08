@@ -24,7 +24,7 @@ class Task extends Model
     {
         return $this->belongsToMany(User::class)->using(TaskUser::class);
     }
-
+//pivot
     public function departments()
     {
         return $this->belongsToMany(Department::class);

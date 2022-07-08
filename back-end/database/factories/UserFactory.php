@@ -16,7 +16,7 @@ class UserFactory extends Factory
     {
 
         $managers = User::all()->whereIn('employee_group',['higher-management', 'middle-management'])->pluck('id');
-        $departments_ids = Department::all()->pluck('id');
+        $departments_ids = Department::all()->whereNotIn('name',['Management'])->pluck('id');
         $gender =$this->faker->randomElement(['Male', 'Female']);
         $name = $this->faker->name($gender);
 

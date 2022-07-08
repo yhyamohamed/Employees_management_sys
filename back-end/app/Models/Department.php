@@ -18,7 +18,7 @@ class Department extends Model
     {
         return $this->belongsTo(User::class, 'manager_id');
     }
-
+//make pivot
     public function tasks()
     {
         return $this->belongsToMany(Task::class);

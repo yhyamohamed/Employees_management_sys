@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
             TaskSeeder::class,
             //assign staff to tasks
             TaskUserSeeder::class,
+
             VacationSeeder::class,
+            UserVacationSeeder::class,
 
             ComplaintSeeder::class,
             ComplaintsToSeeder::class,
