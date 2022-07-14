@@ -8,58 +8,59 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return response()->json(Task::all(), 200);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTaskRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StoreTaskRequest $request)
     {
-        //
+        $created_task = Task::create($request->all());
+
+        if ($created_task) {
+            return response()->json($created_task, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that task'], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Task $task)
+    public function show($id)
     {
-        //
+        $entry = Absence::find($id);
+
+        if ($entry) {
+            return response()->json($entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that task'], 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTaskRequest  $request
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $updated_task= Task::update($request->all());
+
+        if ($updated_task) {
+            return response()->json($updated_task, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that task'], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Task $task)
     {
-        //
+        $deleted = $task->delete();
+        if ($deleted) {
+            return response()->json('a task deleted successfully !', 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that task'], 500);
+        }
     }
 }

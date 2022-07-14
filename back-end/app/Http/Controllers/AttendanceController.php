@@ -2,64 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAbsenceRequest;
 use App\Http\Requests\StoreAttendanceRequest;
+use App\Http\Requests\UpdateAbsenceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
 use App\Models\Attendance;
 
 class AttendanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return response()->json(Attendance::all(), 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreAttendanceRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreAttendanceRequest $request)
+
+    public function store(StoreAbsenceRequest $request)
     {
-        //
+        $created_entry = Attendance::create($request->all());
+
+        if ($created_entry) {
+            return response()->json($created_entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that entry'], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Attendance $attendance)
+
+    public function show($id)
     {
-        //
+        $entry = Attendance::find($id);
+
+        if ($entry) {
+            return response()->json($entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that entry'], 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAttendanceRequest  $request
-     * @param  \App\Models\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAttendanceRequest $request, Attendance $attendance)
+
+    public function update(UpdateAbsenceRequest $request, Attendance $attendance)
     {
-        //
+        $updated_entry = Attendance::update($request->all());
+
+        if ($updated_entry) {
+            return response()->json($updated_entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that user '], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Attendance $attendance)
     {
-        //
+        $deleted = $attendance->delete();
+        if ($deleted) {
+            return response()->json('a entry deleted successfully !', 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that entry'], 500);
+        }
     }
 }

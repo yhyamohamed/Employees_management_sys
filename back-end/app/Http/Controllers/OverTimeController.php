@@ -2,64 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAbsenceRequest;
 use App\Http\Requests\StoreOverTimeRequest;
+use App\Http\Requests\UpdateAbsenceRequest;
 use App\Http\Requests\UpdateOverTimeRequest;
 use App\Models\OverTime;
 
 class OverTimeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return response()->json(OverTime::all(), 200);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreOverTimeRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreOverTimeRequest $request)
+
+    public function store(StoreAbsenceRequest $request)
     {
-        //
+        $created_entry = OverTime::create($request->all());
+
+        if ($created_entry) {
+            return response()->json($created_entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that entry'], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\OverTime  $overTime
-     * @return \Illuminate\Http\Response
-     */
-    public function show(OverTime $overTime)
+
+    public function show($id)
     {
-        //
+        $entry = OverTime::find($id);
+
+        if ($entry) {
+            return response()->json($entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that entry'], 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateOverTimeRequest  $request
-     * @param  \App\Models\OverTime  $overTime
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateOverTimeRequest $request, OverTime $overTime)
+
+    public function update(UpdateAbsenceRequest $request, OverTime $overTime)
     {
-        //
+        $updated_entry = OverTime::update($request->all());
+
+        if ($updated_entry) {
+            return response()->json($updated_entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that user '], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\OverTime  $overTime
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(OverTime $overTime)
     {
-        //
+        $deleted = $overTime->delete();
+        if ($deleted) {
+            return response()->json('a entry deleted successfully !', 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that entry'], 500);
+        }
     }
 }

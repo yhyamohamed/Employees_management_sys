@@ -8,58 +8,58 @@ use App\Models\Department;
 
 class DepartmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return response()->json(Department::all(), 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreDepartmentRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreDepartmentRequest $request)
     {
-        //
+        $created_dep = Department::create($request->all());
+
+        if ($created_dep) {
+            return response()->json($created_dep, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that department'], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Department $department)
+    public function show($id)
     {
-        //
+        $dep = Absence::find($id);
+
+        if ($dep) {
+            return response()->json($dep, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that department'], 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateDepartmentRequest  $request
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        //
+        $updated_dep = Department::update($request->all());
+
+        if ($updated_dep) {
+            return response()->json($updated_dep, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that department'], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Department $department)
     {
-        //
+        $deleted = $department->delete();
+        if ($deleted) {
+            return response()->json('a department deleted successfully !', 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that department'], 500);
+        }
     }
 }

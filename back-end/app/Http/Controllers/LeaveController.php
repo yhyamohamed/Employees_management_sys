@@ -2,64 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAbsenceRequest;
 use App\Http\Requests\StoreLeaveRequest;
+use App\Http\Requests\UpdateAbsenceRequest;
 use App\Http\Requests\UpdateLeaveRequest;
 use App\Models\Leave;
 
 class LeaveController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return response()->json(Leave::all(), 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreLeaveRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreLeaveRequest $request)
+
+    public function store(StoreAbsenceRequest $request)
     {
-        //
+        $created_entry = Leave::create($request->all());
+
+        if ($created_entry) {
+            return response()->json($created_entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that entry'], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Leave  $leave
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Leave $leave)
+
+    public function show($id)
     {
-        //
+        $entry = Leave::find($id);
+
+        if ($entry) {
+            return response()->json($entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that entry'], 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateLeaveRequest  $request
-     * @param  \App\Models\Leave  $leave
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateLeaveRequest $request, Leave $leave)
+
+    public function update(UpdateAbsenceRequest $request, Leave $leave)
     {
-        //
+        $updated_entry = Leave::update($request->all());
+
+        if ($updated_entry) {
+            return response()->json($updated_entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that user '], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Leave  $leave
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Leave $leave)
     {
-        //
+        $deleted = $leave->delete();
+        if ($deleted) {
+            return response()->json('a entry deleted successfully !', 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that entry'], 500);
+        }
     }
 }

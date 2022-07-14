@@ -8,58 +8,61 @@ use App\Models\Complaint;
 
 class ComplaintController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+       return response()->json(Complaint::all(), 200);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreComplaintRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StoreComplaintRequest $request)
     {
-        //
+        $created_entry = Complaint::create($request->all());
+
+        if ($created_entry) {
+            return response()->json($created_entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that entry'], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Complaint  $complaint
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Complaint $complaint)
+
+    public function show($id)
     {
-        //
+        $entry = Complaint::find($id);
+
+        if ($entry) {
+            return response()->json($entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that entry'], 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateComplaintRequest  $request
-     * @param  \App\Models\Complaint  $complaint
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(UpdateComplaintRequest $request, Complaint $complaint)
     {
-        //
+        $updated_entry = Complaint::update($request->all());
+
+        if ($updated_entry) {
+            return response()->json($updated_entry, 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant add that entry '], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Complaint  $complaint
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Complaint $complaint)
     {
-        //
+        $deleted = $complaint->delete();
+        if ($deleted) {
+            return response()->json('a entry deleted successfully !', 200);
+        } else {
+
+            return response()->json(['Error' => 'some thing went wrong sry we cant find that entry'], 500);
+        }
     }
 }
