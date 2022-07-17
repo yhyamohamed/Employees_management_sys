@@ -17,7 +17,16 @@ class StoreDepartmentRequest extends FormRequest
     {
         return [
             'name' => ['required', 'unique:departments'],
-            'manager_id'=>'exists:users',
+            'manager_id'=>'exists:users,id',
+        ];
+    }
+
+
+    public function messages()
+    {
+        return [
+            'manager_id.exists' => 'manager id must belong to an actual employee',
+            'name.unique' => 'a department with that name already there',
         ];
     }
 }
