@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const usePost = (url,data) => {
+const usePost = (url,body) => {
   const [data, SetData] = useState(null);
   const [isPending, SetIsPending] = useState(true);
   const [error, SetError] = useState(false);
@@ -9,7 +9,7 @@ const usePost = (url,data) => {
     const abortReq = new AbortController();
     setTimeout(() => {
       axios
-        .post(url, { signal: abortReq.signal },{data})
+        .post(url, { signal: abortReq.signal },{body})
         .then((res) => {
             if (res.status !== 200)
               throw Error("error.. cant fetch data for that url");
