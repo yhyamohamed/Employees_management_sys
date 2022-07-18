@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Hello from "./components/Hello";
 import Navbar from "./components/Navbar"
 import ListAllUsers from "./components/users/ListAllUsers";
+import ListAllTasks from "./components/tasks/ListAllTasks";
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Hello />}></Route>
           <Route  path="/users" element={<ListAllUsers />}></Route>
-        
+          <Route  path="/tasks" element={<ListAllTasks />}></Route>
+
         </Routes>
       </div>
     </>

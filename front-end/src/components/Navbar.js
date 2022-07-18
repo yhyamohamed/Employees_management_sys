@@ -26,6 +26,11 @@ const Navbar = () => {
                 ALL-users
               </Link>
             </li>
+            <li className="nav-item active ">
+              <Link className="nav-link" to="/tasks">
+                ALL-tasks
+              </Link>
+            </li>
             {/* <li className="nav-item">
               <Link className="nav-link" to="/artists/:id">
                 Show
