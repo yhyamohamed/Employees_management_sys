@@ -1,8 +1,67 @@
 import React from "react";
+import useGet from "../../custumHooks/useGet";
+import { Link } from "react-router-dom";
+import DataTable from "react-data-table-component";
+import FilterComponent from "../partials/FilterComponent";
+
+const columns = [
+  {
+    name: "Employee code",
+    selector: (row) => row.employee_code,
+    sortable: true,
+  },
+  {
+    name: "name",
+    selector: (row) => row.name,
+    sortable: true,
+  },
+  {
+    name: "gender",
+    selector: (row) => row.gender,
+  },
+  {
+    name: "phone",
+    selector: (row) => row.phone,
+  },
+  {
+    name: "salary",
+    selector: (row) => row.salary,
+    sortable: true,
+  },
+  {
+    name: "email",
+    selector: (row) => row.email,
+  },
+  {
+    name: "hired at",
+    selector: (row) => row.hired_at,
+    sortable: true,
+  },
+  {
+    key: "action",
+    text: "Action",
+    className: "action",
+    width: 100,
+    align: "left",
+    sortable: false,
+    cell: (record) => {
+      return (
+        <>
+          <button
+            className="btn btn-sm btn-success"
+            onClick={() => console.log(record)}
+          >
+            Edit
+          </button>
+        </>
+      );
+    },
+  },
+];
 
 const ListAllUsers = () => {
-  const { data, isPending, error } = useGet("http://127.0.0.1:8000/users");
-
+  const { data, isPending, error } = useGet("http://127.0.0.1:8000/api/users");
+ 
   return (
     <div className="row">
       {isPending && (
@@ -25,29 +84,15 @@ const ListAllUsers = () => {
           </div>
         </>
       )}
-      {artistsList &&
-        artistsList.map((artist) => (
-          <div
-            className="card col-3 m-2 border border-primary border-2"
-            key={artist.id}
-          >
-            <img
-              src={`/images/covers/${artist.cover}.jpg`}
-              className="card-img-top"
-              alt="artist pic"
-            />
-            <div className="card-body">
-              <h5 className="card-title">{artist.name}</h5>
-              <p className="card-text">
-                {artist.bio.split(" ").slice(0, 7).join(" ")}...
-                <span className="text-primary">Read more</span>
-              </p>
-              <Link to={`/artists/${artist.id}`} className="btn btn-primary">
-                Show Details
-              </Link>
-            </div>
-          </div>
-        ))}
+      {data && (
+        <DataTable
+          columns={columns}
+          data={data}
+          pagination
+       
+       
+        />
+      )}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const useGet = (url) => {
   const [data, SetData] = useState(null);
@@ -11,9 +12,10 @@ const useGet = (url) => {
       axios
         .get(url, { signal: abortReq.signal })
         .then((res) => {
-           if (res.status !== 200)
-             throw Error("error.. cant fetch data for that url");
-          return res.json();
+          if (res.status !== 200)
+            throw Error("error.. cant fetch data for that url");
+            console.log(res.data);
+          return res.data;
         })
         .then((data) => {
           console.log(data);
@@ -35,7 +37,7 @@ const useGet = (url) => {
     return () => {
       abortReq.abort();
     };
-  }, []);
+  }, [url]);
   return { data, isPending, error };
 };
 
