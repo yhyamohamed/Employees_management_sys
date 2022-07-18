@@ -2,8 +2,6 @@ import React from "react";
 import useGet from "../../custumHooks/useGet";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
-import FilterComponent from "../partials/FilterComponent";
-
 
 const columns = [
   {
@@ -27,6 +25,7 @@ const columns = [
   {
     name: "Paid",
     selector: (row) => row.paid,
+    width: "fit-content",
   },
   {
     name: "Start Date",
@@ -42,41 +41,73 @@ const columns = [
     name: "Status",
     selector: (row) => row.status,
     sortable: true,
+    width: "fit-content",
   },
   {
     key: "action",
     text: "Action",
+    name: "Action",
     className: "action",
-    width: 100,
+    width: "8%",
     align: "left",
     sortable: false,
+
     cell: (record) => {
       return (
         <>
-          <button
-            className="btn btn-sm btn-success"
-            onClick={() => console.log(record)}>
-            Edit
-          </button>
-          <button
-            className="btn btn-sm btn-danger"
-            onClick={() => console.log(record)}>
-            Delete
-          </button>
-          <button
-            className="btn btn-sm btn-primary"
-            onClick={() => console.log(record)}>
-            Show
-          </button>
+          <div className="d-flex justify-content-between w-75">
+            <i
+              className="far fa-edit fa-lg"
+              style={{ cursor: "pointer", color: "blue" }}
+              onClick={() => console.log(record.id)}
+            ></i>
+            <i
+              className="fa-regular fa-trash-can fa-lg"
+              style={{ cursor: "pointer", color: "red" }}
+              onClick={() => console.log(record.id)}
+            ></i>
+
+            <i
+              className="fa-solid fa-circle-info fa-lg"
+              style={{ cursor: "pointer", color: "green" }}
+              onClick={() => console.log(record.id)}
+            ></i>
+          </div>
         </>
       );
     },
   },
 ];
+const customStyles = {
+  columns: {
+    style: {
+      width: "fit-content",
+    },
+  },
+  rows: {
+    style: {
+      minHeight: "50px", // override the row height
+    },
+  },
+  headCells: {
+    style: {
+      paddingLeft: "8px", // override the cell padding for head cells
+      paddingRight: "8px",
+    },
+  },
+  cells: {
+    style: {
+      paddingLeft: "8px", // override the cell padding for data cells
+      paddingRight: "8px",
+    },
+  },
+};
 
 const ListAllVacations = () => {
-  const { data, isPending, error } = useGet("http://127.0.0.1:8000/api/vacations");
- 
+  const { data, isPending, error } = useGet(
+    "http://127.0.0.1:8000/api/vacations"
+  );
+
   return (
     <div className="row">
       {isPending && (
@@ -100,13 +131,15 @@ const ListAllVacations = () => {
         </>
       )}
       {data && (
-        <DataTable
-          columns={columns}
-          data={data}
-          pagination
-       
-       
-        />
+        <>
+          <div></div>
+          <DataTable
+            columns={columns}
+            data={data}
+            pagination
+            customStyles={customStyles}
+          />
+        </>
       )}
     </div>
   );
