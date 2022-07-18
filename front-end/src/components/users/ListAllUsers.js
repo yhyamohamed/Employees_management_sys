@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import useGet from "../../custumHooks/useGet";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
-import FilterComponent from "../partials/FilterComponent";
+
 
 const columns = [
+  {
+    name: "ID",
+    selector: (row) => row.id,
+    sortable: true,
+  },
   {
     name: "Employee code",
     selector: (row) => row.employee_code,
@@ -13,6 +18,16 @@ const columns = [
   {
     name: "name",
     selector: (row) => row.name,
+    sortable: true,
+  },
+  {
+    name: "employee_group",
+    selector: (row) => row.employee_group,
+    sortable: true,
+  },
+  {
+    name: "employee_title",
+    selector: (row) => row.employee_title,
     sortable: true,
   },
   {
@@ -61,7 +76,12 @@ const columns = [
 
 const ListAllUsers = () => {
   const { data, isPending, error } = useGet("http://127.0.0.1:8000/api/users");
- 
+ const [txt, setTxt] = useState("");
+
+ function search(rows) {
+    return rows.filter((row)=> row.name.toLowerCase().includes(txt.toLowerCase()))
+ }
+
   return (
     <div className="row">
       {isPending && (
@@ -85,13 +105,18 @@ const ListAllUsers = () => {
         </>
       )}
       {data && (
-        <DataTable
-          columns={columns}
-          data={data}
-          pagination
-       
-       
-        />
+        <>
+          <div className="float-right row">
+            <input
+              className="form-control  col offset-8"
+              type="text"
+              placeholder="type to search"
+              value={txt}
+              onChange={(e) => setTxt(e.target.value)}
+            />
+          </div>
+          <DataTable columns={columns} data={search(data)} pagination />
+        </>
       )}
     </div>
   );
