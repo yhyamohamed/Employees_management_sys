@@ -3,12 +3,12 @@ import useGet from "../../custumHooks/useGet";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 
-
 const columns = [
   {
     name: "ID",
     selector: (row) => row.id,
     sortable: true,
+   width: "50px" ,
   },
   {
     name: "Employee code",
@@ -19,11 +19,13 @@ const columns = [
     name: "name",
     selector: (row) => row.name,
     sortable: true,
+    minWidth:"200px",
   },
   {
     name: "employee_group",
     selector: (row) => row.employee_group,
     sortable: true,
+    style: { whiteSpace: "unset" },
   },
   {
     name: "employee_title",
@@ -73,14 +75,42 @@ const columns = [
     },
   },
 ];
-
+const customStyles = {
+  columns: {
+    style: {
+      width: "fit-content",
+    },
+  },
+  rows: {
+    style: {
+      minHeight: "50px", // override the row height
+  
+    },
+  },
+  headCells: {
+    style: {
+      paddingLeft: "8px", // override the cell padding for head cells
+      paddingRight: "8px",
+  
+    },
+  },
+  cells: {
+    style: {
+      paddingLeft: "8px", // override the cell padding for data cells
+      paddingRight: "8px",
+  
+    },
+  },
+};
 const ListAllUsers = () => {
   const { data, isPending, error } = useGet("http://127.0.0.1:8000/api/users");
- const [txt, setTxt] = useState("");
+  const [txt, setTxt] = useState("");
 
- function search(rows) {
-    return rows.filter((row)=> row.name.toLowerCase().includes(txt.toLowerCase()))
- }
+  function search(rows) {
+    return rows.filter((row) =>
+      row.name.toLowerCase().includes(txt.toLowerCase())
+    );
+  }
 
   return (
     <div className="row">
@@ -115,7 +145,12 @@ const ListAllUsers = () => {
               onChange={(e) => setTxt(e.target.value)}
             />
           </div>
-          <DataTable columns={columns} data={search(data)} pagination />
+          <DataTable
+            columns={columns}
+            data={search(data)}
+            pagination
+            customStyles={customStyles}
+          />
         </>
       )}
     </div>
