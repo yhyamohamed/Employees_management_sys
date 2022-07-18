@@ -19,7 +19,7 @@ const columns = [
         sortable: false,
         cell: (record) => {
             return <>
-                <button className='btn btn-sm btn-success' onClick={() => console.log(record.id)}>
+                <button className='btn btn-sm btn-success' onClick={() => console.log(record)}>
                     Edit
                 </button>
             </>

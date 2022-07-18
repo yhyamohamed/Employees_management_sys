@@ -9,7 +9,7 @@ const usePost = (url,body) => {
     const abortReq = new AbortController();
     setTimeout(() => {
       axios
-        .post(url, { signal: abortReq.signal }, { body })
+        .post(url, { signal: abortReq.signal },{body})
         .then((res) => {
           if (res.status !== 200)
             throw Error("error.. cant fetch data for that url");
