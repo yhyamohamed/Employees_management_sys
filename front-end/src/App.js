@@ -4,6 +4,8 @@ import Hello from "./components/Hello";
 import Navbar from "./components/Navbar"
 import ListAllUsers from "./components/users/ListAllUsers";
 import ListAllTasks from "./components/tasks/ListAllTasks";
+import ListAllVacations from "./components/vacations/ListAllVacations";
+
 
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
           <Route exact path="/" element={<Hello />}></Route>
           <Route  path="/users" element={<ListAllUsers />}></Route>
           <Route  path="/tasks" element={<ListAllTasks />}></Route>
+          <Route  path="/vacations" element={<ListAllVacations />}></Route>
 
         </Routes>
       </div>

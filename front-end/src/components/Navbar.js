@@ -31,6 +31,11 @@ const Navbar = () => {
                 ALL-tasks
               </Link>
             </li>
+            <li className="nav-item active ">
+              <Link className="nav-link" to="/vacations">
+                ALL-vacations
+              </Link>
+            </li>
             {/* <li className="nav-item">
               <Link className="nav-link" to="/artists/:id">
                 Show
