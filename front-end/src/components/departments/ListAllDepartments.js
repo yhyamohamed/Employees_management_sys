@@ -90,7 +90,7 @@ const customStyles = {
 };
 
 const ListAllDepartments = () => {
-    const { data, isPending, error } = useGet("http://127.0.0.1:8000/api/departments");
+    const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/departments");
     const [txt, setTxt] = useState("");
 
     function search(rows) {

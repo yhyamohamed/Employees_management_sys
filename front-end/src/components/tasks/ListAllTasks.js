@@ -77,7 +77,10 @@ const columns = [
 
 function ListAllTasks() {
     const [txt, setTxt] = useState("");
-    const { data, isPending, error } = useGet('http://127.0.0.1:8000/api/tasks');
+    const { data, isPending, error } = useGet(
+      "GET",
+      "http://127.0.0.1:8000/api/tasks"
+    );
 
     function search(rows) {
         return rows.filter((row)=> row.name.toLowerCase().includes(txt.toLowerCase()))

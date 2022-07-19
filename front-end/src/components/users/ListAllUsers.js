@@ -116,7 +116,7 @@ const customStyles = {
   },
 };
 const ListAllUsers = () => {
-  const { data, isPending, error } = useGet("http://127.0.0.1:8000/api/users");
+  const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/users");
   const [txt, setTxt] = useState("");
 
   function search(rows) {
