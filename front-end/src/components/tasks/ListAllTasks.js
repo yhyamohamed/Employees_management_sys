@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
+import CreateTaskModal from "./CreateTaskModal";
 
 const columns = [
     {
@@ -92,14 +93,20 @@ function ListAllTasks() {
             )}
             {data && (
                 <>
-                    <div className="float-right row">
-                        <input
-                            className="form-control  col offset-8"
-                            type="text"
-                            placeholder="type to search"
-                            value={txt}
-                            onChange={(e) => setTxt(e.target.value)}
-                        />
+                    <div className="row ">
+                        <div className="offset-6 col-3 input-group-sm ">
+                            <input
+                                className="form-control "
+                                type="text"
+                                placeholder="type to search"
+                                value={txt}
+                                onChange={(e) => setTxt(e.target.value)}
+                            />
+                        </div>
+                        <div className=" col-2 me-1 ">
+                            <button className="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modal">Add new task</button>
+                        </div>
+                        <CreateTaskModal/>
                     </div>
                     <DataTable columns={columns} data={search(data)} pagination />
                 </>
