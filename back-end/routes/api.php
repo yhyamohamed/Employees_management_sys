@@ -5,6 +5,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\OverTimeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
@@ -20,7 +21,7 @@ Route::post('/login',[UserController::class,'login']);
 Route::resource('/users', UserController::class)->missing(function (Request $request, Exception $e) {
     return response()->json(['Error' => 'sry we cant find that user'], 500);
 });
-
+Route::get('/managers',[ManagerController::class,'index']);
 Route::resource('/departments', DepartmentController::class);
 Route::resource('/tasks', TaskController::class);
 Route::resource('/vacations', VacationController::class);
