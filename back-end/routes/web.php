@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+//    $managers= User::with('department','supervisor')->whereIn('employee_group',['higher-management', 'middle-management'])->get();
     return view('welcome');
 });

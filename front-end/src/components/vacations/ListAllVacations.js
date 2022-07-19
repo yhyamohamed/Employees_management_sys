@@ -105,7 +105,7 @@ const customStyles = {
 
 const ListAllVacations = () => {
   const { data, isPending, error } = useGet(
-    "http://127.0.0.1:8000/api/vacations"
+    "GET","http://127.0.0.1:8000/api/vacations"
   );
   const [txt, setTxt] = useState("");
   function search(rows) {

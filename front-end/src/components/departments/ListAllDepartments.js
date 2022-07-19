@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
+import CreateDepartmentModal from "./CreateDepartmentModal";
 // import React from "@types/react";
 
 
@@ -28,6 +29,7 @@ const columns = [
     {
         key: "action",
         text: "Action",
+        name: "Action",
         className: "action",
         width: 100,
         align: "left",
@@ -35,12 +37,24 @@ const columns = [
         cell: (record) => {
             return (
                 <>
-                    <button
-                        className="btn btn-sm btn-success"
-                        onClick={() => console.log(record)}
-                    >
-                        Edit
-                    </button>
+                    <div className="d-flex justify-content-between w-50">
+                        <i
+                            className="far fa-edit fa-lg"
+                            style={{ cursor: "pointer", color: "blue" }}
+                            onClick={() => console.log(record.id)}
+                        ></i>
+                        <i
+                            className="fa-regular fa-trash-can fa-lg"
+                            style={{ cursor: "pointer", color: "red" }}
+                            onClick={() => console.log(record.id)}
+                        ></i>
+
+                        <i
+                            className="fa-solid fa-circle-info fa-lg"
+                            style={{ cursor: "pointer", color: "green" }}
+                            onClick={() => console.log(record.id)}
+                        ></i>
+                    </div>
                 </>
             );
         },
@@ -76,7 +90,7 @@ const customStyles = {
 };
 
 const ListAllDepartments = () => {
-    const { data, isPending, error } = useGet("http://127.0.0.1:8000/api/departments");
+    const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/departments");
     const [txt, setTxt] = useState("");
 
     function search(rows) {
@@ -111,15 +125,21 @@ const ListAllDepartments = () => {
             )}
             {data && (
                 <>
-                    <div className="float-right row">
+                <div className="row ">
+                    <div className="offset-6 col-3 input-group-sm ">
                         <input
-                            className="form-control  col offset-8"
+                            className="form-control "
                             type="text"
                             placeholder="type to search"
                             value={txt}
                             onChange={(e) => setTxt(e.target.value)}
                         />
                     </div>
+                    <div className=" col-2 me-1 ">
+                        <button className="btn btn-sm btn-success " data-bs-toggle="modal" data-bs-target="#modal">Add new department</button>
+                    </div>
+                    <CreateDepartmentModal/>
+                </div>
                     <DataTable
                         columns={columns}
                         data={search(data)}
