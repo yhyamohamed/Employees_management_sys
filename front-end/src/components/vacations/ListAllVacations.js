@@ -2,6 +2,7 @@ import useGet from "../../custumHooks/useGet";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import React, { useState } from "react";
+import CreateVacationModal from "./CreateVacationModal";
 
 const columns = [
   {
@@ -64,7 +65,7 @@ const columns = [
             <i
               className="fa-regular fa-trash-can fa-lg me-2"
               style={{ cursor: "pointer", color: "red" }}
-              onClick={() => console.log(record.paid)}
+              onClick={() => console.log(record.id)}
             ></i>
 
             <i
@@ -149,8 +150,9 @@ const ListAllVacations = () => {
               />
             </div>
             <div className=" col-2 me-1 ">
-              <button className="btn btn-sm btn-success ">Add Vacation</button>
+              <button className="btn btn-sm btn-success " data-bs-toggle="modal" data-bs-target="#modal">Add Vacation</button>
             </div>
+            <CreateVacationModal/>
           </div>
           <DataTable
             columns={columns}

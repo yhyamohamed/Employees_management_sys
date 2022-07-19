@@ -64,4 +64,5 @@ class VacationController extends Controller
             return response()->json(['Error' => 'some thing went wrong sry we cant find that vacation'], 500);
         }
     }
+
 }

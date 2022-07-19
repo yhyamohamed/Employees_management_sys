@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Vacation extends Model
 {
     use HasFactory;
+   
+    protected $fillable = [
+        'employee_id',
+        'department_id',
+        'duration',
+        'reasons',
+        'paid',
+        'status',
+        'start_date',
+        'end_date',
+    ];
 
     public function user()
     {
@@ -23,4 +34,7 @@ class Vacation extends Model
     {
         return $this->belongsToMany(User::class,'user_vacation','vacation_id','signed_by');
     }
+    
+
+
 }

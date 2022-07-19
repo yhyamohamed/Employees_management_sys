@@ -8,6 +8,7 @@ const post = async (url, data) => {
             result,
         }
     } catch (e) {
+        console.log(e)
         return {
             success: false,
             e,
