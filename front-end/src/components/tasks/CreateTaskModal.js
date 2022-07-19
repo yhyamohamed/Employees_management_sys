@@ -1,4 +1,5 @@
 import {useState} from "react";
+import APIService from "../../services/APIService";
 
 function CreateTaskModal() {
     const [data, setData] = useState({
@@ -6,10 +7,21 @@ function CreateTaskModal() {
         status: 'opened',
         created_by: 1,
     });
-    const handleSubmit = (e) => {
+    const [success, setSuccess] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data);
+        setLoading(true)
+        const result = await APIService.post('http://127.0.0.1:8000/api/tasks', data);
+        if(result.success)
+            setSuccess(result);
+        else
+            setError(result);
+        setLoading(false);
     }
+
     return (
         <div className="modal fade" id="modal" tabIndex="-1"
              aria-hidden="true">
@@ -52,7 +64,7 @@ function CreateTaskModal() {
                         <button type="button" className="btn btn-secondary"
                                 data-bs-dismiss="modal">Close
                         </button>
-                        <button type="submit" className="btn btn-primary">Create</button>
+                        <button type="submit" disabled={loading} className="btn btn-primary">Create</button>
                     </div>
                 </div>
             </form>

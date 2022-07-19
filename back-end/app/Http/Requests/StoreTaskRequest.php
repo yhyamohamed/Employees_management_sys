@@ -17,10 +17,18 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'name' => ['required', 'unique:tasks'],
-            'created_by' => 'exists:users,id',
+            'created_by' =>[ 'required','exists:users,id'],
             'due_date' => 'required',
             'priority' => 'required',
-            'status' => ['in:opened', 'done','waiting','need-help'],
+            'status' => ['in:opened,done,waiting,need-help'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'created_by.exists' => 'creator id must belong to an actual employee',
+            'name.unique' => 'a task with that name already there',
         ];
     }
 }
