@@ -57,6 +57,7 @@ const columns = [
   {
     key: "action",
     text: "Action",
+    name:"Action",
     className: "action",
     width: 100,
     align: "left",
@@ -64,12 +65,24 @@ const columns = [
     cell: (record) => {
       return (
         <>
-          <button
-            className="btn btn-sm btn-success"
-            onClick={() => console.log(record)}
-          >
-            Edit
-          </button>
+          <div className="d-flex justify-content-between w-50">
+            <i
+                className="far fa-edit fa-lg ms-2"
+                style={{ cursor: "pointer", color: "blue" }}
+                onClick={() => console.log(record.id)}
+            ></i>
+            <i
+                className="fa-regular fa-trash-can fa-lg ms-2"
+                style={{ cursor: "pointer", color: "red" }}
+                onClick={() => console.log(record.id)}
+            ></i>
+
+            <i
+                className="fa-solid fa-circle-info fa-lg ms-2"
+                style={{ cursor: "pointer", color: "green" }}
+                onClick={() => console.log(record.id)}
+            ></i>
+          </div>
         </>
       );
     },
