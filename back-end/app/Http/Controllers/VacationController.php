@@ -11,7 +11,7 @@ class VacationController extends Controller
 
     public function index()
     {
-        return response()->json(Vacation::all(), 200);
+        return response()->json(Vacation::with('department','user')->get(), 200);
 
     }
 
