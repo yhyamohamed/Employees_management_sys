@@ -136,14 +136,19 @@ const ListAllUsers = () => {
       )}
       {data && (
         <>
-          <div className="float-right row">
-            <input
-              className="form-control  col offset-8"
-              type="text"
-              placeholder="type to search"
-              value={txt}
-              onChange={(e) => setTxt(e.target.value)}
-            />
+          <div className="row ">
+            <div className="offset-6 col-3 input-group-sm ">
+              <input
+                className="form-control "
+                type="text"
+                placeholder="type to search"
+                value={txt}
+                onChange={(e) => setTxt(e.target.value)}
+              />
+            </div>
+            <div className=" col-2 me-1 ">
+              <button className="btn btn-sm btn-success ">Add new employee</button>
+            </div>
           </div>
           <DataTable
             columns={columns}
