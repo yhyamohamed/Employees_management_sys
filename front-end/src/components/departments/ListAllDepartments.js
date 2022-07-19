@@ -92,6 +92,7 @@ const customStyles = {
 const ListAllDepartments = () => {
     const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/departments");
     const [txt, setTxt] = useState("");
+    const [modal, setModal]= useState(false);
 
     function search(rows) {
         return rows.filter((row) =>
@@ -103,17 +104,16 @@ const ListAllDepartments = () => {
         <div className="row">
             {isPending && (
                 <>
-                    <div className={'d-flex justify-content-center'}>
-                    <div className="alert alert-primary align-self-center" role="alert">
+                    <div className="alert alert-primary" role="alert">
             <span
                 className="spinner-border text-info spinner-border-m me-2"
                 role="status"
             >
               <span className="visually-hidden text-center">Loading...</span>
             </span>
-                        <span className={'fs-5'}>Getting Data pleas wait!</span>
+                        <span>Getting Data pleas wait!</span>
                     </div>
-                    </div>
+
                 </>
             )}
             {error && (
