@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
+import CreateDepartmentModal from "./CreateDepartmentModal";
 // import React from "@types/react";
 
 
@@ -135,8 +136,9 @@ const ListAllDepartments = () => {
                         />
                     </div>
                     <div className=" col-2 me-1 ">
-                        <button className="btn btn-sm btn-success ">Add new department</button>
+                        <button className="btn btn-sm btn-success " data-bs-toggle="modal" data-bs-target="#modal">Add new department</button>
                     </div>
+                    <CreateDepartmentModal/>
                 </div>
                     <DataTable
                         columns={columns}
