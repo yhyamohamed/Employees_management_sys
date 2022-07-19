@@ -1,7 +1,7 @@
-import React from "react";
 import useGet from "../../custumHooks/useGet";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
+import React, { useState } from "react";
 
 const columns = [
   {
@@ -57,18 +57,18 @@ const columns = [
         <>
           <div className="d-flex justify-content-between w-75">
             <i
-              className="far fa-edit fa-lg"
+              className="far fa-edit fa-lg me-2"
               style={{ cursor: "pointer", color: "blue" }}
-              onClick={() => console.log(record.id)}
+              onClick={EditVacation}
             ></i>
             <i
-              className="fa-regular fa-trash-can fa-lg"
+              className="fa-regular fa-trash-can fa-lg me-2"
               style={{ cursor: "pointer", color: "red" }}
               onClick={() => console.log(record.id)}
             ></i>
 
             <i
-              className="fa-solid fa-circle-info fa-lg"
+              className="fa-solid fa-circle-info fa-lg me-2"
               style={{ cursor: "pointer", color: "green" }}
               onClick={() => console.log(record.id)}
             ></i>
@@ -107,11 +107,17 @@ const ListAllVacations = () => {
   const { data, isPending, error } = useGet(
     "http://127.0.0.1:8000/api/vacations"
   );
-
+  const [txt, setTxt] = useState("");
+  function search(rows) {
+    return rows.filter((row) =>
+      row.user.name.toLowerCase().includes(txt.toLowerCase())
+    );
+  }
   return (
     <div className="row">
       {isPending && (
         <>
+        
           <div className="alert alert-primary" role="alert">
             <span
               className="spinner-border text-info spinner-border-m me-2"
@@ -132,17 +138,36 @@ const ListAllVacations = () => {
       )}
       {data && (
         <>
-          <div></div>
+        <div className="row ">
+            <div className="offset-6 col-3 input-group-sm ">
+              <input
+                className="form-control "
+                type="text"
+                placeholder="Search by name"
+                value={txt}
+                onChange={(e) => setTxt(e.target.value)}
+              />
+            </div>
+            <div className=" col-2 me-1 ">
+              <button className="btn btn-sm btn-success ">Add Vacation</button>
+            </div>
+          </div>
           <DataTable
             columns={columns}
-            data={data}
+            data={search(data)}
             pagination
             customStyles={customStyles}
           />
         </>
       )}
     </div>
+    
   );
 };
+
+const EditVacation = () => {
+  
+  console.log("tmam")
+}
 
 export default ListAllVacations;
