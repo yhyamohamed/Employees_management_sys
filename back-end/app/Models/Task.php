@@ -9,7 +9,15 @@ class Task extends Model
 {
     use HasFactory;
 
-
+protected $fillable = [
+        'name',
+        'code',
+        'description',
+        'due_date',
+        'created_by',
+        'priority',
+        'status',
+    ];
     public function owner()
     {
         return $this->belongsTo(User::class, 'created_by');
