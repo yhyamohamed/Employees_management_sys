@@ -24,7 +24,7 @@ const columns = [
   },
   {
     name: "Paid",
-    selector: (row) => row.paid,
+    selector: (row) => row.paid?"YES":"NO",
     width: "fit-content",
   },
   {
@@ -64,7 +64,7 @@ const columns = [
             <i
               className="fa-regular fa-trash-can fa-lg me-2"
               style={{ cursor: "pointer", color: "red" }}
-              onClick={() => console.log(record.id)}
+              onClick={() => console.log(record.paid)}
             ></i>
 
             <i
