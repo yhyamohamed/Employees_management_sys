@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
+import CreateComplaintModal from "./CreateComplaintModal";
 
 function ListAllComplaints() {
     const [txt, setTxt] = useState("");
@@ -150,6 +151,9 @@ function ListAllComplaints() {
                 Add new complaint
               </button>
             </div>
+            <CreateComplaintModal
+              setSuccess={setSuccess}
+            />
           </div>
           <DataTable columns={columns} data={search(data)} pagination />
         </>

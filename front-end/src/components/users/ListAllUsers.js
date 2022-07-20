@@ -1,129 +1,147 @@
 import React, { useState } from "react";
 import useGet from "../../custumHooks/useGet";
-import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
+import ViewUser from "./ViewUser";
 
-const columns = [
-  {
-    name: "ID",
-    selector: (row) => row.id,
-    sortable: true,
-   width: "50px" ,
-  },
-  {
-    name: "Employee code",
-    selector: (row) => row.employee_code,
-    sortable: true,
-  },
-  {
-    name: "name",
-    selector: (row) => row.name,
-    sortable: true,
-    minWidth:"200px",
-  },
-  {
-    name: "employee_group",
-    selector: (row) => row.employee_group,
-    sortable: true,
-    style: { whiteSpace: "unset" },
-  },
-  {
-    name: "employee_title",
-    selector: (row) => row.employee_title,
-    sortable: true,
-  },
-  {
-    name: "gender",
-    selector: (row) => row.gender,
-  },
-  {
-    name: "phone",
-    selector: (row) => row.phone,
-  },
-  {
-    name: "salary",
-    selector: (row) => row.salary,
-    sortable: true,
-  },
-  {
-    name: "email",
-    selector: (row) => row.email,
-  },
-  {
-    name: "hired at",
-    selector: (row) => row.hired_at,
-    sortable: true,
-  },
-  {
-    key: "action",
-    text: "Action",
-    name:"Action",
-    className: "action",
-    width: 100,
-    align: "left",
-    sortable: false,
-    cell: (record) => {
-      return (
-        <>
-          <div className="d-flex justify-content-between w-50">
-            <i
-                className="far fa-edit fa-lg ms-2"
-                style={{ cursor: "pointer", color: "blue" }}
-                onClick={() => console.log(record.id)}
-            ></i>
-            <i
-                className="fa-regular fa-trash-can fa-lg ms-2"
-                style={{ cursor: "pointer", color: "red" }}
-                onClick={() => console.log(record.id)}
-            ></i>
 
-            <i
-                className="fa-solid fa-circle-info fa-lg ms-2"
-                style={{ cursor: "pointer", color: "green" }}
-                onClick={() => console.log(record.id)}
-            ></i>
-          </div>
-        </>
-      );
-    },
-  },
-];
-const customStyles = {
-  columns: {
-    style: {
-      width: "fit-content",
-    },
-  },
-  rows: {
-    style: {
-      minHeight: "50px", // override the row height
-  
-    },
-  },
-  headCells: {
-    style: {
-      paddingLeft: "8px", // override the cell padding for head cells
-      paddingRight: "8px",
-  
-    },
-  },
-  cells: {
-    style: {
-      paddingLeft: "8px", // override the cell padding for data cells
-      paddingRight: "8px",
-  
-    },
-  },
-};
 const ListAllUsers = () => {
   const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/users");
   const [txt, setTxt] = useState("");
+  const [userData,setUserData] = useState({
+    name:'',
+    employee_title:'',
+    gender:'',
+    phone:'',
+    salary:'',
+    supervisor:{
+      name:''
+    },
+    department:{
+      name:''
+    }
+
+  })
 
   function search(rows) {
     return rows.filter((row) =>
       row.name.toLowerCase().includes(txt.toLowerCase())
     );
   }
+
+  const columns = [
+    {
+      name: "ID",
+      selector: (row) => row.id,
+      sortable: true,
+      width: "50px" ,
+    },
+    {
+      name: "Employee code",
+      selector: (row) => row.employee_code,
+      sortable: true,
+    },
+    {
+      name: "name",
+      selector: (row) => row.name,
+      sortable: true,
+      minWidth:"200px",
+    },
+    {
+      name: "employee_group",
+      selector: (row) => row.employee_group,
+      sortable: true,
+      style: { whiteSpace: "unset" },
+    },
+    {
+      name: "employee_title",
+      selector: (row) => row.employee_title,
+      sortable: true,
+    },
+    {
+      name: "gender",
+      selector: (row) => row.gender,
+    },
+    {
+      name: "phone",
+      selector: (row) => row.phone,
+    },
+    {
+      name: "salary",
+      selector: (row) => row.salary,
+      sortable: true,
+    },
+    {
+      name: "email",
+      selector: (row) => row.email,
+    },
+    {
+      name: "hired at",
+      selector: (row) => row.hired_at,
+      sortable: true,
+    },
+    {
+      key: "action",
+      text: "Action",
+      name:"Action",
+      className: "action",
+      width: 100,
+      align: "left",
+      sortable: false,
+      cell: (record) => {
+        return (
+            <>
+              <div className="d-flex justify-content-between w-50">
+                <i
+                    className="far fa-edit fa-lg ms-2"
+                    style={{ cursor: "pointer", color: "blue" }}
+                    onClick={() => console.log(record.id)}
+                ></i>
+                <i
+                    className="fa-regular fa-trash-can fa-lg ms-2"
+                    style={{ cursor: "pointer", color: "red" }}
+                    onClick={() => console.log(record.id)}
+                ></i>
+
+                <i
+                    className="fa-solid fa-circle-info fa-lg ms-2"
+                    style={{ cursor: "pointer", color: "green" }}
+                    data-bs-toggle="modal"
+                    data-bs-target="#viewModal"
+                    onClick={() => setUserData(record)}
+                ></i>
+              </div>
+            </>
+        );
+      },
+    },
+  ];
+  const customStyles = {
+    columns: {
+      style: {
+        width: "fit-content",
+      },
+    },
+    rows: {
+      style: {
+        minHeight: "50px", // override the row height
+
+      },
+    },
+    headCells: {
+      style: {
+        paddingLeft: "8px", // override the cell padding for head cells
+        paddingRight: "8px",
+
+      },
+    },
+    cells: {
+      style: {
+        paddingLeft: "8px", // override the cell padding for data cells
+        paddingRight: "8px",
+
+      },
+    },
+  };
 
   return (
     <div className="row">
@@ -163,6 +181,9 @@ const ListAllUsers = () => {
               <button className="btn btn-sm btn-success ">Add new employee</button>
             </div>
           </div>
+          <ViewUser
+            record={userData}
+          />
           <DataTable
             columns={columns}
             data={search(data)}
