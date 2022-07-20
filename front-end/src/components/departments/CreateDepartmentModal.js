@@ -22,8 +22,8 @@ function CreateDepartmentModal({setSuccess,setCreateMessage }) {
             dataModal
         );
         if (result.success) {
-            setSuccess('Task created successfully.');
-            setCreateMessage("task created successfully");
+            setSuccess('Department created successfully.');
+            setCreateMessage("Department created successfully");
             document.getElementById("close-modal").click();
         } else {
             console.log(result,result.error)
