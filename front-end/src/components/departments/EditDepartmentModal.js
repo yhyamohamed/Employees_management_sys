@@ -2,17 +2,17 @@ import {useEffect, useState} from "react";
 import APIService from "../../services/APIService";
 import useGet from "../../custumHooks/useGet";
 function EditDepartmentModal({department, setSuccess}) {
-    const [data, setData] = useState(department);
+    const [Data, setData] = useState({department});
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const {Data, isPending, Error} = useGet('GET', "http://127.0.0.1:8000/api/managers")
+    const {data, isPending, Error} = useGet('GET', "http://127.0.0.1:8000/api/managers")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         const result = await APIService.put(
             `http://127.0.0.1:8000/api/departments/${department.id}`,
-            data
+            Data
         );
         if (result.success) {
             setSuccess('Department updated successfully.');
@@ -51,21 +51,21 @@ function EditDepartmentModal({department, setSuccess}) {
                             )}
                             <div className="mb-3">
                             <label htmlFor="name" className="form-label">Name</label>
-                            <input type="text" className="form-control" id="name" value={data.name}
-                                   onChange={(e) => setData({...data, name: e.target.value})}/>
+                            <input type="text" className="form-control" id="name" value={Data.name}
+                                   onChange={(e) => setData({...Data, name: e.target.value})}/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">Manager Starting Date</label>
-                            <input type="date" className="form-control" id="date" value={data.manager_start_at}
-                                   onChange={(e) => setData({...data, manager_start_at: e.target.value})}/>
+                            <input type="date" className="form-control" id="date" value={Data.manager_start_at}
+                                   onChange={(e) => setData({...Data, manager_start_at: e.target.value})}/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="managerID" className="form-label">Manager Assigned</label>
                             <select className="d-block w-100" id="managerID" 
-                                    onChange={(e) => setData({...data, manager_id: e.target.value})}>
-                                <option value="none" disabled hidden>Select a Manager</option>
-                                {Data &&
-                                    Data.map(manager => (
+                                    onChange={(e) => setData({...Data, manager_id: e.target.value})}>
+                                <option value={department.manager_id} selected={department.manager_id}>{department.manager.name}</option>
+                                {data &&
+                                    data.map(manager => (
                                         <option key={manager.id} value={manager.id}>{manager.name}</option>
                                     ))
                             
