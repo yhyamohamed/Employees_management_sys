@@ -16,7 +16,6 @@ class StoreVacationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:tasks'],
             'employee_id' => 'exists:users,id',
             'department_id' => 'exists:departments,id',
             'reasons' => 'required',
