@@ -23,9 +23,33 @@ const post = async (url, data) => {
     }
 }
 
+const destroy = async (url) => {
+    try {
+        const result = await axios.delete(url);
+        return {
+            success: true,
+            result,
+        }
+    } catch (err) {
+        let error = null;
+        if (err.response) {
+            error = err.response.data.message;
+        } else if (err.request) {
+            error = err.request;
+        } else {
+            error = err.message;
+        }
+        return {
+            success: false,
+            error
+        }
+    }
+}
+
 
 const APIService = {
-    post
+    post,
+    destroy,
 }
 
 export default APIService;

@@ -3,82 +3,8 @@ import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import React, { useEffect, useState } from "react";
 import CreateVacationModal from "./CreateVacationModal";
+import DeleteVacationModal from "./DeleteVacationModal";
 
-const columns = [
-  {
-    name: "name",
-    selector: (row) => row.user.name,
-    sortable: true,
-  },
-  {
-    name: "Department",
-    selector: (row) => row.department.name,
-  },
-  {
-    name: "Duration",
-    selector: (row) => row.duration,
-  },
-  {
-    name: "Reasons",
-    selector: (row) => row.reasons,
-    sortable: true,
-  },
-  {
-    name: "Paid",
-    selector: (row) => row.paid?"YES":"NO",
-    width: "fit-content",
-  },
-  {
-    name: "Start Date",
-    selector: (row) => row.start_date,
-    sortable: true,
-  },
-  {
-    name: "End Date",
-    selector: (row) => row.end_date,
-    sortable: true,
-  },
-  {
-    name: "Status",
-    selector: (row) => row.status,
-    sortable: true,
-    width: "fit-content",
-  },
-  {
-    key: "action",
-    text: "Action",
-    name: "Action",
-    className: "action",
-    width: "8%",
-    align: "left",
-    sortable: false,
-
-    cell: (record) => {
-      return (
-        <>
-          <div className="d-flex justify-content-between w-75">
-            <i
-              className="far fa-edit fa-lg me-2"
-              style={{ cursor: "pointer", color: "blue" }}
-              onClick={EditVacation}
-            ></i>
-            <i
-              className="fa-regular fa-trash-can fa-lg me-2"
-              style={{ cursor: "pointer", color: "red" }}
-              onClick={() => console.log(record.id)}
-            ></i>
-
-            <i
-              className="fa-solid fa-circle-info fa-lg me-2"
-              style={{ cursor: "pointer", color: "green" }}
-              onClick={() => console.log(record.id)}
-            ></i>
-          </div>
-        </>
-      );
-    },
-  },
-];
 const customStyles = {
   columns: {
     style: {
@@ -105,24 +31,99 @@ const customStyles = {
 };
 
 const ListAllVacations = () => {
+  const [txt, setTxt] = useState("");
+  const [success, setSuccess] = useState('');
+  const [currentID, setCurrentID] = useState(0);
+
   const { data, isPending, error } = useGet(
     "GET","http://127.0.0.1:8000/api/vacations"
   );
-  const [txt, setTxt] = useState("");
-  const [createMessage, setCreateMessage] = useState(null);
+  
 
   function search(rows) {
     return rows.filter((row) =>
       row.user.name.toLowerCase().includes(txt.toLowerCase())
     );
   }
-  useEffect(() => {
-    if (createMessage) {
-      setTimeout(() => {
-        setCreateMessage(null);
-      }, 1000);
-    }
-  }, [createMessage]);
+
+  const columns = [
+    {
+      name: "name",
+      selector: (row) => row.user.name,
+      sortable: true,
+    },
+    {
+      name: "Department",
+      selector: (row) => row.department.name,
+    },
+    {
+      name: "Duration",
+      selector: (row) => row.duration,
+    },
+    {
+      name: "Reasons",
+      selector: (row) => row.reasons,
+      sortable: true,
+    },
+    {
+      name: "Paid",
+      selector: (row) => row.paid?"YES":"NO",
+      width: "fit-content",
+    },
+    {
+      name: "Start Date",
+      selector: (row) => row.start_date,
+      sortable: true,
+    },
+    {
+      name: "End Date",
+      selector: (row) => row.end_date,
+      sortable: true,
+    },
+    {
+      name: "Status",
+      selector: (row) => row.status,
+      sortable: true,
+      width: "fit-content",
+    },
+    {
+      key: "action",
+      text: "Action",
+      name: "Action",
+      className: "action",
+      width: "8%",
+      align: "left",
+      sortable: false,
+  
+      cell: (record) => {
+        return (
+          <>
+            <div className="d-flex justify-content-between w-75">
+              <i
+                className="far fa-edit fa-lg me-2"
+                style={{ cursor: "pointer", color: "blue" }}
+                onClick={EditVacation}
+              ></i>
+              <i
+                className="fa-regular fa-trash-can fa-lg me-2"
+                style={{ cursor: "pointer", color: "red" }}
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal"
+                onClick={() => setCurrentID(record.id)}
+              ></i>
+  
+              <i
+                className="fa-solid fa-circle-info fa-lg me-2"
+                style={{ cursor: "pointer", color: "green" }}
+                onClick={() => console.log(record.id)}
+              ></i>
+            </div>
+          </>
+        );
+      },
+    },
+  ];
+  
   return (
     <div className="row">
       {isPending && (
@@ -148,9 +149,19 @@ const ListAllVacations = () => {
       {data && (
         <>
           <div className="row ">
-            {createMessage && (
-              <div className="col-12 " role="alert">
-                <h6 className="p-2 ms-5 text-success">{createMessage}</h6>
+          {success && (
+              <div
+                className="alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                {success}
+                <button
+                  onClick={() => setSuccess("")}
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
               </div>
             )}
             <div className="offset-6 col-3 input-group-sm ">
@@ -171,8 +182,14 @@ const ListAllVacations = () => {
                 Add Vacation
               </button>
             </div>
-            <CreateVacationModal setCreateMessage={setCreateMessage} />
-          </div>
+            <CreateVacationModal
+              setSuccess={setSuccess}
+            />
+            <DeleteVacationModal
+            id={currentID}
+            setSuccess={setSuccess}
+            />
+            </div>
           <DataTable
             columns={columns}
             data={search(data)}
