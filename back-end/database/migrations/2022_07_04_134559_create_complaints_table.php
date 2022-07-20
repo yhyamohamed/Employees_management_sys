@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained('users')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('department_id')->constrained()->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('department_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->string('subject');
             $table->text('body');
             $table->enum('status', ['reviewing', 'pending','solved']);

@@ -9,6 +9,8 @@ import ListAllDepartments from "./components/departments/ListAllDepartments";
 import ListAllComplaints from "./components/complaints/ListAllComplaints";
 
 
+import MainRoutes from "./MainRoutes";
+
 function App() {
     return (
         <>
