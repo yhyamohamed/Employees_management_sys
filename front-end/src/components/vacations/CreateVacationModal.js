@@ -1,30 +1,27 @@
 import {useState} from "react";
 import APIService from "../../services/APIService";
 
-function CreateVacationModal({ setCreateMessage  }) {
+function CreateVacationModal({setSuccess,setCreateMessage}) {
   const [data, setData] = useState({ status: 'pending' });
-  const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-console.log(data);
     setLoading(true);
     const result = await APIService.post(
       "http://127.0.0.1:8000/api/vacations",
       data
     );
     if (result.success) {
-      setSuccess("Task created successfully.");
-      setCreateMessage("vacation created successfully");
-      document.getElementById("close-modal").click();
+      setSuccess('vacation created successfully.');
+     document.getElementById("close-modal").click();
     } else {
       setError(result.error);
-      console.log(result.error);
     }
     setLoading(false);
   };
+
 
 
 
@@ -104,45 +101,33 @@ console.log(data);
               <label htmlFor="paid" className="form-label">
                 Paid
               </label>
-              <div class="form-check">
+              <div className="form-check">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="radio"
                   name="paid"
                   id="paid1"
                   value="1"
-                  checked
                   onChange={(e) => setData({ ...data, paid: e.target.value })}
                 />
-                <label class="form-check-label" for="paid1">
+                <label className="form-check-label" htmlFor="paid1">
                   Yes
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="radio"
                   name="paid"
                   id="paid2"
                   value="0"
                   onChange={(e) => setData({ ...data, paid: e.target.value })}
                 />
-                <label class="form-check-label" for="paid2">
+                <label className="form-check-label" htmlFor="paid2">
                   No
                 </label>
               </div>
             </div>
-            {/* <div className="mb-3">
-              <label htmlFor="status" className="form-label">
-                Status
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="status"
-                onChange={(e) => setData({ ...data, status: e.target.value })}
-              />
-            </div> */}
             <div className="mb-3">
               <label htmlFor="start-date" className="form-label">
                 Start Date
