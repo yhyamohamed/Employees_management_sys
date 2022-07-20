@@ -3,6 +3,31 @@ import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import CreateComplaintModal from "./CreateComplaintModal";
 
+const customStyles = {
+    columns: {
+        style: {
+            width: "fit-content",
+        },
+    },
+    rows: {
+        style: {
+            minHeight: "50px", // override the row height
+        },
+    },
+    headCells: {
+        style: {
+            paddingLeft: "8px", // override the cell padding for head cells
+            paddingRight: "8px",
+        },
+    },
+    cells: {
+        style: {
+            paddingLeft: "8px", // override the cell padding for data cells
+            paddingRight: "8px",
+        },
+    },
+};
+
 function ListAllComplaints() {
     const [txt, setTxt] = useState("");
     const [currentID, setCurrentID] = useState(0);
@@ -26,12 +51,12 @@ function ListAllComplaints() {
     },
     {
         name: 'Employee ID',
-        selector: row => row.employee_id,
+        selector: row => row.user.name,
         sortable: true
     },
     {
-        name: 'Department ID',
-        selector: row => row.department_id,
+        name: 'Department',
+        selector: row => row.department.name,
         sortable: true
     },
     {
