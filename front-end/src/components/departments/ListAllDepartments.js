@@ -111,7 +111,8 @@ const ListAllDepartments = () => {
 
                             <i
                                 className="fa-solid fa-circle-info fa-lg"
-                                data-bs-toggle="modal" data-bs-target="#viewModal"
+                                data-bs-toggle="modal"
+                                data-bs-target="#viewModal"
                                 style={{cursor: "pointer", color: "green"}}
                                 onClick={() => setViewData(record)}
                             ></i>

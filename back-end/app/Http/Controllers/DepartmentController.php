@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDepartmentRequest;
 use App\Http\Requests\UpdateDepartmentRequest;
 use App\Models\Department;
+use App\Models\Absence;
 
 class DepartmentController extends Controller
 {
 
     public function index()
     {
-        return response()->json(Department::all(), 200);
+        return response()->json(Department::with('manager')->get(), 200);
     }
 
     public function store(StoreDepartmentRequest $request)
