@@ -83,7 +83,6 @@ const columns = [
 function ListAllTasks() {
     const [txt, setTxt] = useState("");
     const [success, setSuccess] = useState('');
-     const [createMessage, setCreateMessage] = useState(null);
     const { data, isPending, error } = useGet(
       "GET",
       "http://127.0.0.1:8000/api/tasks"
@@ -94,13 +93,7 @@ function ListAllTasks() {
       row.name.toLowerCase().includes(txt.toLowerCase())
     );
   }
-  useEffect(() => {
-    if (createMessage) {
-      setTimeout(() => {
-        setCreateMessage(null);
-      }, 1000);
-    }
-  }, [createMessage]);
+
   return (
     <div className="row">
       {isPending && (
@@ -127,12 +120,6 @@ function ListAllTasks() {
       {data && (
         <>
           <div className="row ">
-            {createMessage && (
-              <div className="col-12 " role="alert">
-                <h6 className="p-2 ms-5 text-success">{createMessage}</h6>
-              </div>
-            )}
-
             {success && (
               <div
                 className="alert alert-success alert-dismissible fade show"
@@ -168,7 +155,6 @@ function ListAllTasks() {
             </div>
             <CreateTaskModal
               setSuccess={setSuccess}
-              setCreateMessage={setCreateMessage}
             />
           </div>
           <DataTable columns={columns} data={search(data)} pagination />
