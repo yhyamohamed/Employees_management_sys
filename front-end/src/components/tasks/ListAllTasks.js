@@ -68,6 +68,7 @@ const columns = [
 
 function ListAllTasks() {
     const [txt, setTxt] = useState("");
+    const [success, setSuccess] = useState('');
     const { data, isPending, error } = useGet(
       "GET",
       "http://127.0.0.1:8000/api/tasks"
@@ -102,6 +103,13 @@ function ListAllTasks() {
             {data && (
                 <>
                     <div className="row ">
+                        {success && (
+                            <div className="alert alert-success alert-dismissible fade show" role="alert">
+                                {success}
+                                <button onClick={() => setSuccess('')} type="button" className="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                        )}
                         <div className="offset-6 col-3 input-group-sm ">
                             <input
                                 className="form-control "
@@ -114,7 +122,7 @@ function ListAllTasks() {
                         <div className=" col-2 me-1 ">
                             <button className="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modal">Add new task</button>
                         </div>
-                        <CreateTaskModal/>
+                        <CreateTaskModal setSuccess={setSuccess}/>
                     </div>
                     <DataTable columns={columns} data={search(data)} pagination />
                 </>
