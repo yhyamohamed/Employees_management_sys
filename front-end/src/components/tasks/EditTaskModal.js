@@ -33,7 +33,7 @@ function EditTaskModal({task, setSuccess}) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
-                                Create Task
+                                Edit Task
                             </h5>
                             <button
                                 type="button"
@@ -134,7 +134,7 @@ function EditTaskModal({task, setSuccess}) {
                                 disabled={loading}
                                 className="btn btn-primary"
                             >
-                                Create
+                                Edit
                             </button>
                             <button
                                 type="button"
