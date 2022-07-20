@@ -6,6 +6,7 @@ import ListAllUsers from "./components/users/ListAllUsers";
 import ListAllTasks from "./components/tasks/ListAllTasks";
 import ListAllVacations from "./components/vacations/ListAllVacations";
 import ListAllDepartments from "./components/departments/ListAllDepartments";
+import ListAllComplaints from "./components/complaints/ListAllComplaints";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/tasks" element={<ListAllTasks/>}></Route>
                     <Route path="/vacations" element={<ListAllVacations/>}></Route>
                     <Route path="/departments" element={<ListAllDepartments/>}></Route>
+                    <Route path="/complaints" element={<ListAllComplaints/>}></Route>
                 </Routes>
             </div>
         </>
