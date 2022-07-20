@@ -2,7 +2,7 @@ import { useState } from "react";
 import APIService from "../../services/APIService";
 import $ from "jquery";
 
-function CreateTaskModal() {
+function CreateTaskModal({ setCreateMessage }) {
   const [data, setData] = useState({
     priority: 1,
     status: "opened",
@@ -23,10 +23,11 @@ function CreateTaskModal() {
     );
     if (result.success) {
       setSuccess(result);
-     document.getElementById("close-modal").click();
+      document.getElementById("close-modal").click();
+      setCreateMessage("task created succefully");
     } else {
-        setError(result.error);
-    };
+      setError(result.error);
+    }
     setLoading(false);
   };
 
