@@ -4,6 +4,7 @@ import DataTable from "react-data-table-component";
 import CreateDepartmentModal from "./CreateDepartmentModal";
 import ViewDepartment from "./ViewDepartment";
 import DeleteDepartmentModal from "./DeleteDepartmentModal";
+import EditDepartmentModal from './EditDepartmentModal';
 // import React from "@types/react";
 
 const customStyles = {
@@ -43,7 +44,14 @@ const ListAllDepartments = () => {
     const [viewData, setViewData] = useState({
         id: 0,
         name: '',
-        manager_id: null
+        manager_id: null,
+        manager_start_at:'',
+        manager:{
+            name:'',
+            gender:'',
+            phone:'',
+            email:''
+        }
     })
     const [currentID, setCurrentID] = useState(0);
 
@@ -89,7 +97,9 @@ const ListAllDepartments = () => {
                             <i
                                 className="far fa-edit fa-lg"
                                 style={{cursor: "pointer", color: "blue"}}
-                                onClick={() => console.log(record.id)}
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal"
+                                onClick={() => setViewData(record)}
                             ></i>
                             <i
                                 className="fa-regular fa-trash-can fa-lg"
@@ -181,6 +191,10 @@ const ListAllDepartments = () => {
                         <ViewDepartment
                             record={viewData}
                         />
+                        <EditDepartmentModal
+                            department={viewData}
+                            setSuccess={setSuccess}
+                            />
                         <DeleteDepartmentModal
                             id={currentID}
                             setSuccess={setSuccess}

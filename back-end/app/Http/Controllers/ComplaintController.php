@@ -11,7 +11,7 @@ class ComplaintController extends Controller
 
     public function index()
     {
-       return response()->json(Complaint::all(), 200);
+        return response()->json(Complaint::with('department','user')->get(), 200);
 
     }
 
