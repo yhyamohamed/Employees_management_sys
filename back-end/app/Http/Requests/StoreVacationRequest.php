@@ -21,7 +21,7 @@ class StoreVacationRequest extends FormRequest
             'reasons' => 'required',
             'duration' => 'required',
 
-
+                
         ];
     }
 }
