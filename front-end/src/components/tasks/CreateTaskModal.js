@@ -1,30 +1,26 @@
 import { useState } from "react";
 import APIService from "../../services/APIService";
-import $ from "jquery";
 
-function CreateTaskModal({ setCreateMessage }) {
+function CreateTaskModal({setSuccess,setCreateMessage }) {
   const [data, setData] = useState({
     priority: 1,
     status: "opened",
     created_by: 1,
   });
-  const [success, setSuccess] = useState(null);
-  const [test, setTest] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     const result = await APIService.post(
       "http://127.0.0.1:8000/api/tasks",
       data
     );
     if (result.success) {
-      setSuccess(result);
-      document.getElementById("close-modal").click();
-      setCreateMessage("task created succefully");
+      setSuccess('Task created successfully.');
+       setCreateMessage("task created successfully");
+     document.getElementById("close-modal").click();
     } else {
       setError(result.error);
     }

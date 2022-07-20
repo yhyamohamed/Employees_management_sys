@@ -67,12 +67,13 @@ const columns = [
 ];
 
 function ListAllTasks() {
-  const [txt, setTxt] = useState("");
-  const [createMessage, setCreateMessage] = useState(null);
-  const { data, isPending, error } = useGet(
-    "GET",
-    "http://127.0.0.1:8000/api/tasks"
-  );
+    const [txt, setTxt] = useState("");
+    const [success, setSuccess] = useState('');
+     const [createMessage, setCreateMessage] = useState(null);
+    const { data, isPending, error } = useGet(
+      "GET",
+      "http://127.0.0.1:8000/api/tasks"
+    );
 
   function search(rows) {
     return rows.filter((row) =>
@@ -108,15 +109,31 @@ function ListAllTasks() {
           </div>
         </>
       )}
+
       {data && (
         <>
           <div className="row ">
-    
             {createMessage && (
               <div className="col-12 " role="alert">
                 <h6 className="p-2 ms-5 text-success">
                   A simple success alert—check it out!
                 </h6>
+              </div>
+            )}
+            
+            {success && (
+              <div
+                className="alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                {success}
+                <button
+                  onClick={() => setSuccess("")}
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
               </div>
             )}
             <div className="offset-6 col-3 input-group-sm ">
@@ -137,7 +154,10 @@ function ListAllTasks() {
                 Add new task
               </button>
             </div>
-            <CreateTaskModal setCreateMessage={setCreateMessage} />
+            <CreateTaskModal
+              setSuccess={setSuccess}
+              setCreateMessage={setCreateMessage}
+            />
           </div>
           <DataTable columns={columns} data={search(data)} pagination />
         </>
