@@ -54,7 +54,7 @@ const ListAllVacations = () => {
     },
     {
       name: "Department",
-      selector: (row) => row.department.name,
+      selector: (row) => row.department?row.department.name:"dep-deleted",
     },
     {
       name: "Duration",
