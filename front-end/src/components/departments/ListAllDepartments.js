@@ -92,7 +92,8 @@ const customStyles = {
 const ListAllDepartments = () => {
     const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/departments");
     const [txt, setTxt] = useState("");
-    const [modal, setModal]= useState(false);
+    const [success, setSuccess] = useState('');
+    const [createMessage, setCreateMessage] = useState(null);
 
     function search(rows) {
         return rows.filter((row) =>
@@ -125,6 +126,27 @@ const ListAllDepartments = () => {
             )}
             {data && (
                 <>
+                    <div className="row ">
+                        {createMessage && (
+                            <div className="col-12 " role="alert">
+                                <h6 className="p-2 ms-5 text-success">{createMessage}</h6>
+                            </div>
+                        )}
+                    </div>
+                    {success && (
+                        <div
+                            className="alert alert-success alert-dismissible fade show"
+                            role="alert"
+                        >
+                            {success}
+                            <button
+                                onClick={() => setSuccess("")}
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="alert"
+                                aria-label="Close"
+                            ></button>
+                        </div>)}
                 <div className="row ">
                     <div className="offset-6 col-3 input-group-sm ">
                         <input
@@ -138,7 +160,10 @@ const ListAllDepartments = () => {
                     <div className=" col-2 me-1 ">
                         <button className="btn btn-sm btn-success " data-bs-toggle="modal" data-bs-target="#modal">Add new department</button>
                     </div>
-                    <CreateDepartmentModal/>
+                    <CreateDepartmentModal
+                        setSuccess={setSuccess}
+                        setCreateMessage={setCreateMessage}
+                    />
                 </div>
                     <DataTable
                         columns={columns}

@@ -2,7 +2,7 @@ import {useState} from "react";
 import useGet from "../../custumHooks/useGet";
 import APIService from "../../services/APIService";
 
-function CreateDepartmentModal() {
+function CreateDepartmentModal({setSuccess,setCreateMessage }) {
     const [dataModal, setData] = useState({
         name: "",
         manager_id: 0,
@@ -10,20 +10,27 @@ function CreateDepartmentModal() {
     });
 
     const {data, isPending, error} = useGet('GET', "http://127.0.0.1:8000/api/managers")
-    const [success, setSuccess] = useState(null);
+    // const [success, setSuccess] = useState(null);
     const [Error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true)
-        const result = await APIService.post('http://127.0.0.1:8000/api/departments', dataModal);
-        if(result.success)
-            setSuccess(result);
-        else
-            setError(result);
+        setLoading(true);
+        const result = await APIService.post(
+            "http://127.0.0.1:8000/api/departments",
+            dataModal
+        );
+        if (result.success) {
+            setSuccess('Task created successfully.');
+            setCreateMessage("task created successfully");
+            document.getElementById("close-modal").click();
+        } else {
+            console.log(result,result.error)
+            setError(result.error);
+        }
         setLoading(false);
-    }
+    };
 
     return (
         <div className="modal fade" id="modal" tabIndex="-1"
@@ -36,6 +43,11 @@ function CreateDepartmentModal() {
                                 aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
+                        {Error && (
+                            <div className="alert alert-danger" role="alert">
+                                <small>{Error}</small>
+                            </div>
+                        )}
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">Name</label>
                             <input type="text" className="form-control" id="name"
@@ -64,6 +76,14 @@ function CreateDepartmentModal() {
                                 data-bs-dismiss="modal">Close
                         </button>
                         <button type="submit" disabled={loading} className="btn btn-primary">Create</button>
+                        <button
+                            type="button"
+                            id="close-modal"
+                            data-bs-dismiss="modal"
+                            style={{display: "none"}}
+                        >
+                            Close
+                        </button>
                     </div>
                 </div>
             </form>
