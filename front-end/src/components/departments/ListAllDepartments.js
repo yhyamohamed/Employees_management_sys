@@ -13,7 +13,11 @@ const ListAllDepartments = () => {
     const [txt, setTxt] = useState("");
     const [success, setSuccess] = useState('');
     const [createMessage, setCreateMessage] = useState(null);
-    const [viewData,setViewData] = useState({})
+    const [viewData,setViewData] = useState({
+        id: 0,
+        name: '',
+        manager_id: null,
+    })
 
     function search(rows) {
         return rows.filter((row) =>
@@ -69,7 +73,7 @@ const ListAllDepartments = () => {
                                 className="fa-solid fa-circle-info fa-lg"
                                 data-bs-toggle="modal" data-bs-target="#viewModal"
                                 style={{ cursor: "pointer", color: "green" }}
-                                onClick={() => setViewData(record)}
+                                onClick={async () => await setViewData(record)}
                             ></i>
                         </div>
                     </>
@@ -169,8 +173,8 @@ const ListAllDepartments = () => {
                         setSuccess={setSuccess}
                         setCreateMessage={setCreateMessage}
                     />
-                    <ViewDepartment
-                        record={viewData}/>
+                        <ViewDepartment
+                            record={viewData}/>
                 </div>
                     <DataTable
                         columns={columns}
