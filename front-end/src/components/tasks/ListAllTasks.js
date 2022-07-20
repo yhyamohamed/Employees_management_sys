@@ -1,12 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import CreateTaskModal from "./CreateTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal";
+import EditTaskModal from "./EditTaskModal";
+import ViewTask from "./ViewTask";
 
 function ListAllTasks() {
     const [txt, setTxt] = useState("");
-    const [currentID, setCurrentID] = useState(0);
+    const [currentTask, setCurrentTask] = useState({
+      id: 0,
+      name: '',
+      description: '',
+      code: '',
+      due_date: '',
+    });
     const [success, setSuccess] = useState('');
     const { data, isPending, error } = useGet(
       "GET",
@@ -76,20 +84,24 @@ function ListAllTasks() {
                 <i
                     className="far fa-edit fa-lg me-2"
                     style={{ cursor: "pointer", color: "blue" }}
-                    onClick={() => console.log(record.id)}
+                    data-bs-toggle="modal"
+                    data-bs-target="#editModal"
+                    onClick={() => setCurrentTask(record)}
                 ></i>
                 <i
                     className="fa-regular fa-trash-can fa-lg me-2"
                     style={{ cursor: "pointer", color: "red" }}
                     data-bs-toggle="modal"
                     data-bs-target="#deleteModal"
-                    onClick={() => setCurrentID(record.id)}
+                    onClick={() => setCurrentTask(record)}
                 ></i>
 
                 <i
                     className="fa-solid fa-circle-info fa-lg me-2"
                     style={{ cursor: "pointer", color: "green" }}
-                    onClick={() => console.log(record.id)}
+                    data-bs-toggle="modal"
+                    data-bs-target="#viewModal"
+                    onClick={() => setCurrentTask(record)}
                 ></i>
               </div>
             </>
@@ -160,8 +172,15 @@ function ListAllTasks() {
             <CreateTaskModal
               setSuccess={setSuccess}
             />
+            <ViewTask
+                record={currentTask}
+            />
+            <EditTaskModal
+                task={currentTask}
+                setSuccess={setSuccess}
+            />
             <DeleteTaskModal
-                id={currentID}
+                id={currentTask.id}
                 setSuccess={setSuccess}
             />
           </div>

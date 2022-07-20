@@ -42,7 +42,7 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        $updated_task= Task::update($request->all());
+        $updated_task= $task->update($request->all());
 
         if ($updated_task) {
             return response()->json($updated_task, 200);
