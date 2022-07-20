@@ -3,82 +3,10 @@ import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import CreateDepartmentModal from "./CreateDepartmentModal";
 import ViewDepartment from "./ViewDepartment";
+import DeleteDepartmentModal from "./DeleteDepartmentModal";
 // import React from "@types/react";
 
-
-
-const ListAllDepartments = () => {
-
-    const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/departments");
-    const [txt, setTxt] = useState("");
-    const [success, setSuccess] = useState('');
-    const [createMessage, setCreateMessage] = useState(null);
-    const [viewData,setViewData] = useState({})
-
-    function search(rows) {
-        return rows.filter((row) =>
-            row.name.toLowerCase().includes(txt.toLowerCase())
-        );
-    }
-
-    const columns = [
-        {
-            name: 'ID',
-            selector: row => row.id,
-            sortable:true
-        },
-        {
-            name: 'Name',
-            selector: row => row.name,
-            sortable:true
-        },
-        {
-            name: 'Manager ID',
-            selector: row => row.manager_id,
-            sortable:true
-        },
-        {
-            name: 'Manager Started At',
-            selector: row => row.manager_start_at,
-            sortable:true
-        },
-        {
-            key: "action",
-            text: "Action",
-            name: "Action",
-            className: "action",
-            width: 100,
-            align: "left",
-            sortable: false,
-            cell: (record) => {
-                return (
-                    <>
-                        <div className="d-flex justify-content-between w-50">
-                            <i
-                                className="far fa-edit fa-lg"
-                                style={{ cursor: "pointer", color: "blue" }}
-                                onClick={() => console.log(record.id)}
-                            ></i>
-                            <i
-                                className="fa-regular fa-trash-can fa-lg"
-                                style={{ cursor: "pointer", color: "red" }}
-                                onClick={() => console.log(record.id)}
-                            ></i>
-
-                            <i
-                                className="fa-solid fa-circle-info fa-lg"
-                                data-bs-toggle="modal" data-bs-target="#viewModal"
-                                style={{ cursor: "pointer", color: "green" }}
-                                onClick={() => setViewData(record)}
-                            ></i>
-                        </div>
-                    </>
-                );
-            },
-        }
-    ];
-
-    const customStyles = {
+     const customStyles = {
         columns: {
             style: {
                 width: "fit-content",
@@ -105,6 +33,80 @@ const ListAllDepartments = () => {
             },
         },
     };
+
+    const ListAllDepartments = () => {
+
+        const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/departments");
+        const [txt, setTxt] = useState("");
+        const [success, setSuccess] = useState('');
+        const [createMessage, setCreateMessage] = useState(null);
+        const [viewData,setViewData] = useState(null)
+        const [currentID, setCurrentID] = useState(0);
+    
+        function search(rows) {
+            return rows.filter((row) =>
+                row.name.toLowerCase().includes(txt.toLowerCase())
+            );
+        }
+    
+        const columns = [
+            {
+                name: 'ID',
+                selector: row => row.id,
+                sortable:true
+            },
+            {
+                name: 'Name',
+                selector: row => row.name,
+                sortable:true
+            },
+            {
+                name: 'Manager ID',
+                selector: row => row.manager_id,
+                sortable:true
+            },
+            {
+                name: 'Manager Started At',
+                selector: row => row.manager_start_at,
+                sortable:true
+            },
+            {
+                key: "action",
+                text: "Action",
+                name: "Action",
+                className: "action",
+                width: 100,
+                align: "left",
+                sortable: false,
+                cell: (record) => {
+                    return (
+                        <>
+                            <div className="d-flex justify-content-between w-50">
+                                <i
+                                    className="far fa-edit fa-lg"
+                                    style={{ cursor: "pointer", color: "blue" }}
+                                    onClick={() => console.log(record.id)}
+                                ></i>
+                                <i
+                                    className="fa-regular fa-trash-can fa-lg"
+                                    style={{ cursor: "pointer", color: "red" }}
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal"
+                                    onClick={() => setCurrentID(record.id)}
+                                ></i>
+    
+                                <i
+                                    className="fa-solid fa-circle-info fa-lg"
+                                    data-bs-toggle="modal" data-bs-target="#viewModal"
+                                    style={{ cursor: "pointer", color: "green" }}
+                                    onClick={() => setViewData(record)}
+                                ></i>
+                            </div>
+                        </>
+                    );
+                },
+            },
+        ];
 
     return (
         <div className="row">
@@ -169,8 +171,14 @@ const ListAllDepartments = () => {
                         setSuccess={setSuccess}
                         setCreateMessage={setCreateMessage}
                     />
+                    {viewData && 
                     <ViewDepartment
-                        record={viewData}/>
+                    record={viewData}/>
+                    }
+                    <DeleteDepartmentModal
+                        id={currentID}
+                        setSuccess={setSuccess}
+                    />
                 </div>
                     <DataTable
                         columns={columns}
