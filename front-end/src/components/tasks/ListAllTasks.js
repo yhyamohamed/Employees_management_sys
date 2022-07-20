@@ -115,12 +115,10 @@ function ListAllTasks() {
           <div className="row ">
             {createMessage && (
               <div className="col-12 " role="alert">
-                <h6 className="p-2 ms-5 text-success">
-                  A simple success alert—check it out!
-                </h6>
+                <h6 className="p-2 ms-5 text-success">{createMessage}</h6>
               </div>
             )}
-            
+
             {success && (
               <div
                 className="alert alert-success alert-dismissible fade show"

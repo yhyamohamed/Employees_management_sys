@@ -1,7 +1,7 @@
 import useGet from "../../custumHooks/useGet";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CreateVacationModal from "./CreateVacationModal";
 
 const columns = [
@@ -109,16 +109,24 @@ const ListAllVacations = () => {
     "GET","http://127.0.0.1:8000/api/vacations"
   );
   const [txt, setTxt] = useState("");
+  const [createMessage, setCreateMessage] = useState(null);
+
   function search(rows) {
     return rows.filter((row) =>
       row.user.name.toLowerCase().includes(txt.toLowerCase())
     );
   }
+  useEffect(() => {
+    if (createMessage) {
+      setTimeout(() => {
+        setCreateMessage(null);
+      }, 1000);
+    }
+  }, [createMessage]);
   return (
     <div className="row">
       {isPending && (
         <>
-        
           <div className="alert alert-primary" role="alert">
             <span
               className="spinner-border text-info spinner-border-m me-2"
@@ -139,7 +147,12 @@ const ListAllVacations = () => {
       )}
       {data && (
         <>
-        <div className="row ">
+          <div className="row ">
+            {createMessage && (
+              <div className="col-12 " role="alert">
+                <h6 className="p-2 ms-5 text-success">{createMessage}</h6>
+              </div>
+            )}
             <div className="offset-6 col-3 input-group-sm ">
               <input
                 className="form-control "
@@ -150,9 +163,15 @@ const ListAllVacations = () => {
               />
             </div>
             <div className=" col-2 me-1 ">
-              <button className="btn btn-sm btn-success " data-bs-toggle="modal" data-bs-target="#modal">Add Vacation</button>
+              <button
+                className="btn btn-sm btn-success "
+                data-bs-toggle="modal"
+                data-bs-target="#modal"
+              >
+                Add Vacation
+              </button>
             </div>
-            <CreateVacationModal/>
+            <CreateVacationModal setCreateMessage={setCreateMessage} />
           </div>
           <DataTable
             columns={columns}
@@ -163,7 +182,6 @@ const ListAllVacations = () => {
         </>
       )}
     </div>
-    
   );
 };
 
