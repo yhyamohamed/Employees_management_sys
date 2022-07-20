@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import CreateVacationModal from "./CreateVacationModal";
 import DeleteVacationModal from "./DeleteVacationModal";
 import ViewVacation from "./ViewVacation";
+import EditVacationModal from "./EditVacationModal";
 
 const customStyles = {
     columns: {
@@ -119,9 +120,9 @@ const ListAllVacations = () => {
                             <i
                                 className="far fa-edit fa-lg me-2"
                                 style={{cursor: "pointer", color: "blue"}}
-                                onClick={() => {
-                                    console.log(record)
-                                }}
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal"
+                                onClick={() => setCurrentID(record)}
                             ></i>
                             <i
                                 className="fa-regular fa-trash-can fa-lg me-2"
@@ -213,6 +214,9 @@ const ListAllVacations = () => {
                         <ViewVacation
                             record={viewVacationData}
                         />
+                        <EditVacationModal 
+                         vacation={viewVacationData}
+                         setSuccess={setSuccess}/>
                     </div>
                     <DataTable
                         columns={columns}
