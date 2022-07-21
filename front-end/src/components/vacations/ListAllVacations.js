@@ -122,7 +122,7 @@ const ListAllVacations = () => {
                                 style={{cursor: "pointer", color: "blue"}}
                                 data-bs-toggle="modal"
                                 data-bs-target="#editModal"
-                                onClick={() => setCurrentID(record)}
+                                onClick={() => setVacationData(record)}
                             ></i>
                             <i
                                 className="fa-regular fa-trash-can fa-lg me-2"

@@ -17,8 +17,8 @@ class VacationFactory extends Factory
             'duration' => $this->faker->numberBetween(1, 31),
             'reasons' => $this->faker->realTextBetween($minNbChars = 50, $maxNbChars = 52, $indexSize = 2),
             'paid' => $this->faker->randomElement([true, false]),
-            'start_date' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
-            'end_date' => $this->faker->dateTimeBetween('+1 week', '+4 week'),
+            'start_date' => $this->faker->dateTimeBetween('-1 week', '+1 week')->format('Y-m-d'),
+            'end_date' => $this->faker->dateTimeBetween('+1 week', '+4 week')->format('Y-m-d'),
             'status' => $this->faker->randomElement( ['approved', 'pending','rejected'])
         ];
     }
