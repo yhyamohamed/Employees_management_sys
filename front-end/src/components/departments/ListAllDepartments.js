@@ -1,10 +1,12 @@
-import {useState} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import CreateDepartmentModal from "./CreateDepartmentModal";
 import ViewDepartment from "./ViewDepartment";
 import DeleteDepartmentModal from "./DeleteDepartmentModal";
 import EditDepartmentModal from './EditDepartmentModal';
+import {useNavigate} from "react-router-dom";
+import {UserContext} from "../../App";
 // import React from "@types/react";
 
 const customStyles = {
@@ -54,6 +56,15 @@ const ListAllDepartments = () => {
         }
     })
     const [currentID, setCurrentID] = useState(0);
+
+    const navigate = useNavigate();
+
+    const {user} = useContext(UserContext);
+
+    useEffect(() => {
+        if(!user.authenticated)
+            navigate("/login");
+    }, [user]);
 
     function search(rows) {
         return rows.filter((row) =>

@@ -1,9 +1,10 @@
 import useGet from "../../custumHooks/useGet";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import DataTable from "react-data-table-component";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import DeleteVacationModal from "./DeleteVacationModal";
 import EditVacationModal from "./EditVacationModal";
+import {UserContext} from "../../App";
 
 const customStyles = {
     columns: {
@@ -51,6 +52,14 @@ const customStyles = {
 
 
   })
+      const navigate = useNavigate();
+
+      const {user} = useContext(UserContext);
+
+      useEffect(() => {
+          if(!user.authenticated)
+              navigate("/login");
+      }, [user]);
     
     const { data, isPending, error } = useGet(
       "GET","http://127.0.0.1:8000/api/myvacation"

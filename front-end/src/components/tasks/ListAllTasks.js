@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import CreateTaskModal from "./CreateTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal";
 import EditTaskModal from "./EditTaskModal";
 import ViewTask from "./ViewTask";
+import {useNavigate} from "react-router-dom";
+import {UserContext} from "../../App";
 
 function ListAllTasks() {
     const [txt, setTxt] = useState("");
@@ -20,6 +22,15 @@ function ListAllTasks() {
       "GET",
       "http://127.0.0.1:8000/api/tasks"
     );
+
+  const navigate = useNavigate();
+
+  const {user} = useContext(UserContext);
+
+  useEffect(() => {
+    if(!user.authenticated)
+      navigate("/login");
+  }, [user]);
 
   function search(rows) {
     return rows.filter((row) =>

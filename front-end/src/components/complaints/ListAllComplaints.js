@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import CreateComplaintModal from "./CreateComplaintModal";
 import DeleteComplaintModal from "./DeleteComplaintModal";
 import ViewComplaint from "./ViewComplaint";
 import EditComplaintModal from "./EditComplaintModal";
+import {useNavigate} from "react-router-dom";
+import {UserContext} from "../../App";
 
 const customStyles = {
     columns: {
@@ -54,6 +56,15 @@ function ListAllComplaints() {
       "GET",
       "http://127.0.0.1:8000/api/complaints"
     );
+
+    const navigate = useNavigate();
+
+    const {user} = useContext(UserContext);
+
+    useEffect(() => {
+        if(!user.authenticated)
+            navigate("/login");
+    }, [user]);
 
   function search(rows) {
     return rows.filter((row) =>

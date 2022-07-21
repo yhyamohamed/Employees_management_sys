@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import ViewUser from "./ViewUser";
 import CreateUserModal from "./CreateUserModal";
+import {UserContext} from "../../App";
+import {useNavigate} from "react-router-dom";
 
 
 const ListAllUsers = () => {
@@ -22,7 +24,16 @@ const ListAllUsers = () => {
       name:''
     }
 
-  })
+  });
+
+  const navigate = useNavigate();
+
+  const {user} = useContext(UserContext);
+
+  useEffect(() => {
+    if(!user.authenticated)
+        navigate("/login");
+  }, [user]);
 
   function search(rows) {
     return rows.filter((row) =>
