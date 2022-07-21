@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import React, { useEffect, useState } from "react";
 import DeleteVacationModal from "./DeleteVacationModal";
+import EditVacationModal from "./EditVacationModal";
 
 const customStyles = {
     columns: {
@@ -33,6 +34,23 @@ const customStyles = {
     const [txt, setTxt] = useState("");
     const [success, setSuccess] = useState('');
     const [currentID, setCurrentID] = useState(0);
+    const [viewVacationData, setVacationData] = useState({
+      user : {
+          name : '',
+          employee_title : '',
+          phone: '',
+          email: '',
+      },
+      department:{
+          name:'',
+      },
+      status: '',
+      reasons: '',
+      start_date:'',
+      duration:'',
+
+
+  })
     
     const { data, isPending, error } = useGet(
       "GET","http://127.0.0.1:8000/api/myvacation"
@@ -95,9 +113,9 @@ const customStyles = {
                         <i
                             className="far fa-edit fa-lg me-2"
                             style={{cursor: "pointer", color: "blue"}}
-                            onClick={() => {
-                                console.log(record)
-                            }}
+                            data-bs-toggle="modal"
+                                data-bs-target="#editModal"
+                                onClick={() => setVacationData(record)}
                         ></i>
                         <i
                             className="fa-regular fa-trash-can fa-lg me-2"
@@ -157,6 +175,9 @@ const customStyles = {
                             id={currentID}
                             setSuccess={setSuccess}
                         />
+                      <EditVacationModal 
+                         vacation={viewVacationData}
+                         setSuccess={setSuccess}/>
                   </div>
                   <DataTable
                       columns={columns}
