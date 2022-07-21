@@ -4,6 +4,7 @@ import DataTable from "react-data-table-component";
 import CreateComplaintModal from "./CreateComplaintModal";
 import DeleteComplaintModal from "./DeleteComplaintModal";
 import ViewComplaint from "./ViewComplaint";
+import EditComplaintModal from "./EditComplaintModal";
 
 const customStyles = {
     columns: {
@@ -38,6 +39,7 @@ function ListAllComplaints() {
       Department: '',
       Subject:'',
       Body:'',
+      Status:'',
       Reasons:'',
       user:{
         name:'',
@@ -46,7 +48,7 @@ function ListAllComplaints() {
         name:''
       }
   })
-    const [currentID, setCurrentID] = useState(0);
+    const [currentComplaint, setCurrentComplaint] = useState(0);
     const [success, setSuccess] = useState('');
     const { data, isPending, error } = useGet(
       "GET",
@@ -86,6 +88,11 @@ function ListAllComplaints() {
         sortable: true
     },
     {
+        name: 'Status',
+        selector: row => row.status,
+        sortable: true
+    },
+    {
         name: 'Reasons',
         selector: row => row.reasons,
         sortable: true
@@ -111,14 +118,14 @@ function ListAllComplaints() {
                 <i
                     className="far fa-edit fa-lg me-2"
                     style={{ cursor: "pointer", color: "blue" }}
-                    onClick={() => console.log(record.id)}
+                    onClick={() => setCurrentComplaint(record)}
                 ></i>
                 <i
                     className="fa-regular fa-trash-can fa-lg me-2"
                     style={{ cursor: "pointer", color: "red" }}
                     data-bs-toggle="modal"
                     data-bs-target="#deleteModal"
-                    onClick={() => setCurrentID(record.id)}
+                    onClick={() => setCurrentComplaint(record.id)}
                 ></i>
 
                 <i
@@ -200,8 +207,12 @@ function ListAllComplaints() {
             <ViewComplaint
                 record={viewData}
             />
+            <EditComplaintModal
+                complaint={currentComplaint}
+                setSuccess={setSuccess}
+            />
             <DeleteComplaintModal
-                id={currentID}
+                id={currentComplaint}
                 setSuccess={setSuccess}
             />
           </div>

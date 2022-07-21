@@ -21,6 +21,7 @@ function ViewComplaint({record}) {
                                         <p><span className={'fw-bold'}>Department: </span>{record.department.name}</p>
                                         <p><span className={'fw-bold'}>Subject: </span>{record.subject}</p>
                                         <p><span className={'fw-bold'}>Body: </span>{record.body}</p>
+                                        <p><span className={'fw-bold'}>Status: </span>{record.status}</p>
                                         <p><span className={'fw-bold'}>Reasons: </span>{record.reasons}</p>
                                         <p><span className={'fw-bold'}>Created At: </span>{record.created_at}</p>
                                     </div>
