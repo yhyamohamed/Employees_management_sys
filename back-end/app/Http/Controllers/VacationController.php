@@ -11,7 +11,7 @@ class VacationController extends Controller
 
     public function index()
     {
-        $this->authorize('view');
+//        $this->authorize('view');
         return response()->json(Vacation::with('department','user')->get(), 200);
 
     }
@@ -44,7 +44,7 @@ class VacationController extends Controller
 
     public function update(UpdateVacationRequest $request, Vacation $vacation)
     {
-        $updated_Vacation= Vacation::update($request->all());
+        $updated_Vacation= $vacation->update($request->all());
 
         if ($updated_Vacation) {
             return response()->json($updated_Vacation, 200);
