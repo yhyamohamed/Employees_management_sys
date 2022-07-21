@@ -16,8 +16,9 @@ function ViewComplaint({record}) {
                             <div>
                                 {record.subject !== null && (
                                     <div>
-                                        <p><span className={'fw-bold'}>Employee: </span>{record.user.name}</p>
-                                        <p><span className={'fw-bold'}>Department: </span>{record.department.name}</p>
+                                        {/* Bug here */}
+                                        {/* <p><span className={'fw-bold'}>Employee: </span>{record.user.name}</p>
+                                        <p><span className={'fw-bold'}>Department: </span>{record.department.name}</p> */}
                                         <p><span className={'fw-bold'}>Subject: </span>{record.subject}</p>
                                         <p><span className={'fw-bold'}>Body: </span>{record.body}</p>
                                         <p><span className={'fw-bold'}>Reasons: </span>{record.reasons}</p>
