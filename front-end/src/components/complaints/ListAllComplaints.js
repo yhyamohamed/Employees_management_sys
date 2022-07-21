@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import CreateComplaintModal from "./CreateComplaintModal";
+import DeleteComplaintModal from "./DeleteComplaintModal";
 
 const customStyles = {
     columns: {
@@ -178,6 +179,10 @@ function ListAllComplaints() {
             </div>
             <CreateComplaintModal
               setSuccess={setSuccess}
+            />
+            <DeleteComplaintModal
+                id={currentID}
+                setSuccess={setSuccess}
             />
           </div>
           <DataTable columns={columns} data={search(data)} pagination />
