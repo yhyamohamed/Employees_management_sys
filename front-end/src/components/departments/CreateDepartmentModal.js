@@ -23,7 +23,6 @@ function CreateDepartmentModal({setSuccess,setCreateMessage }) {
         );
         if (result.success) {
             setSuccess('Department created successfully.');
-            setCreateMessage("Department created successfully");
             document.getElementById("close-modal").click();
         } else {
             console.log(result,result.error)
