@@ -8,8 +8,8 @@ const Login = () => {
         email: '',
         password: '',
     });
-    const [success, setSuccess] = useState('success');
-    const [error, setError] = useState('error');
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
     const {user, setUser} = useContext(UserContext);
