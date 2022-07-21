@@ -3,6 +3,7 @@ import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import CreateComplaintModal from "./CreateComplaintModal";
 import DeleteComplaintModal from "./DeleteComplaintModal";
+import ViewComplaint from "./ViewComplaint";
 
 const customStyles = {
     columns: {
@@ -31,6 +32,14 @@ const customStyles = {
 
 function ListAllComplaints() {
     const [txt, setTxt] = useState("");
+    const [viewData, setViewData] = useState({
+      id: 0,
+      Employee: '',
+      Department: '',
+      Subject:'',
+      Body:'',
+      Reasons:'',
+  })
     const [currentID, setCurrentID] = useState(0);
     const [success, setSuccess] = useState('');
     const { data, isPending, error } = useGet(
@@ -51,7 +60,7 @@ function ListAllComplaints() {
       sortable: true,
     },
     {
-        name: 'Employee ID',
+        name: 'Employee',
         selector: row => row.user.name,
         sortable: true
     },
@@ -107,9 +116,11 @@ function ListAllComplaints() {
                 ></i>
 
                 <i
-                    className="fa-solid fa-circle-info fa-lg me-2"
-                    style={{ cursor: "pointer", color: "green" }}
-                    onClick={() => console.log(record.id)}
+                    className="fa-solid fa-circle-info fa-lg"
+                    data-bs-toggle="modal"
+                    data-bs-target="#viewModal"
+                    style={{cursor: "pointer", color: "green"}}
+                    onClick={() => setViewData(record)}
                 ></i>
               </div>
             </>
@@ -179,6 +190,9 @@ function ListAllComplaints() {
             </div>
             <CreateComplaintModal
               setSuccess={setSuccess}
+            />
+            <ViewComplaint
+                record={viewData}
             />
             <DeleteComplaintModal
                 id={currentID}
