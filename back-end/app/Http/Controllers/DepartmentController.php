@@ -42,8 +42,8 @@ class DepartmentController extends Controller
 
     public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        $updated_dep = Department::update($request->all());
-
+//        dd($department);
+        $updated_dep = $department->update($request->all());
         if ($updated_dep) {
             return response()->json($updated_dep, 200);
         } else {

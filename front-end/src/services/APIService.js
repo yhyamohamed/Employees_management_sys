@@ -2,6 +2,7 @@ import axios from "axios";
 
 const post = async (url, data) => {
     try {
+        console.log(data)
         const result =  await axios.post(url, data);
         return {
             success: true,
@@ -25,7 +26,7 @@ const post = async (url, data) => {
 
 const put = async (url, data) => {
     try {
-        console.log(data)
+        console.log(data,url)
         const result =  await axios.put(url, data);
         return {
             success: true,
