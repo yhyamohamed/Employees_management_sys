@@ -18,7 +18,7 @@ class StoreUserRequest extends FormRequest
         return [
             'employee_code' => ['required', 'unique:users'],
             'email' => ['required', 'unique:users'],
-            'department_id' =>'exists:departments',
+            'department_id' =>'exists:departments,id',
             'supervisor_id' =>'exists:users',
 
         ];
