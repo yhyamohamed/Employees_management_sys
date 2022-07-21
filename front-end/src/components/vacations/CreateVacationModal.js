@@ -47,8 +47,7 @@ function CreateVacationModal({setSuccess,setCreateMessage}) {
               </div>
             )}
             <div className="mb-3">
-              <label ht
-              mlFor="code" className="form-label">
+              <label htmlFor="code" className="form-label">
                 Employee ID
               </label>
               <input

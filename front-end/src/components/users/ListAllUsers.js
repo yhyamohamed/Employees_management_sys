@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import ViewUser from "./ViewUser";
+import CreateUserModal from "./CreateUserModal";
 
 
 const ListAllUsers = () => {
   const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/users");
   const [txt, setTxt] = useState("");
+  const [success, setSuccess] = useState('');
   const [userData,setUserData] = useState({
     name:'',
     employee_title:'',
@@ -168,6 +170,21 @@ const ListAllUsers = () => {
       {data && (
         <>
           <div className="row ">
+            {success && (
+                <div
+                    className="alert alert-success alert-dismissible fade show"
+                    role="alert"
+                >
+                  {success}
+                  <button
+                      onClick={() => setSuccess("")}
+                      type="button"
+                      className="btn-close"
+                      data-bs-dismiss="alert"
+                      aria-label="Close"
+                  ></button>
+                </div>
+            )}
             <div className="offset-6 col-3 input-group-sm ">
               <input
                 className="form-control "
@@ -178,9 +195,12 @@ const ListAllUsers = () => {
               />
             </div>
             <div className=" col-2 me-1 ">
-              <button className="btn btn-sm btn-success ">Add new employee</button>
+              <button className="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modal">Add new employee</button>
             </div>
           </div>
+          <CreateUserModal
+            setSuccess={setSuccess}
+          />
           <ViewUser
             record={userData}
           />
