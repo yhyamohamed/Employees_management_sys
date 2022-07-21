@@ -4,89 +4,47 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Vacation;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class VacationPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+
     public function viewAny(User $user)
     {
         //
     }
 
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Vacation  $vacation
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Vacation $vacation)
+
+    public function view(User $user)
     {
-        //
+     return  ( $user->employee_group === 'higher-management' || $user->employee_group === 'middle-management' )?
+           Response::allow()
+                : Response::deny('You can not view this data.');
     }
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Vacation  $vacation
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
     public function update(User $user, Vacation $vacation)
     {
-        //
+        return $vacation->user->is($user)?
+            Response::allow()
+            : Response::deny('You dont own this entry.');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Vacation  $vacation
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+
     public function delete(User $user, Vacation $vacation)
     {
         //
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Vacation  $vacation
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+
     public function restore(User $user, Vacation $vacation)
     {
         //
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Vacation  $vacation
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+
     public function forceDelete(User $user, Vacation $vacation)
     {
         //
