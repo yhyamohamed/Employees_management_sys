@@ -10,6 +10,7 @@ import ListAllComplaints from "./components/complaints/ListAllComplaints";
 
 
 import MainRoutes from "./MainRoutes";
+import MyVacation from "./components/vacations/MyVacation";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/vacations" element={<ListAllVacations/>}></Route>
                     <Route path="/departments" element={<ListAllDepartments/>}></Route>
                     <Route path="/complaints" element={<ListAllComplaints/>}></Route>
+                    <Route path="/myvacation" element={<MyVacation/>}></Route>
                 </Routes>
             </div>
         </>

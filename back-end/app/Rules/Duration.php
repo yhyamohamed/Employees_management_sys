@@ -23,6 +23,6 @@ class Duration implements InvokableRule
         if($start_date->addDays($value) != $end_date){
             $fail('The :attribute must equal the number of days from start to end');
         }
-       
+
     }
 }

@@ -12,7 +12,7 @@ class MyVacationController extends Controller
 
     public function index()
     {
-        return response()->json(Vacation::where('employee_id',38)->get());
+        return response()->json(Vacation::where('employee_id',40)->get()->flatten());
 
     }
 

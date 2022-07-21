@@ -26,7 +26,7 @@ Route::get('/managers',[ManagerController::class,'index']);
 Route::resource('/departments', DepartmentController::class);
 Route::resource('/tasks', TaskController::class);
 Route::resource('/vacations', VacationController::class);
-Route::resource('/my-vacations', MyVacationController::class);
+Route::resource('/myvacation', MyVacationController::class);
 Route::resource('/complaints', ComplaintController::class);
 Route::resource('/attendance', AttendanceController::class);
 Route::resource('/absence', AbsenceController::class);
