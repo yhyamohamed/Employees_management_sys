@@ -9,6 +9,15 @@ class Complaint extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'employee_id',
+        'department_id',
+        'subject',
+        'body',
+        'status',
+        'reasons',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class,'employee_id');

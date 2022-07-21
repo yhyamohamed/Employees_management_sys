@@ -39,6 +39,12 @@ function ListAllComplaints() {
       Subject:'',
       Body:'',
       Reasons:'',
+      user:{
+        name:'',
+      },
+      department:{
+        name:''
+      }
   })
     const [currentID, setCurrentID] = useState(0);
     const [success, setSuccess] = useState('');
