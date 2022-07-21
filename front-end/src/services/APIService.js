@@ -25,6 +25,7 @@ const post = async (url, data) => {
 
 const put = async (url, data) => {
     try {
+        console.log(data)
         const result =  await axios.put(url, data);
         return {
             success: true,
