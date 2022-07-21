@@ -204,18 +204,22 @@ function EditVacationModal({vacation, setSuccess}) {
             <div className="mb-3">
                                 <label htmlFor="status" className="form-label">
                                     Status
+                                    <div>
+                                      <p >Current status: <span className="text-primary"> {data.status}</span></p>
+                                    </div>
+                                    
                                 </label>
                                 <select
                                     className="d-block w-100"
                                     id="status"
-                                    value={data.status}
+                                    // value={data.status}
                                     onChange={(e) =>
                                         setData({ ...data, status: e.target.value })
                                     }
                                 >
                                     <option value="approved">Approved</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="rejected">rejected</option>
+                                    <option selected disabled hidden>------</option>
+                                    <option value="rejected">Rejected</option>
                                 </select>
                             </div>
                         </div>
