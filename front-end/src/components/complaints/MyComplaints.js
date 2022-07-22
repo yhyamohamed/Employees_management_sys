@@ -33,8 +33,9 @@ const customStyles = {
   },
 };
 
-function ListAllComplaints() {
+function MyComplaints() {
   const [txt, setTxt] = useState("");
+  const [success, setSuccess] = useState('');
   const [currentComplaint, setCurrentComplaint] = useState({
     id: 0,
     Employee: '',
@@ -50,20 +51,23 @@ function ListAllComplaints() {
       name: ''
     }
   })
-  const [success, setSuccess] = useState('');
-  const { data, isPending, error } = useGet(
-    "GET",
-    "http://127.0.0.1:8000/api/complaints"
-  );
-
+  
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
-
+  
   useEffect(() => {
     if (!user.authenticated)
       navigate("/login");
   }, [user]);
+  
+  const { data, isPending, error } = useGet(
+    "GET",
+    "http://127.0.0.1:8000/api/mycomplaints", user.token
+  );
+
+
+  
 
   function search(rows) {
     return rows.filter((row) =>
@@ -236,4 +240,4 @@ function ListAllComplaints() {
   );
 }
 
-export default ListAllComplaints;
+export default MyComplaints;

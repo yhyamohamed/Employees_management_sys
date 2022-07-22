@@ -101,7 +101,6 @@ function CreateComplaintModal({ setSuccess, setCreateMessage }) {
                 <option value="solved">Solved</option>
               </select>
             </div>
-            {dataModel.status}
             <div className="mb-3">
               <label htmlFor="reasons" className="form-label">
                 Reasons

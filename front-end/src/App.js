@@ -12,6 +12,7 @@ import {createContext, useEffect, useState} from "react";
 
 import MainRoutes from "./MainRoutes";
 import MyVacation from "./components/vacations/MyVacation";
+import MyComplaints from "./components/complaints/MyComplaints";
 import Login from "./components/Login";
 import APIService from "./services/APIService";
 
@@ -69,6 +70,7 @@ function App() {
                         <Route path="/departments" element={<ListAllDepartments/>}></Route>
                         <Route path="/complaints" element={<ListAllComplaints/>}></Route>
                         <Route path="/myvacation" element={<MyVacation/>}></Route>
+                        <Route path="/mycomplaints" element={<MyComplaints/>}></Route>
                     </Routes>
                 </div>
             </>
