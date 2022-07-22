@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('complaints_to', function (Blueprint $table) {
             $table->id();
             $table->foreignId('complaint_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('cc_to')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('cc_to')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('recommendation', ['reviewing', 'pending','solved','rejected']);
             $table->text('reasons')->nullable();
             $table->timestamps();

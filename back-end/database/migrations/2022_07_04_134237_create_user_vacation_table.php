@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('user_vacation', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vacation_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('signed_by')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('vacation_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('signed_by')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('recommendation', ['approved', 'pending','rejected']);
             $table->text('reasons')->nullable();
             $table->timestamps();
