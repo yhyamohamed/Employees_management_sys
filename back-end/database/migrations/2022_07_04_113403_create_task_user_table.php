@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('task_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('task_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('status', ['opened', 'done','waiting','need-help']);
             $table->text('note');

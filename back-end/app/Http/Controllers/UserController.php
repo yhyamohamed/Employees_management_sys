@@ -65,7 +65,8 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $created_user = User::update($request->all());
+        $request['password'] = Hash::make($request->password);
+        $created_user = $user->update($request->all());
 
         if ($created_user) {
             return response()->json($created_user, 200);

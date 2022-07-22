@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('code');
             $table->text('description');
             $table->timestamp('due_date');
-            $table->foreignId('created_by')->constrained('users')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
             $table->integer('priority');
             $table->enum('status', ['opened', 'done','waiting','need-help']);
             $table->timestamps();

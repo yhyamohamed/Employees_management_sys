@@ -1,31 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import APIService from "../../services/APIService";
 
-function CreateUserModal({setSuccess}) {
-    const [data, setData] = useState(null);
+function EditUserModal({record, setSuccess}) {
+    const [data, setData] = useState(record);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const result = await APIService.post(
-            "http://127.0.0.1:8000/api/users",
+        const result = await APIService.put(
+            `http://127.0.0.1:8000/api/users/${record.id}`,
             data,
             localStorage.getItem("token")
         );
         if (result.success) {
-            setSuccess('User created successfully.');
-            document.getElementById("close-modal").click();
+            setSuccess('User updated successfully.');
+            document.getElementById("close-edit-modal").click();
         } else {
             setError(result.error);
         }
         setLoading(false);
     };
 
+    useEffect(() => {
+        setData(record);
+    }, [record])
+
     return (
         <>
-            <div className="modal fade" id="modal" tabIndex="-1" aria-hidden="true">
+            <div className="modal fade" id="editModal" tabIndex="-1" aria-hidden="true">
                 <form onSubmit={handleSubmit} className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -53,6 +57,7 @@ function CreateUserModal({setSuccess}) {
                                     type="text"
                                     className="form-control"
                                     id="name"
+                                    value={data.name}
                                     onChange={(e) => setData({ ...data, name: e.target.value })}
                                 />
                             </div>
@@ -64,6 +69,7 @@ function CreateUserModal({setSuccess}) {
                                     type="text"
                                     className="form-control"
                                     id="code"
+                                    value={data.employee_code}
                                     onChange={(e) => setData({ ...data, employee_code: e.target.value })}
                                 />
                             </div>
@@ -75,6 +81,7 @@ function CreateUserModal({setSuccess}) {
                                     type="text"
                                     className="form-control"
                                     id="department_id"
+                                    value={data.department_id}
                                     onChange={(e) => setData({ ...data, department_id: e.target.value })}
                                 />
                             </div>
@@ -86,6 +93,7 @@ function CreateUserModal({setSuccess}) {
                                     type="text"
                                     className="form-control"
                                     id="supervisor_id"
+                                    value={data.supervisor_id ? data.supervisor_id : ''}
                                     onChange={(e) => setData({ ...data, supervisor_id: e.target.value })}
                                 />
                             </div>
@@ -97,6 +105,7 @@ function CreateUserModal({setSuccess}) {
                                     type="email"
                                     className="form-control"
                                     id="email"
+                                    value={data.email}
                                     onChange={(e) => setData({ ...data, email: e.target.value })}
                                 />
                             </div>
@@ -119,6 +128,7 @@ function CreateUserModal({setSuccess}) {
                                     type="date"
                                     className="form-control"
                                     id="date"
+                                    value={data.b_date}
                                     onChange={(e) =>
                                         setData({ ...data, b_date: e.target.value })
                                     }
@@ -131,6 +141,7 @@ function CreateUserModal({setSuccess}) {
                                 <select
                                     className="d-block w-100"
                                     id="gender"
+                                    value={data.gender}
                                     onChange={(e) =>
                                         setData({ ...data, gender: e.target.value })
                                     }
@@ -146,6 +157,7 @@ function CreateUserModal({setSuccess}) {
                                 <select
                                     className="d-block w-100"
                                     id="employee_group"
+                                    value={data.employee_group}
                                     onChange={(e) =>
                                         setData({ ...data, employee_group: e.target.value })
                                     }
@@ -164,6 +176,7 @@ function CreateUserModal({setSuccess}) {
                                 <select
                                     className="d-block w-100"
                                     id="employee_title"
+                                    value={data.employee_title}
                                     onChange={(e) =>
                                         setData({ ...data, employee_title: e.target.value })
                                     }
@@ -183,6 +196,7 @@ function CreateUserModal({setSuccess}) {
                                     type="text"
                                     className="form-control"
                                     id="phone"
+                                    value={data.phone}
                                     onChange={(e) =>
                                         setData({ ...data, phone: e.target.value })
                                     }
@@ -196,6 +210,7 @@ function CreateUserModal({setSuccess}) {
                                     type="number"
                                     className="form-control"
                                     id="salary"
+                                    value={data.salary}
                                     onChange={(e) => setData({ ...data, salary: e.target.value })}
                                 />
                             </div>
@@ -213,11 +228,11 @@ function CreateUserModal({setSuccess}) {
                                 disabled={loading}
                                 className="btn btn-primary"
                             >
-                                Create
+                                Save
                             </button>
                             <button
                                 type="button"
-                                id="close-modal"
+                                id="close-edit-modal"
                                 data-bs-dismiss="modal"
                                 style={{ display: "none" }}
                             >
@@ -231,4 +246,4 @@ function CreateUserModal({setSuccess}) {
     );
 }
 
-export default CreateUserModal;
+export default EditUserModal;
