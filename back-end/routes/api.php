@@ -6,6 +6,7 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\MyTasksController;
 use App\Http\Controllers\OverTimeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,7 @@ Route::resource('/users', UserController::class)->missing(function (Request $req
 Route::get('/managers',[ManagerController::class,'index']);
 Route::resource('/departments', DepartmentController::class);
 Route::resource('/tasks', TaskController::class);
+Route::resource('/mytasks', MyTasksController::class);
 Route::resource('/vacations', VacationController::class);
 Route::resource('/myvacation', MyVacationController::class);
 Route::resource('/complaints', ComplaintController::class);
