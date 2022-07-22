@@ -24,41 +24,58 @@ const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li className="nav-item active ">
-                            <Link className="nav-link" to="/users">
-                                ALL-users
-                            </Link>
-                        </li>
-                        <li className="nav-item active ">
-                            <Link className="nav-link" to="/tasks">
-                                ALL-tasks
-                            </Link>
-                        </li>
-                        <li className="nav-item active ">
-                            <Link className="nav-link" to="/vacations">
-                                ALL-vacations
-                            </Link>
-                        </li>
-                        <li className="nav-item active ">
-                            <Link className="nav-link" to="/myvacation">
-                                My-vacation
-                            </Link>
-                        </li>
-                        {/* <li className="nav-item">
-              <Link className="nav-link" to="/artists/:id">
-                Show
-              </Link>
-            </li> */}
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/departments">
-                                All-Departments
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/complaints">
-                                All-Complaints
-                            </Link>
-                        </li>
+                        {
+                            (user.authenticated && (user.employee_group === 'admin' || user.employee_group === 'higher-management' || user.employee_group === 'middle-management')) && (
+                                <>
+                                    <li className="nav-item active ">
+                                        <Link className="nav-link" to="/users">
+                                            ALL-users
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active ">
+                                        <Link className="nav-link" to="/tasks">
+                                            ALL-tasks
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active ">
+                                        <Link className="nav-link" to="/vacations">
+                                            ALL-vacations
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/departments">
+                                            All-Departments
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/complaints">
+                                            All-Complaints
+                                        </Link>
+                                    </li>
+                                </>
+                            )
+                        }
+                        {
+                            user.authenticated && (
+                                <>
+                                    <li className="nav-item active ">
+                                        <Link className="nav-link" to="/myvacation">
+                                            My-vacation
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active ">
+                                        <Link className="nav-link" to="/mytasks">
+                                            My-tasks
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active ">
+                                        <Link className="nav-link" to="/mycomplaints">
+                                            My-complaints
+                                        </Link>
+                                    </li>
+                                </>
+                            )
+                        }
                         <li className="nav-item">
                             <Link className="nav-link" to="/Error">
                                 About

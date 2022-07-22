@@ -56,15 +56,20 @@ const post = async (url, data, token) => {
     }
 }
 
-const put = async (url, data) => {
+const put = async (url, data, token) => {
     try {
         console.log(data,url)
-        const result =  await axios.put(url, data);
+        const result =  await axios.put(url, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
         return {
             success: true,
             result,
         }
     } catch (err) {
+        console.log(err)
         let error=null
         if (err.response) {
             error = err.response.data.message
@@ -80,9 +85,13 @@ const put = async (url, data) => {
     }
 }
 
-const destroy = async (url) => {
+const destroy = async (url, token) => {
     try {
-        const result = await axios.delete(url);
+        const result = await axios.delete(url, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
         return {
             success: true,
             result,

@@ -5,6 +5,8 @@ import ViewUser from "./ViewUser";
 import CreateUserModal from "./CreateUserModal";
 import {UserContext} from "../../App";
 import {useNavigate} from "react-router-dom";
+import EditUserModal from "./EditUserModal";
+import DeleteUserModal from "./DeleteUserModal";
 
 
 const ListAllUsers = () => {
@@ -13,10 +15,16 @@ const ListAllUsers = () => {
   const [success, setSuccess] = useState('');
   const [userData,setUserData] = useState({
     name:'',
+    employee_code: '',
     employee_title:'',
+    employee_group:'',
+    email: '',
+    b_date: '',
     gender:'',
     phone:'',
     salary:'',
+    department_id: '',
+    supervisor_id: null,
     supervisor:{
       name:''
     },
@@ -107,12 +115,16 @@ const ListAllUsers = () => {
                 <i
                     className="far fa-edit fa-lg ms-2"
                     style={{ cursor: "pointer", color: "blue" }}
-                    onClick={() => console.log(record.id)}
+                    data-bs-toggle="modal"
+                    data-bs-target="#editModal"
+                    onClick={() => setUserData(record)}
                 ></i>
                 <i
                     className="fa-regular fa-trash-can fa-lg ms-2"
                     style={{ cursor: "pointer", color: "red" }}
-                    onClick={() => console.log(record.id)}
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                    onClick={() => setUserData(record)}
                 ></i>
 
                 <i
@@ -212,8 +224,16 @@ const ListAllUsers = () => {
           <CreateUserModal
             setSuccess={setSuccess}
           />
+          <EditUserModal
+              record={userData}
+              setSuccess={setSuccess}
+          />
           <ViewUser
             record={userData}
+          />
+          <DeleteUserModal
+              id={userData.id}
+              setSuccess={setSuccess}
           />
           <DataTable
             columns={columns}

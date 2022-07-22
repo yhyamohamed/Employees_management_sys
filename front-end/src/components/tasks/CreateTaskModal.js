@@ -15,7 +15,8 @@ function CreateTaskModal({setSuccess, user}) {
     setLoading(true);
     const result = await APIService.post(
       "http://127.0.0.1:8000/api/tasks",
-      data
+        data,
+        localStorage.getItem("token")
     );
     if (result.success) {
       setSuccess('Task created successfully.');
