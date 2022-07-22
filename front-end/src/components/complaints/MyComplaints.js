@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
-import CreateComplaintModal from "./CreateComplaintModal";
+import CreateMyComplaintModal from "./CreateMyComplaintModal";
 import DeleteComplaintModal from "./DeleteComplaintModal";
 import ViewComplaint from "./ViewComplaint";
 import EditComplaintModal from "./EditComplaintModal";
@@ -55,7 +55,7 @@ function MyComplaints() {
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
-  
+
   useEffect(() => {
     if (!user.authenticated)
       navigate("/login");
@@ -217,7 +217,7 @@ function MyComplaints() {
                 Add new complaint
               </button>
             </div>
-            <CreateComplaintModal
+            <CreateMyComplaintModal
               setSuccess={setSuccess}
             />
             <ViewComplaint
