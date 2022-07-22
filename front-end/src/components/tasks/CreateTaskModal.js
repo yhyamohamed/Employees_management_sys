@@ -1,11 +1,11 @@
 import { useState } from "react";
 import APIService from "../../services/APIService";
 
-function CreateTaskModal({setSuccess}) {
+function CreateTaskModal({setSuccess, user}) {
   const [data, setData] = useState({
     priority: 1,
     status: "opened",
-    created_by: 1,
+    created_by: user.id,
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);

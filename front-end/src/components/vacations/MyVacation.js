@@ -62,7 +62,7 @@ const customStyles = {
       }, [user]);
     
     const { data, isPending, error } = useGet(
-      "GET","http://127.0.0.1:8000/api/myvacation"
+      "GET","http://127.0.0.1:8000/api/myvacation", user.token
     );
     
    

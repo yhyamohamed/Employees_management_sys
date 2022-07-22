@@ -31,7 +31,7 @@ function App() {
                 setUser({
                     authenticated: true,
                     token: localStorage.getItem('token'),
-                    ...result.data
+                    ...result.result.data
                 });
                 setLoading(false);
             } else {

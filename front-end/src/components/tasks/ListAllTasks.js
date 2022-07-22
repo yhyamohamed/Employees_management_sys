@@ -182,6 +182,7 @@ function ListAllTasks() {
             </div>
             <CreateTaskModal
               setSuccess={setSuccess}
+              user={user}
             />
             <ViewTask
                 record={currentTask}
