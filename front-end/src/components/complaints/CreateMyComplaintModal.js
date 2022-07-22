@@ -22,7 +22,6 @@ function CreateMyComplaintModal({ setSuccess, setCreateMessage }) {
       navigate("/login");
   }, [user]);
 
-  // const { data, issPending, error } = useGet('GET', "http://127.0.0.1:8000/api/users")
   const [Error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   
