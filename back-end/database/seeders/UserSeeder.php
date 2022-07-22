@@ -22,7 +22,8 @@ class UserSeeder extends Seeder
             'gender' => 'Male',
             'phone' => '123',
             'salary' => '9999',
-            'b_date' => '1975-01-01'
+            'b_date' => '1975-01-01',
+            'department_id' => '1',
         ]);
         User::factory(100)->create();
     }
