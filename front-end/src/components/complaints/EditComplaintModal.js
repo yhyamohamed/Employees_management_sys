@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
+import useGet from "../../custumHooks/useGet";
 import APIService from "../../services/APIService";
 
 function EditComplaintModal({ complaint, setSuccess }) {
-    const [data, setData] = useState(complaint);
-    const [error, setError] = useState(null);
+    const [dataModel, setData] = useState(complaint);
+    const [err, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const { data, issPending, error } = useGet('GET', "http://127.0.0.1:8000/api/users")
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         const result = await APIService.put(
             `http://127.0.0.1:8000/api/complaints/${complaint.id}`,
-            data
+            dataModel
         );
         if (result.success) {
             setSuccess('Complaint updated successfully.');
             document.getElementById("close-edit-modal").click();
         } else {
-            setError(result.error);
+            setError(result.err);
         }
         setLoading(false);
     };
@@ -43,35 +45,31 @@ function EditComplaintModal({ complaint, setSuccess }) {
                             ></button>
                         </div>
                         <div className="modal-body">
-                            {error && (
+                            {err && (
                                 <div className="alert alert-danger" role="alert">
-                                    <small>{error}</small>
+                                    <small>{err}</small>
                                 </div>
                             )}
                             <div className="mb-3">
-                                <label htmlFor="employee_id" className="form-label">
-                                    Employee ID
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="employee_id"
-                                    value={data.employee_id}
-                                    onChange={(e) => setData({ ...data, employee_id: e.target.value })}
-                                />
+                                <label htmlFor="employee_id" className="form-label">Employee Name</label>
+                                <select className="d-block w-100" id="employee_id" 
+                                    onChange={(e) => setData({ ...dataModel, employee_id: e.target.value, department_id: data.filter(obj => obj.id == e.target.value)[0].department_id })}>
+                                    <option value={dataModel.employee_id}>{dataModel.user.name}</option>
+                                    {data &&
+                                        data.map(user => (
+                                            <option key={user.id} value={user.id}>{user.name}</option>
+                                        ))
+                                    }
+                                </select>
                             </div>
-                            <div className="mb-3">
+                            {/* <div className="mb-3">
                                 <label htmlFor="department_id" className="form-label">
-                                    Department ID
+                                    Department
                                 </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="department_id"
-                                    value={data.department_id}
-                                    onChange={(e) => setData({ ...data, department_id: e.target.value })}
-                                />
-                            </div>
+                                <div>
+                                    <p><span className="text-primary"> {dataModel.department.name}</span></p>
+                                </div>
+                            </div> */}
                             <div className="mb-3">
                                 <label htmlFor="subject" className="form-label">
                                     Subject
@@ -80,9 +78,9 @@ function EditComplaintModal({ complaint, setSuccess }) {
                                     type="text"
                                     className="form-control"
                                     id="subject"
-                                    value={data.subject}
+                                    value={dataModel.subject}
                                     onChange={(e) =>
-                                        setData({ ...data, subject: e.target.value })
+                                        setData({ ...dataModel, subject: e.target.value })
                                     }
                                 />
                             </div>
@@ -94,9 +92,9 @@ function EditComplaintModal({ complaint, setSuccess }) {
                                     type="body"
                                     className="form-control"
                                     id="body"
-                                    value={data.body}
+                                    value={dataModel.body}
                                     onChange={(e) =>
-                                        setData({ ...data, body: e.target.value })
+                                        setData({ ...dataModel, body: e.target.value })
                                     }
                                 >
                                 </textarea>
@@ -108,15 +106,30 @@ function EditComplaintModal({ complaint, setSuccess }) {
                                 <select
                                     className="form-control"
                                     id="status"
-                                    value={data.status}
+                                    value={dataModel.status}
                                     onChange={(e) =>
-                                        setData({ ...data, status: e.target.value })
+                                        setData({ ...dataModel, status: e.target.value })
                                     }
                                 >
                                     <option value="pending">Pending</option>
-                                    <option value="in-progress">In-progress</option>
-                                    <option value="resolved">Resolved</option>
+                                    <option value="reviewing">Reviewing</option>
+                                    <option value="solved">Solved</option>
                                 </select>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="reasons" className="form-label">
+                                    Reasons
+                                </label>
+                                <textarea
+                                    type="reasons"
+                                    className="form-control"
+                                    id="reasons"
+                                    value={dataModel.reasons}
+                                    onChange={(e) =>
+                                        setData({ ...dataModel, reasons: e.target.value })
+                                    }
+                                >
+                                </textarea>
                             </div>
                         </div>
                         <div className="modal-footer">

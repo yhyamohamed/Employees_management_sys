@@ -35,7 +35,7 @@ const customStyles = {
 
 function ListAllComplaints() {
     const [txt, setTxt] = useState("");
-    const [viewData, setViewData] = useState({
+    const [currentComplaint, setCurrentComplaint] = useState({
       id: 0,
       Employee: '',
       Department: '',
@@ -50,7 +50,6 @@ function ListAllComplaints() {
         name:''
       }
   })
-    const [currentComplaint, setCurrentComplaint] = useState(0);
     const [success, setSuccess] = useState('');
     const { data, isPending, error } = useGet(
       "GET",
@@ -129,6 +128,8 @@ function ListAllComplaints() {
                 <i
                     className="far fa-edit fa-lg me-2"
                     style={{ cursor: "pointer", color: "blue" }}
+                    data-bs-toggle="modal"
+                    data-bs-target="#editModal"
                     onClick={() => setCurrentComplaint(record)}
                 ></i>
                 <i
@@ -136,7 +137,7 @@ function ListAllComplaints() {
                     style={{ cursor: "pointer", color: "red" }}
                     data-bs-toggle="modal"
                     data-bs-target="#deleteModal"
-                    onClick={() => setCurrentComplaint(record.id)}
+                    onClick={() => setCurrentComplaint(record)}
                 ></i>
 
                 <i
@@ -144,7 +145,7 @@ function ListAllComplaints() {
                     data-bs-toggle="modal"
                     data-bs-target="#viewModal"
                     style={{cursor: "pointer", color: "green"}}
-                    onClick={() => setViewData(record)}
+                    onClick={() => setCurrentComplaint(record)}
                 ></i>
               </div>
             </>
@@ -216,14 +217,14 @@ function ListAllComplaints() {
               setSuccess={setSuccess}
             />
             <ViewComplaint
-                record={viewData}
+                record={currentComplaint}
             />
             <EditComplaintModal
                 complaint={currentComplaint}
                 setSuccess={setSuccess}
             />
             <DeleteComplaintModal
-                id={currentComplaint}
+                id={currentComplaint.id}
                 setSuccess={setSuccess}
             />
           </div>

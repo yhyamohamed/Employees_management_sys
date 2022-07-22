@@ -25,7 +25,7 @@ function CreateComplaintModal({ setSuccess, setCreateMessage }) {
       dataModel
     );
     if (result.success) {
-      setSuccess('Department created successfully.');
+      setSuccess('Compalint created successfully.');
       document.getElementById("close-modal").click();
     } else {
       console.log(result, result.error)
@@ -40,7 +40,7 @@ function CreateComplaintModal({ setSuccess, setCreateMessage }) {
       <form onSubmit={handleSubmit} className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">Create Department</h5>
+            <h5 className="modal-title" id="exampleModalLabel">Make a Complaint</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal"
               aria-label="Close"></button>
           </div>
@@ -49,18 +49,18 @@ function CreateComplaintModal({ setSuccess, setCreateMessage }) {
               <div className="alert alert-danger" role="alert">
                 <small>{Error}</small>
               </div>
-            )}      
+            )}
             <div className="mb-3">
-                <label htmlFor="employee_id" className="form-label">Employee Name</label>
-                <select className="d-block w-100" id="employee_id" defaultValue={'none'}
-                        onChange={(e) => setData({...dataModel, employee_id: e.target.value, department_id: data.filter (obj => obj.id == e.target.value)[0].department_id})}>
-                    <option value="none" disabled hidden>Employee Name</option>
-                    {data &&
-                        data.map(user => (
-                            <option key={user.id} value={user.id}>{user.name}</option>
-                        ))
-                    }
-                </select>
+              <label htmlFor="employee_id" className="form-label">Employee Name</label>
+              <select className="d-block w-100" id="employee_id" defaultValue={'none'}
+                onChange={(e) => setData({ ...dataModel, employee_id: e.target.value, department_id: data.filter(obj => obj.id == e.target.value)[0].department_id })}>
+                <option value="none" disabled hidden>Employee Name</option>
+                {data &&
+                  data.map(user => (
+                    <option key={user.id} value={user.id}>{user.name}</option>
+                  ))
+                }
+              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="subject" className="form-label">
@@ -91,14 +91,14 @@ function CreateComplaintModal({ setSuccess, setCreateMessage }) {
                 Status
               </label>
               <select
-                className="form-control"
+                className="form-control" defaultValue={'none'}
                 id="status"
                 onChange={(e) => setData({ ...dataModel, status: e.target.value })}
               >
-                <option selected disabled hidden>Select Status</option>
+                <option value="none" disabled hidden>Select Status</option>
                 <option value="pending">Pending</option>
-                <option value="resolved">Resolved</option>
-                <option value="rejected">Rejected</option>
+                <option value="reviewing">Reviewing</option>
+                <option value="solved">Solved</option>
               </select>
             </div>
             {dataModel.status}
