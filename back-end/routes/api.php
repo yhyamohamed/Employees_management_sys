@@ -30,15 +30,10 @@ Route::resource('/users', UserController::class)->missing(function (Request $req
 Route::get('/managers',[ManagerController::class,'index']);
 Route::resource('/departments', DepartmentController::class);
 Route::resource('/tasks', TaskController::class);
-<<<<<<< HEAD
-Route::resource('/vacations', VacationController::class)->middleware(['can:viewAny']);
-Route::resource('/myvacation', MyVacationController::class);
-=======
 Route::resource('/mytasks', MyTasksController::class);
 Route::resource('/vacations', VacationController::class);
 Route::resource('/myvacations', MyVacationController::class);
 Route::resource('/myovertime', MyOvertimeController::class);
->>>>>>> b8170c113af434677d8ab8295668f1107f3ec31d
 Route::resource('/complaints', ComplaintController::class);
 Route::resource('/mycomplaints', MyComplaintsController::class);
 Route::resource('/attendance', AttendanceController::class);
