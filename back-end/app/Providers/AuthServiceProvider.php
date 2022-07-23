@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+
 use App\Models\Attendance;
 use App\Models\Complaint;
 use App\Models\Leave;
@@ -22,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Vacation::class=>VacationPolicy::class,
+
         Attendance::class=>VacationPolicy::class,
         Complaint::class=>VacationPolicy::class,
         Leave::class=>VacationPolicy::class,
