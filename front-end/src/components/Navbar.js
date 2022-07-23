@@ -1,6 +1,7 @@
 import {useContext} from "react";
 import {Link} from "react-router-dom";
 import {UserContext} from "../App";
+import APIService from "../services/APIService";
 
 const Navbar = () => {
     const {user, setUser} = useContext(UserContext);
@@ -87,7 +88,10 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <span className="nav-link"
                                       style={{cursor: "pointer"}}
-                                        onClick={() => {
+                                        onClick={async () => {
+                                            await APIService.post('http://127.0.0.1:8000/api/leave', {
+                                                user_id: user.id,
+                                            });
                                             localStorage.removeItem('token');
                                             setUser({authenticated: false, token: ''});
                                         }}

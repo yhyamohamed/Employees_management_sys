@@ -41,6 +41,7 @@ const post = async (url, data, token) => {
             result,
         }
     } catch (err) {
+        console.log(err);
         let error=null
          if (err.response) {
            error = err.response.data.message

@@ -28,6 +28,9 @@ const Login = () => {
                 token: result.result.data.token,
                 ...result.result.data
             }
+            await APIService.post('http://127.0.0.1:8000/api/attendance', {
+                user_id: user.id,
+            });
             setUser(user);
             localStorage.setItem('token', result.result.data.token);
             navigate('/');
