@@ -108,7 +108,7 @@ const Navbar = () => {
                         {/*    )*/}
                         {/*}*/}
                         <li className="nav-item">
-                            <Link className="nav-link" to="/Error">
+                            <Link className="nav-link" to="/about">
                                 About
                             </Link>
                         </li>

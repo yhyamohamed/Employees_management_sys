@@ -19,6 +19,7 @@ import MyLeave from "./components/leave/MyLeave";
 import MyOvertime from "./components/overtime/MyOvertime";
 
 import ListAllComplaints from "./components/complaints/ListAllComplaints";
+import About from './components/About';
 const MainRoutes = () => {
   return (
     <>
@@ -41,6 +42,7 @@ const MainRoutes = () => {
           <Route path="/myvacation" element={<MyVacation />}></Route>
           <Route path="/mycomplaints" element={<MyComplaints />}></Route>
           <Route path="/mytasks" element={<MyTasks />}></Route>
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
     </>
