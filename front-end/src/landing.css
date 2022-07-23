@@ -14,7 +14,7 @@ cursor: pointer;
         #4ca1af
     ); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #c4e0e5, #4ca1af);
-  transform: scale(1.2, 1.2);
+  /*transform: scale(1.2, 1.2);*/
   overflow: hidden;
 }
 #contain > div {

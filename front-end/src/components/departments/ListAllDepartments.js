@@ -41,7 +41,8 @@ const ListAllDepartments = () => {
 
     const { data, isPending, error,refetch } = useGet(
       "GET",
-      "http://127.0.0.1:8000/api/departments"
+      "http://127.0.0.1:8000/api/departments",
+        localStorage.getItem('token')
     );
     const [txt, setTxt] = useState("");
     const [success, setSuccess] = useState('');
@@ -70,6 +71,8 @@ const handleChange = ()=>{
     useEffect(() => {
         if(!user.authenticated)
             navigate("/login");
+        if(user.employee_group !== 'admin' && user.employee_group !== 'higher-management' && user.employee_group !== 'middle-management')
+            navigate('/home');
     }, [user]);
 
     function search(rows) {

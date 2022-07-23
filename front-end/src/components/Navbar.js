@@ -9,7 +9,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-info">
             <div className="container">
-                <Link className="navbar-brand" to="/">
+                <Link className="navbar-brand" to="/home">
                     Home
                 </Link>
                 <button
@@ -48,21 +48,21 @@ const Navbar = () => {
                                             ALL-Leave
                                         </Link>
                                     </li>
-                                    <li className="nav-item active ">
-                                        <Link className="nav-link" to="/myattendance">
-                                            My Attendance
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item active ">
-                                        <Link className="nav-link" to="/myleave">
-                                            My Leave
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item active ">
-                                        <Link className="nav-link" to="/myovertime">
-                                            My Overtime
-                                        </Link>
-                                    </li>
+                                    {/*<li className="nav-item active ">*/}
+                                    {/*    <Link className="nav-link" to="/myattendance">*/}
+                                    {/*        My Attendance*/}
+                                    {/*    </Link>*/}
+                                    {/*</li>*/}
+                                    {/*<li className="nav-item active ">*/}
+                                    {/*    <Link className="nav-link" to="/myleave">*/}
+                                    {/*        My Leave*/}
+                                    {/*    </Link>*/}
+                                    {/*</li>*/}
+                                    {/*<li className="nav-item active ">*/}
+                                    {/*    <Link className="nav-link" to="/myovertime">*/}
+                                    {/*        My Overtime*/}
+                                    {/*    </Link>*/}
+                                    {/*</li>*/}
                                     <li className="nav-item active ">
                                         <Link className="nav-link" to="/over-time">
                                             ALL-Overtime
@@ -86,27 +86,27 @@ const Navbar = () => {
                                 </>
                             )
                         }
-                        {
-                            user.authenticated && (
-                                <>
-                                    <li className="nav-item active ">
-                                        <Link className="nav-link" to="/myvacation">
-                                            My-vacation
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item active ">
-                                        <Link className="nav-link" to="/mytasks">
-                                            My-tasks
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item active ">
-                                        <Link className="nav-link" to="/mycomplaints">
-                                            My-complaints
-                                        </Link>
-                                    </li>
-                                </>
-                            )
-                        }
+                        {/*{*/}
+                        {/*    user.authenticated && (*/}
+                        {/*        <>*/}
+                        {/*            <li className="nav-item active ">*/}
+                        {/*                <Link className="nav-link" to="/myvacation">*/}
+                        {/*                    My-vacation*/}
+                        {/*                </Link>*/}
+                        {/*            </li>*/}
+                        {/*            <li className="nav-item active ">*/}
+                        {/*                <Link className="nav-link" to="/mytasks">*/}
+                        {/*                    My-tasks*/}
+                        {/*                </Link>*/}
+                        {/*            </li>*/}
+                        {/*            <li className="nav-item active ">*/}
+                        {/*                <Link className="nav-link" to="/mycomplaints">*/}
+                        {/*                    My-complaints*/}
+                        {/*                </Link>*/}
+                        {/*            </li>*/}
+                        {/*        </>*/}
+                        {/*    )*/}
+                        {/*}*/}
                         <li className="nav-item">
                             <Link className="nav-link" to="/Error">
                                 About

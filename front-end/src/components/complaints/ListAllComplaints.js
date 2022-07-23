@@ -53,7 +53,8 @@ function ListAllComplaints() {
   const [success, setSuccess] = useState('');
   const { data, isPending, error,refetch } = useGet(
     "GET",
-    "http://127.0.0.1:8000/api/complaints"
+    "http://127.0.0.1:8000/api/complaints",
+      localStorage.getItem('token')
   );
 
   const navigate = useNavigate();
@@ -66,6 +67,8 @@ function ListAllComplaints() {
   useEffect(() => {
     if (!user.authenticated)
       navigate("/login");
+    if(user.employee_group !== 'admin' && user.employee_group !== 'higher-management' && user.employee_group !== 'middle-management')
+      navigate('/home');
   }, [user]);
 
 

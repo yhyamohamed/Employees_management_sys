@@ -7,7 +7,8 @@ function EditDepartmentModal({ department, setSuccess, handleChange }) {
   const [loading, setLoading] = useState(false);
   const { data, isPending, Error } = useGet(
     "GET",
-    "http://127.0.0.1:8000/api/managers"
+    "http://127.0.0.1:8000/api/managers",
+      localStorage.getItem('token')
   );
 
 

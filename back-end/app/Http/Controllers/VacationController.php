@@ -11,7 +11,8 @@ class VacationController extends Controller
 
     public function index()
     {
-        // $this->authorize('view');
+
+         $this->authorize('viewAny',Vacation::class);
         return response()->json(Vacation::with('department','user')->get(), 200);
 
     }

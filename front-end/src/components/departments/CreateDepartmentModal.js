@@ -9,7 +9,7 @@ function CreateDepartmentModal({setSuccess, handleChange }) {
         manager_start_at: "",
     });
 
-    const {data, isPending, error} = useGet('GET', "http://127.0.0.1:8000/api/managers")
+    const {data, isPending, error} = useGet('GET', "http://127.0.0.1:8000/api/managers", localStorage.getItem('token'))
     // const [success, setSuccess] = useState(null);
     const [Error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
