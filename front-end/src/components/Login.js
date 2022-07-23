@@ -35,7 +35,7 @@ const Login = () => {
             });
             setUser(user);
             localStorage.setItem('token', result.result.data.token);
-            navigate('/');
+            navigate('/home');
         } else {
             setError(result.error);
         }
@@ -44,7 +44,7 @@ const Login = () => {
 
     useEffect(() => {
         if (user.authenticated) {
-            navigate('/');
+            navigate('/home');
         }
     }, [user]);
     return (
