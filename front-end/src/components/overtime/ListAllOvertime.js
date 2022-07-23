@@ -56,7 +56,7 @@ function ListAllOvertime() {
     })
 
     const {data, isPending, error} = useGet(
-        "GET", "http://127.0.0.1:8000/api/over-time"
+        "GET", "http://127.0.0.1:8000/api/over-time", localStorage.getItem('token')
     );
 
     const navigate = useNavigate();

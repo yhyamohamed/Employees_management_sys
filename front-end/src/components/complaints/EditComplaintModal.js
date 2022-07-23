@@ -7,7 +7,7 @@ function EditComplaintModal({ complaint, setSuccess ,handleChange}) {
     const [err, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const { data, issPending, error } = useGet('GET', "http://127.0.0.1:8000/api/users")
+    const { data, issPending, error } = useGet('GET', "http://127.0.0.1:8000/api/users", localStorage.getItem('token'))
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
