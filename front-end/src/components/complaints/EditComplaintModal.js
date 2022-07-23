@@ -13,7 +13,8 @@ function EditComplaintModal({ complaint, setSuccess ,handleChange}) {
         setLoading(true);
         const result = await APIService.put(
             `http://127.0.0.1:8000/api/complaints/${complaint.id}`,
-            dataModel
+            dataModel,
+            localStorage.getItem('token')
         );
         if (result.success) {
             setSuccess('Complaint updated successfully.');

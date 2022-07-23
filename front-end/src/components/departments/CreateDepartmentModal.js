@@ -19,7 +19,8 @@ function CreateDepartmentModal({setSuccess, handleChange }) {
         setLoading(true);
         const result = await APIService.post(
             "http://127.0.0.1:8000/api/departments",
-            dataModal
+            dataModal,
+            localStorage.getItem('token')
         );
         if (result.success) {
             setSuccess('Department created successfully.');

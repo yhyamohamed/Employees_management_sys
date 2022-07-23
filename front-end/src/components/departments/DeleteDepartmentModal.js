@@ -8,7 +8,8 @@ function DeleteDepartmentModal({ id, setSuccess, handleChange }) {
   const handleDelete = async () => {
     setLoading(true);
     const result = await APIService.destroy(
-      `http://127.0.0.1:8000/api/departments/${id}`
+      `http://127.0.0.1:8000/api/departments/${id}`,
+        localStorage.getItem('token')
     );
     if (result.success) {
       setSuccess("Department deleted successfully.");

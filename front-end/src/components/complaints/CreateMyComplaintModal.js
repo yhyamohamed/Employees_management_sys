@@ -30,7 +30,8 @@ function CreateMyComplaintModal({ setSuccess, setCreateMessage }) {
     setLoading(true);
     const result = await APIService.post(
       "http://127.0.0.1:8000/api/complaints",
-      dataModel
+      dataModel,
+        localStorage.getItem('token')
       );
       if (result.success) {
         setSuccess('Compalint created successfully.');

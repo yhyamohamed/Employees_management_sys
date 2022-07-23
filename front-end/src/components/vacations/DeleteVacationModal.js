@@ -7,7 +7,7 @@ function DeleteVacationModal({id, setSuccess, handleChange}) {
 
     const handleDelete = async () => {
         setLoading(true);
-        const result = await APIService.destroy(`http://127.0.0.1:8000/api/vacations/${id}`);
+        const result = await APIService.destroy(`http://127.0.0.1:8000/api/vacations/${id}`,localStorage.getItem('token'));
         if (result.success) {
             setSuccess('Vacation deleted successfully.');
             document.getElementById("close-delete-modal").click();
