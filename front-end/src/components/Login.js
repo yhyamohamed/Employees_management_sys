@@ -48,22 +48,23 @@ const Login = () => {
     }, [user]);
     return (
         <>
-            <div className="h-100 d-flex justify-content-center align-items-center">
-                <div className="mt-5 border-right  border-white border-2 p-2">
+            <div className="vh-100 d-flex justify-content-center align-items-center gap-5">
+                <div className="mt-5 p-2 d-flex flex-column justify-content-center align-items-center">
                     <i
-                        className="fa-solid fa-feather-pointed fa-2xl"
+                        className="fa-solid fa-feather-pointed fa-10x"
                         style={{color: "white"}}
                     ></i>
                     <br/>
-                    <h5 className="mt-1 text-white "> LOGO</h5>
+                    <h1 className="mt-1 text-white">LOGO</h1>
                 </div>
-                <div className=" flex  items-center justify-center main">
+                <div className="border-end border-white border-2 h-25"></div>
+                <div className=" flex items-center justify-center main">
                     <form onSubmit={handleSubmit} className=" w-2/4 pr-4 login ">
-                        <h1 className="text-xl italic font-medium mb-2">Login</h1>
+                        <h1 className="text-xl italic font-medium mb-2 text-white">Login</h1>
 
 
                         <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Email</label>
+                            <label htmlFor="exampleInputEmail1" className="text-white">Email</label>
                             <input
                                 type="email"
                                 className="form-control"
@@ -74,7 +75,7 @@ const Login = () => {
 
                         </div>
                         <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">Password</label>
+                            <label htmlFor="exampleInputPassword1" className="text-white">Password</label>
                             <input
                                 type="password"
                                 className="form-control"
