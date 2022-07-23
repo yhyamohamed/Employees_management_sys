@@ -13,6 +13,7 @@ class AttendanceController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny',Attendance::class);
         return response()->json(Attendance::with('user','user.department','user.supervisor')->get(), 200);
     }
 

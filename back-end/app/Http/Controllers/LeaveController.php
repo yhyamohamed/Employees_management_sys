@@ -15,6 +15,7 @@ class LeaveController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny',Leave::class);
         return response()->json(Leave::with('user','user.department','user.supervisor')->get(), 200);
     }
 

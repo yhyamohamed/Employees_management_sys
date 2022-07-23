@@ -13,6 +13,7 @@ class OverTimeController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny',OverTime::class);
         return response()->json(OverTime::with('user','user.department','user.supervisor')->get(), 200);
 
     }

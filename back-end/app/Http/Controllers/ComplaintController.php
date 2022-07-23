@@ -11,6 +11,7 @@ class ComplaintController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny',Complaint::class);
         return response()->json(Complaint::with('department','user')->get(), 200);
 
     }
