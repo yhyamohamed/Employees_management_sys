@@ -12,7 +12,7 @@ function goToLogin() {
 }
 
   return (
-    <>
+    <div className="wrap">
       <div id="contain" onClick={goToLogin}>
         <div>
           <div></div>
@@ -27,7 +27,7 @@ function goToLogin() {
           <div></div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
