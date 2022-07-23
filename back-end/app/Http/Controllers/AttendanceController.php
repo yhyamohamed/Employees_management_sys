@@ -13,7 +13,7 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        return response()->json(Attendance::all(), 200);
+        return response()->json(Attendance::with('user','user.department','user.supervisor')->get(), 200);
     }
 
 
@@ -45,7 +45,7 @@ class AttendanceController extends Controller
 
     public function update(UpdateAbsenceRequest $request, Attendance $attendance)
     {
-        $updated_entry = Attendance::update($request->all());
+        $updated_entry = $attendance->update($request->all());
 
         if ($updated_entry) {
             return response()->json($updated_entry, 200);

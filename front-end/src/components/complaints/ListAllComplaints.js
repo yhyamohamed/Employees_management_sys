@@ -1,41 +1,69 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
 import CreateComplaintModal from "./CreateComplaintModal";
+import DeleteComplaintModal from "./DeleteComplaintModal";
+import ViewComplaint from "./ViewComplaint";
+import EditComplaintModal from "./EditComplaintModal";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
 
 const customStyles = {
-    columns: {
-        style: {
-            width: "fit-content",
-        },
+  columns: {
+    style: {
+      width: "fit-content",
     },
-    rows: {
-        style: {
-            minHeight: "50px", // override the row height
-        },
+  },
+  rows: {
+    style: {
+      minHeight: "50px", // override the row height
     },
-    headCells: {
-        style: {
-            paddingLeft: "8px", // override the cell padding for head cells
-            paddingRight: "8px",
-        },
+  },
+  headCells: {
+    style: {
+      paddingLeft: "8px", // override the cell padding for head cells
+      paddingRight: "8px",
     },
-    cells: {
-        style: {
-            paddingLeft: "8px", // override the cell padding for data cells
-            paddingRight: "8px",
-        },
+  },
+  cells: {
+    style: {
+      paddingLeft: "8px", // override the cell padding for data cells
+      paddingRight: "8px",
     },
+  },
 };
 
 function ListAllComplaints() {
-    const [txt, setTxt] = useState("");
-    const [currentID, setCurrentID] = useState(0);
-    const [success, setSuccess] = useState('');
-    const { data, isPending, error } = useGet(
-      "GET",
-      "http://127.0.0.1:8000/api/complaints"
-    );
+  const [txt, setTxt] = useState("");
+  const [currentComplaint, setCurrentComplaint] = useState({
+    id: 0,
+    Employee: '',
+    Department: '',
+    Subject: '',
+    Body: '',
+    Status: '',
+    Reasons: '',
+    user: {
+      name: '',
+    },
+    department: {
+      name: ''
+    }
+  })
+  const [success, setSuccess] = useState('');
+  const { data, isPending, error } = useGet(
+    "GET",
+    "http://127.0.0.1:8000/api/complaints"
+  );
+
+  const navigate = useNavigate();
+
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (!user.authenticated)
+      navigate("/login");
+  }, [user]);
 
   function search(rows) {
     return rows.filter((row) =>
@@ -50,34 +78,39 @@ function ListAllComplaints() {
       sortable: true,
     },
     {
-        name: 'Employee ID',
-        selector: row => row.user.name,
-        sortable: true
+      name: 'Employee',
+      selector: row => row.user.name,
+      sortable: true
     },
     {
-        name: 'Department',
-        selector: row => row.department.name,
-        sortable: true
+      name: 'Department',
+      selector: row => row.department.name,
+      sortable: true
     },
     {
-        name: 'Subject',
-        selector: row => row.subject,
-        sortable: true
+      name: 'Subject',
+      selector: row => row.subject,
+      sortable: true
     },
     {
-        name: 'Body',
-        selector: row => row.body,
-        sortable: true
+      name: 'Body',
+      selector: row => row.body,
+      sortable: true
     },
     {
-        name: 'Reasons',
-        selector: row => row.reasons,
-        sortable: true
+      name: 'Status',
+      selector: row => row.status,
+      sortable: true
     },
     {
-        name: 'Created At',
-        selector: row => row.created_at,
-        sortable: true
+      name: 'Reasons',
+      selector: row => row.reasons,
+      sortable: true
+    },
+    {
+      name: 'Created At',
+      selector: row => row.created_at,
+      sortable: true
     },
     {
       key: "action",
@@ -90,28 +123,32 @@ function ListAllComplaints() {
 
       cell: (record) => {
         return (
-            <>
-              <div className="d-flex justify-content-between w-75">
-                <i
-                    className="far fa-edit fa-lg me-2"
-                    style={{ cursor: "pointer", color: "blue" }}
-                    onClick={() => console.log(record.id)}
-                ></i>
-                <i
-                    className="fa-regular fa-trash-can fa-lg me-2"
-                    style={{ cursor: "pointer", color: "red" }}
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteModal"
-                    onClick={() => setCurrentID(record.id)}
-                ></i>
+          <>
+            <div className="d-flex justify-content-between w-75">
+              <i
+                className="far fa-edit fa-lg me-2"
+                style={{ cursor: "pointer", color: "blue" }}
+                data-bs-toggle="modal"
+                data-bs-target="#editModal"
+                onClick={() => setCurrentComplaint(record)}
+              ></i>
+              <i
+                className="fa-regular fa-trash-can fa-lg me-2"
+                style={{ cursor: "pointer", color: "red" }}
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal"
+                onClick={() => setCurrentComplaint(record)}
+              ></i>
 
-                <i
-                    className="fa-solid fa-circle-info fa-lg me-2"
-                    style={{ cursor: "pointer", color: "green" }}
-                    onClick={() => console.log(record.id)}
-                ></i>
-              </div>
-            </>
+              <i
+                className="fa-solid fa-circle-info fa-lg"
+                data-bs-toggle="modal"
+                data-bs-target="#viewModal"
+                style={{ cursor: "pointer", color: "green" }}
+                onClick={() => setCurrentComplaint(record)}
+              ></i>
+            </div>
+          </>
         );
       },
     },
@@ -179,8 +216,20 @@ function ListAllComplaints() {
             <CreateComplaintModal
               setSuccess={setSuccess}
             />
+            <ViewComplaint
+              record={currentComplaint}
+            />
+            <EditComplaintModal
+              complaint={currentComplaint}
+              setSuccess={setSuccess}
+            />
+            <DeleteComplaintModal
+              id={currentComplaint.id}
+              setSuccess={setSuccess}
+            />
           </div>
-          <DataTable columns={columns} data={search(data)} pagination />
+          <DataTable columns={columns} data={search(data)} pagination
+            customStyles={customStyles} />
         </>
       )}
     </div>

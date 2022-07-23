@@ -17,8 +17,10 @@ class StoreComplaintRequest extends FormRequest
     {
         return [
             'subject' => ['required', 'unique:complaints'],
-            'employee_id'=>'exists:users',
-            'department_id'=>'exists:departments',
+            'employee_id'=>'exists:users,id',
+            'department_id'=>'exists:departments,id',
+            'employee_id'=>'required',
+            'department_id'=>'required',
         ];
     }
 }

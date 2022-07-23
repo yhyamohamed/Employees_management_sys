@@ -11,7 +11,8 @@ function CreateUserModal({setSuccess}) {
         setLoading(true);
         const result = await APIService.post(
             "http://127.0.0.1:8000/api/users",
-            data
+            data,
+            localStorage.getItem("token")
         );
         if (result.success) {
             setSuccess('User created successfully.');
@@ -67,7 +68,7 @@ function CreateUserModal({setSuccess}) {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="code" className="form-label">
+                                <label htmlFor="department_id" className="form-label">
                                     Department ID
                                 </label>
                                 <input
@@ -75,6 +76,17 @@ function CreateUserModal({setSuccess}) {
                                     className="form-control"
                                     id="department_id"
                                     onChange={(e) => setData({ ...data, department_id: e.target.value })}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="supervisor_id" className="form-label">
+                                    Supervisor ID
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="supervisor_id"
+                                    onChange={(e) => setData({ ...data, supervisor_id: e.target.value })}
                                 />
                             </div>
                             <div className="mb-3">
@@ -100,7 +112,7 @@ function CreateUserModal({setSuccess}) {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="name" className="form-label">
+                                <label htmlFor="date" className="form-label">
                                     Birth Date
                                 </label>
                                 <input
@@ -113,12 +125,12 @@ function CreateUserModal({setSuccess}) {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="priority" className="form-label">
+                                <label htmlFor="gender" className="form-label">
                                     Gender
                                 </label>
                                 <select
                                     className="d-block w-100"
-                                    id="priority"
+                                    id="gender"
                                     onChange={(e) =>
                                         setData({ ...data, gender: e.target.value })
                                     }
@@ -128,12 +140,12 @@ function CreateUserModal({setSuccess}) {
                                 </select>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="priority" className="form-label">
+                                <label htmlFor="employee_group" className="form-label">
                                     Employee Group
                                 </label>
                                 <select
                                     className="d-block w-100"
-                                    id="priority"
+                                    id="employee_group"
                                     onChange={(e) =>
                                         setData({ ...data, employee_group: e.target.value })
                                     }
@@ -146,12 +158,12 @@ function CreateUserModal({setSuccess}) {
                                 </select>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="priority" className="form-label">
+                                <label htmlFor="employee_title" className="form-label">
                                     Employee Title
                                 </label>
                                 <select
                                     className="d-block w-100"
-                                    id="priority"
+                                    id="employee_title"
                                     onChange={(e) =>
                                         setData({ ...data, employee_title: e.target.value })
                                     }

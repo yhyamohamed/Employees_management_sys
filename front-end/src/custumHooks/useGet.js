@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const useGet = (METHOD,URL) => {
+const useGet = (METHOD,URL, TOKEN = '') => {
   const [data, SetData] = useState(null);
   const [isPending, SetIsPending] = useState(true);
   const [error, SetError] = useState(false);
@@ -13,6 +13,9 @@ const useGet = (METHOD,URL) => {
         {
           method: METHOD,
           url: URL,
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+          },
         },
         { signal: abortReq.signal }
       )

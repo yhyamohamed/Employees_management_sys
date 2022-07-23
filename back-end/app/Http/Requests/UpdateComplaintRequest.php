@@ -17,8 +17,8 @@ class UpdateComplaintRequest extends FormRequest
         $comp = $this->route('complaint');
         return [
             'subject' =>"unique:complaints,subject,$comp->id",
-            'employee_id'=>'exists:users',
-            'department_id'=>'exists:departments',
+            'employee_id'=>'exists:users,id',
+            'department_id'=>'exists:departments,id',
         ];
     }
 }

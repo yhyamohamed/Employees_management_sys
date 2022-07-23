@@ -1,10 +1,12 @@
 import useGet from "../../custumHooks/useGet";
 import DataTable from "react-data-table-component";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import CreateVacationModal from "./CreateVacationModal";
 import DeleteVacationModal from "./DeleteVacationModal";
 import ViewVacation from "./ViewVacation";
 import EditVacationModal from "./EditVacationModal";
+import {useNavigate} from "react-router-dom";
+import {UserContext} from "../../App";
 
 const customStyles = {
     columns: {
@@ -56,6 +58,15 @@ const ListAllVacations = () => {
     const {data, isPending, error} = useGet(
         "GET", "http://127.0.0.1:8000/api/vacations"
     );
+
+    const navigate = useNavigate();
+
+    const {user} = useContext(UserContext);
+
+    useEffect(() => {
+        if(!user.authenticated)
+            navigate("/login");
+    }, [user]);
 
 
     function search(rows) {
@@ -122,7 +133,7 @@ const ListAllVacations = () => {
                                 style={{cursor: "pointer", color: "blue"}}
                                 data-bs-toggle="modal"
                                 data-bs-target="#editModal"
-                                onClick={() => setCurrentID(record)}
+                                onClick={() => setVacationData(record)}
                             ></i>
                             <i
                                 className="fa-regular fa-trash-can fa-lg me-2"

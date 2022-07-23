@@ -108,8 +108,11 @@ function EditVacationModal({vacation, setSuccess}) {
               <label htmlFor="paid" className="form-label">
                 Paid
               </label>
-              <div className="form-check">
-                <input
+              
+                {data.paid === 0 && (
+                  <div>
+                      <div className="form-check">
+                      <input
                   className="form-check-input"
                   type="radio"
                   name="paid"
@@ -127,13 +130,50 @@ function EditVacationModal({vacation, setSuccess}) {
                   type="radio"
                   name="paid"
                   id="paid2"
-                  value="0"
+                  checked
+                  value={data.paid}
                   onChange={(e) => setData({ ...data, paid: e.target.value })}
                 />
                 <label className="form-check-label" htmlFor="paid2">
                   No
                 </label>
               </div>
+                  </div>
+                )}
+                
+                {data.paid === 1 && (
+                  <div>
+                      <div className="form-check">
+                      <input
+                  className="form-check-input"
+                  type="radio"
+                  name="paid"
+                  id="paid1"
+                  checked
+                  value={data.paid}
+                  onChange={(e) => setData({ ...data, paid: e.target.value })}
+                />
+                <label className="form-check-label" htmlFor="paid1">
+                  Yes
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="paid"
+                  id="paid2"
+                 
+                  value={data.paid}
+                  onChange={(e) => setData({ ...data, paid: e.target.value })}
+                />
+                <label className="form-check-label" htmlFor="paid2">
+                  No
+                </label>
+              </div>
+                  </div>
+                )}
+              
             </div>
             <div className="mb-3">
               <label htmlFor="start-date" className="form-label">
@@ -161,6 +201,27 @@ function EditVacationModal({vacation, setSuccess}) {
                 onChange={(e) => setData({ ...data, end_date: e.target.value })}
               />
             </div>
+            <div className="mb-3">
+                                <label htmlFor="status" className="form-label">
+                                    Status
+                                    <div>
+                                      <p >Current status: <span className="text-primary"> {data.status}</span></p>
+                                    </div>
+                                    
+                                </label>
+                                <select
+                                    className="d-block w-100"
+                                    id="status"
+                                    // value={data.status}
+                                    onChange={(e) =>
+                                        setData({ ...data, status: e.target.value })
+                                    }
+                                >
+                                    <option value="approved">Approved</option>
+                                    <option selected disabled hidden>------</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button

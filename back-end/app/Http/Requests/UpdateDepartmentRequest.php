@@ -17,7 +17,7 @@ class UpdateDepartmentRequest extends FormRequest
         $dep = $this->route('department');
         return [
             'name' => "unique:departments,name,$dep->id",
-            'manager_id'=>'exists:users',
+            'manager_id'=>'exists:users,id',
         ];
     }
 }

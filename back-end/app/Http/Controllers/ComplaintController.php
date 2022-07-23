@@ -31,7 +31,7 @@ class ComplaintController extends Controller
 
     public function show($id)
     {
-        $entry = Complaint::find($id);
+        $entry = Complaint::find($id)::with('department','user');
 
         if ($entry) {
             return response()->json($entry, 200);
@@ -44,7 +44,7 @@ class ComplaintController extends Controller
 
     public function update(UpdateComplaintRequest $request, Complaint $complaint)
     {
-        $updated_entry = Complaint::update($request->all());
+        $updated_entry = $complaint->update($request->all());
 
         if ($updated_entry) {
             return response()->json($updated_entry, 200);

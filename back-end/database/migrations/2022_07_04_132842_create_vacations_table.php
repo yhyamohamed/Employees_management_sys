@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('vacations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->constrained('users')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('employee_id')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
             $table->foreignId('department_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->bigInteger('duration');
             $table->text('reasons');

@@ -13,7 +13,7 @@ class OverTimeController extends Controller
 
     public function index()
     {
-        return response()->json(OverTime::all(), 200);
+        return response()->json(OverTime::with('user','user.department','user.supervisor')->get(), 200);
 
     }
 
@@ -46,7 +46,7 @@ class OverTimeController extends Controller
 
     public function update(UpdateAbsenceRequest $request, OverTime $overTime)
     {
-        $updated_entry = OverTime::update($request->all());
+        $updated_entry = $overTime->update($request->all());
 
         if ($updated_entry) {
             return response()->json($updated_entry, 200);
