@@ -1,7 +1,7 @@
 import { useState } from "react";
 import APIService from "../../services/APIService";
 
-function CreateUserModal({setSuccess}) {
+function CreateUserModal({setSuccess,handleChange}) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -16,6 +16,7 @@ function CreateUserModal({setSuccess}) {
         );
         if (result.success) {
             setSuccess('User created successfully.');
+            handleChange()
             document.getElementById("close-modal").click();
         } else {
             setError(result.error);

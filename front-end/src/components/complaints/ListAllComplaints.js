@@ -51,7 +51,7 @@ function ListAllComplaints() {
     }
   })
   const [success, setSuccess] = useState('');
-  const { data, isPending, error } = useGet(
+  const { data, isPending, error,refetch } = useGet(
     "GET",
     "http://127.0.0.1:8000/api/complaints"
   );
@@ -59,11 +59,15 @@ function ListAllComplaints() {
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
+  const handleChange = ()=>{
+    refetch({})
+}
 
   useEffect(() => {
     if (!user.authenticated)
       navigate("/login");
   }, [user]);
+
 
   function search(rows) {
     return rows.filter((row) =>
@@ -215,6 +219,7 @@ function ListAllComplaints() {
             </div>
             <CreateComplaintModal
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
             <ViewComplaint
               record={currentComplaint}
@@ -222,10 +227,12 @@ function ListAllComplaints() {
             <EditComplaintModal
               complaint={currentComplaint}
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
             <DeleteComplaintModal
               id={currentComplaint.id}
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
           </div>
           <DataTable columns={columns} data={search(data)} pagination

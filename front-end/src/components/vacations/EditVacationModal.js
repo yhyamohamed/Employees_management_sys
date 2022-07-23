@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import APIService from "../../services/APIService";
 
-function EditVacationModal({vacation, setSuccess}) {
+function EditVacationModal({vacation, setSuccess,handleChange}) {
     const [data, setData] = useState(vacation);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -16,6 +16,7 @@ function EditVacationModal({vacation, setSuccess}) {
         if (result.success) {
             setSuccess('vacation updated successfully.');
             document.getElementById("close-edit-modal").click();
+            handleChange()
         } else {
             setError(result.error);
         }

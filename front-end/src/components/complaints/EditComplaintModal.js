@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useGet from "../../custumHooks/useGet";
 import APIService from "../../services/APIService";
 
-function EditComplaintModal({ complaint, setSuccess }) {
+function EditComplaintModal({ complaint, setSuccess ,handleChange}) {
     const [dataModel, setData] = useState(complaint);
     const [err, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -17,6 +17,7 @@ function EditComplaintModal({ complaint, setSuccess }) {
         );
         if (result.success) {
             setSuccess('Complaint updated successfully.');
+            handleChange()
             document.getElementById("close-edit-modal").click();
         } else {
             setError(result.err);
