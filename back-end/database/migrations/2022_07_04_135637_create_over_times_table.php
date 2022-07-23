@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('over_times', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete()->cascadeOnDelete();
             $table->bigInteger('duration');
             $table->timestamps();
         });
