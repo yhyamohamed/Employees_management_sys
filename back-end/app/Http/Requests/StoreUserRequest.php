@@ -20,6 +20,14 @@ class StoreUserRequest extends FormRequest
             'email' => ['required', 'unique:users'],
             'department_id' =>'exists:departments,id',
             'supervisor_id' =>'exists:users',
+            'employee_group'=>['required'],
+            'employee_title'=>['required'],
+            'phone'=>['required'],
+            'b_date'=>['required'],
+            'password'=>['required'],
+            'name'=>['required'],
+            'gender'=>['required'],
+            'salary'=>['required'],
 
         ];
     }
