@@ -29,7 +29,7 @@ Route::resource('/departments', DepartmentController::class);
 Route::resource('/tasks', TaskController::class);
 Route::resource('/mytasks', MyTasksController::class);
 Route::resource('/vacations', VacationController::class);
-Route::resource('/myvacation', MyVacationController::class);
+Route::resource('/myvacations', MyVacationController::class);
 Route::resource('/complaints', ComplaintController::class);
 Route::resource('/mycomplaints', MyComplaintsController::class);
 Route::resource('/attendance', AttendanceController::class);
