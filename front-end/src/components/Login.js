@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import APIService from "../services/APIService";
 import {useNavigate} from "react-router-dom";
 import {UserContext} from "../App";
+import logo from '../assets/beehive-logo.png';
 
 
 const Login = () => {
@@ -49,13 +50,14 @@ const Login = () => {
     return (
         <>
             <div className="vh-100 d-flex justify-content-center align-items-center gap-5">
-                <div className="mt-5 p-2 d-flex flex-column justify-content-center align-items-center">
-                    <i
-                        className="fa-solid fa-feather-pointed fa-10x"
-                        style={{color: "white"}}
-                    ></i>
-                    <br/>
-                    <h1 className="mt-1 text-white">LOGO</h1>
+                <div className="p-2 d-flex flex-column justify-content-center align-items-center">
+                    {/*<i*/}
+                    {/*    className="fa-solid fa-feather-pointed fa-10x"*/}
+                    {/*    style={{color: "white"}}*/}
+                    {/*></i>*/}
+                    <img src={logo} width={200} alt="logo"/>
+                    {/*<br/>*/}
+                    <h1 className="mt-1 text-white">BEEHIVE</h1>
                 </div>
                 <div className="border-end border-white border-2 h-25"></div>
                 <div className=" flex items-center justify-center main">

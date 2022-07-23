@@ -13,9 +13,7 @@ class MyVacationController extends Controller
 
     public function index()
     {
-        $targetUser = User::where('remember_token',request()->bearerToken())->get('id');
-        return response()->json(Vacation::with('department','user')->where('employee_id',$targetUser[0]->id)->get());
-
+        return response()->json(Vacation::with('department','user')->where('employee_id',auth('sanctum')->user()->id)->get());
     }
 
 
