@@ -28,10 +28,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         return response()->json(['Error' => 'sry we cant find that user'], 500);
     });
     Route::get('/managers',[ManagerController::class,'index']);
-    Route::resource('/departments', DepartmentController::class)->middleware(['auth:sanctum']);
+    Route::resource('/departments', DepartmentController::class);
     Route::resource('/tasks', TaskController::class);
     Route::resource('/mytasks', MyTasksController::class);
-    Route::resource('/vacations', VacationController::class)->middleware(['auth:sanctum']);
+    Route::resource('/vacations', VacationController::class);
     Route::resource('/myvacations', MyVacationController::class);
     Route::resource('/myovertime', MyOvertimeController::class);
     Route::resource('/complaints', ComplaintController::class);
