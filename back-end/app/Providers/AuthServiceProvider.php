@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Attendance;
-use App\Models\Department;
 use App\Models\Vacation;
 use App\Policies\VacationPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -19,7 +17,6 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Vacation::class=>VacationPolicy::class,
-        Attendance::class=>VacationPolicy::class,
     ];
 
     /**
