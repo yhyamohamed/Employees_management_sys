@@ -19,7 +19,8 @@ function EditDepartmentModal({ department, setSuccess, handleChange }) {
 
     const result = await APIService.put(
       `http://127.0.0.1:8000/api/departments/${department.id}`,
-      departmentData
+      departmentData,
+        localStorage.getItem('token')
     );
     if (result.success) {
       setSuccess("Department updated successfully.");

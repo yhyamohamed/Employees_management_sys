@@ -23,25 +23,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login',[UserController::class,'login']);
 
-
-Route::resource('/users', UserController::class)->missing(function (Request $request, Exception $e) {
-    return response()->json(['Error' => 'sry we cant find that user'], 500);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::resource('/users', UserController::class)->missing(function (Request $request, Exception $e) {
+        return response()->json(['Error' => 'sry we cant find that user'], 500);
+    });
+    Route::get('/managers',[ManagerController::class,'index']);
+    Route::resource('/departments', DepartmentController::class)->middleware(['auth:sanctum']);
+    Route::resource('/tasks', TaskController::class);
+    Route::resource('/mytasks', MyTasksController::class);
+    Route::resource('/vacations', VacationController::class)->middleware(['auth:sanctum']);
+    Route::resource('/myvacations', MyVacationController::class);
+    Route::resource('/myovertime', MyOvertimeController::class);
+    Route::resource('/complaints', ComplaintController::class);
+    Route::resource('/mycomplaints', MyComplaintsController::class);
+    Route::resource('/attendance', AttendanceController::class);
+    Route::resource('/myattendance', MyAttendanceController::class);
+    Route::resource('/absence', AbsenceController::class);
+    Route::resource('/leave', LeaveController::class);
+    Route::resource('/myleave', MyLeaveController::class);
+    Route::resource('/over-time', OverTimeController::class);
 });
-Route::get('/managers',[ManagerController::class,'index']);
-Route::resource('/departments', DepartmentController::class)->middleware(['auth:sanctum']);
-Route::resource('/tasks', TaskController::class);
-Route::resource('/mytasks', MyTasksController::class);
-Route::resource('/vacations', VacationController::class)->middleware(['auth:sanctum']);
-Route::resource('/myvacations', MyVacationController::class);
-Route::resource('/myovertime', MyOvertimeController::class);
-Route::resource('/complaints', ComplaintController::class);
-Route::resource('/mycomplaints', MyComplaintsController::class);
-Route::resource('/attendance', AttendanceController::class);
-Route::resource('/myattendance', MyAttendanceController::class);
-Route::resource('/absence', AbsenceController::class);
-Route::resource('/leave', LeaveController::class);
-Route::resource('/myleave', MyLeaveController::class);
-Route::resource('/over-time', OverTimeController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

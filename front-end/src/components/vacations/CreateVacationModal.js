@@ -11,7 +11,8 @@ function CreateVacationModal({setSuccess,handleChange}) {
     setLoading(true);
     const result = await APIService.post(
       "http://127.0.0.1:8000/api/vacations",
-      data
+      data,
+        localStorage.getItem('token')
     );
     if (result.success) {
       setSuccess('vacation created successfully.');

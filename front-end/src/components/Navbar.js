@@ -121,7 +121,7 @@ const Navbar = () => {
                                         onClick={async () => {
                                             await APIService.post('http://127.0.0.1:8000/api/leave', {
                                                 user_id: user.id,
-                                            });
+                                            }, localStorage.getItem('token'));
                                             localStorage.removeItem('token');
                                             setUser({authenticated: false, token: ''});
                                         }}

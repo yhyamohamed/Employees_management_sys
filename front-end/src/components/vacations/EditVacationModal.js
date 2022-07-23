@@ -11,7 +11,8 @@ function EditVacationModal({vacation, setSuccess,handleChange}) {
         setLoading(true);
         const result = await APIService.put(
             `http://127.0.0.1:8000/api/vacations/${vacation.id}`,
-            data
+            data,
+            localStorage.getItem('token')
         );
         if (result.success) {
             setSuccess('vacation updated successfully.');

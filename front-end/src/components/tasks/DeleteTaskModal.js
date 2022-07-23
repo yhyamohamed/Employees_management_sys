@@ -7,7 +7,7 @@ function CreateTaskModal({id, setSuccess,handleChange}) {
 
     const handleDelete = async () => {
         setLoading(true);
-        const result = await APIService.destroy(`http://127.0.0.1:8000/api/tasks/${id}`);
+        const result = await APIService.destroy(`http://127.0.0.1:8000/api/tasks/${id}`, localStorage.getItem('token'));
         if (result.success) {
             setSuccess('Task deleted successfully.');
             handleChange()
