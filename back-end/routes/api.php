@@ -25,7 +25,7 @@ Route::resource('/users', UserController::class)->missing(function (Request $req
 Route::get('/managers',[ManagerController::class,'index']);
 Route::resource('/departments', DepartmentController::class);
 Route::resource('/tasks', TaskController::class);
-Route::resource('/vacations', VacationController::class);
+Route::resource('/vacations', VacationController::class)->middleware(['can:viewAny']);
 Route::resource('/myvacation', MyVacationController::class);
 Route::resource('/complaints', ComplaintController::class);
 Route::resource('/attendance', AttendanceController::class);

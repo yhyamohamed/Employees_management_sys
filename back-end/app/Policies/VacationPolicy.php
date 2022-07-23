@@ -14,15 +14,15 @@ class VacationPolicy
 
     public function viewAny(User $user)
     {
-        //
+        return  ( $user->employee_group === 'higher-management' || $user->employee_group === 'middle-management' )?
+            Response::allow()
+            : Response::deny('You can not view this data.');
     }
 
 
     public function view(User $user)
     {
-     return  ( $user->employee_group === 'higher-management' || $user->employee_group === 'middle-management' )?
-           Response::allow()
-                : Response::deny('You can not view this data.');
+    //
     }
 
     public function update(User $user, Vacation $vacation)
