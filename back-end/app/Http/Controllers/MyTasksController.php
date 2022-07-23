@@ -11,7 +11,6 @@ class MyTasksController extends Controller
 {
     public function index()
     {
-        $targetUser = User::where('remember_token',request()->bearerToken())->get('id');
-        return response()->json(Task::where('created_by', $targetUser[0]->id)->get());
+        return response()->json(Task::where('created_by',auth('sanctum')->user()->id)->get());
     }
 }
