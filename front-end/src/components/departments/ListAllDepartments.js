@@ -63,6 +63,7 @@ const ListAllDepartments = () => {
     const navigate = useNavigate();
 
     const {user} = useContext(UserContext);
+    
 const handleChange = ()=>{
     refetch({})
 }

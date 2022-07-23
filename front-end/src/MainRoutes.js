@@ -21,16 +21,14 @@ import ListAllComplaints from "./components/complaints/ListAllComplaints";
 const MainRoutes = () => {
   return (
     <>
-  <Navbar />
-      <div className="container mt-5 bg-info p-1"></div>
-
+      <Navbar />
+      <div className="container mt-5 bg-info p-1">
         <Routes>
           <Route path="/users" element={<ListAllUsers />} />
           <Route path="/tasks" element={<ListAllTasks />} />
           <Route path="/vacations" element={<ListAllVacations />} />
           <Route path="/departments" element={<ListAllDepartments />} />
 
- 
           <Route path="/complaints" element={<ListAllComplaints />}></Route>
           <Route path="/attendance" element={<ListAllAttendance />}></Route>
           <Route path="/leave" element={<ListAllLeave />}></Route>
@@ -42,7 +40,7 @@ const MainRoutes = () => {
           <Route path="/mycomplaints" element={<MyComplaints />}></Route>
           <Route path="/mytasks" element={<MyTasks />}></Route>
         </Routes>
-
+      </div>
     </>
   );
 }
