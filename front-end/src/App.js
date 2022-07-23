@@ -1,7 +1,7 @@
 import "./App.css";
 import {Routes, Route} from "react-router-dom";
-import Hello from "./components/Hello";
-import Navbar from "./components/Navbar"
+import LandingPage from "./components/LandingPage";
+
 
 import {createContext, useEffect, useState} from "react";
 import Login from "./components/Login";
@@ -53,14 +53,11 @@ function App() {
     return (
       <UserContext.Provider value={{ user, setUser }}>
         <>
-
-            <Routes>
-              <Route exact path="/" element={<Hello />}></Route>
-              <Route exact path="/login" element={<Login />}></Route>
-              <Route path="*" element={<MainRoutes />}></Route>
-              
-            </Routes>
-    
+          <Routes>
+            <Route exact path="/" element={<LandingPage />}></Route>
+            <Route exact path="/login" element={<Login />}></Route>
+            <Route path="*" element={<MainRoutes />}></Route>
+          </Routes>
         </>
       </UserContext.Provider>
     );
