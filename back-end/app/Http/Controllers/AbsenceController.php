@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAbsenceRequest;
 use App\Http\Requests\UpdateAbsenceRequest;
 use App\Models\Absence;
+use App\Models\Attendance;
 
 class AbsenceController extends Controller
 {
 
     public function index()
     {
+        $this->authorize('viewAny',Attendance::class);
         return response()->json(Absence::all(), 200);
     }
 

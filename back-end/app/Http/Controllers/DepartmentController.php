@@ -6,12 +6,14 @@ use App\Http\Requests\StoreDepartmentRequest;
 use App\Http\Requests\UpdateDepartmentRequest;
 use App\Models\Department;
 use App\Models\Absence;
+use App\Models\Vacation;
 
 class DepartmentController extends Controller
 {
 
     public function index()
     {
+
         return response()->json(Department::with('manager')->get(), 200);
     }
 

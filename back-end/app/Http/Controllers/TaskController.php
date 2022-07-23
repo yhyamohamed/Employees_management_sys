@@ -11,6 +11,7 @@ class TaskController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny',Task::class);
         return response()->json(Task::all(), 200);
 
     }

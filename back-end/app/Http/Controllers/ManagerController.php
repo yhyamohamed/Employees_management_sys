@@ -10,6 +10,7 @@ class ManagerController extends Controller
 
     public function index()
     {
+
         $managers= User::with('department','supervisor')->whereIn('employee_group',['higher-management', 'middle-management'])->get();
         return response()->json($managers, 200);
 
