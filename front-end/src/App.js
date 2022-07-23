@@ -17,6 +17,7 @@ import MyComplaints from "./components/complaints/MyComplaints";
 import Login from "./components/Login";
 import APIService from "./services/APIService";
 import ListAllAttendance from "./components/attendance/ListAllAtendance";
+import ListAllLeave from "./components/leave/ListAllLeave";
 
 export const UserContext = createContext();
 
@@ -72,6 +73,7 @@ function App() {
                         <Route path="/departments" element={<ListAllDepartments/>}></Route>
                         <Route path="/complaints" element={<ListAllComplaints/>}></Route>
                         <Route path="/attendance" element={<ListAllAttendance/>}></Route>
+                        <Route path="/leave" element={<ListAllLeave/>}></Route>
                         <Route path="/myvacation" element={<MyVacation/>}></Route>
                         <Route path="/mycomplaints" element={<MyComplaints/>}></Route>
                         <Route path="/mytasks" element={<MyTasks/>}></Route>

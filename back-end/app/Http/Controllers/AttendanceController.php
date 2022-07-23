@@ -45,7 +45,7 @@ class AttendanceController extends Controller
 
     public function update(UpdateAbsenceRequest $request, Attendance $attendance)
     {
-        $updated_entry = Attendance::update($request->all());
+        $updated_entry = $attendance->update($request->all());
 
         if ($updated_entry) {
             return response()->json($updated_entry, 200);

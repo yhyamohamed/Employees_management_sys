@@ -15,7 +15,7 @@ class LeaveController extends Controller
 {
     public function index()
     {
-        return response()->json(Leave::all(), 200);
+        return response()->json(Leave::with('user','user.department','user.supervisor')->get(), 200);
     }
 
 
@@ -58,7 +58,7 @@ class LeaveController extends Controller
 
     public function update(UpdateAbsenceRequest $request, Leave $leave)
     {
-        $updated_entry = Leave::update($request->all());
+        $updated_entry = $leave->update($request->all());
 
         if ($updated_entry) {
             return response()->json($updated_entry, 200);

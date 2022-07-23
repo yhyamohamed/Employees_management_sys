@@ -4,7 +4,7 @@ import useGet from "../../custumHooks/useGet";
 import {useNavigate} from "react-router-dom";
 import {UserContext} from "../../App";
 import DataTable from "react-data-table-component";
-import ViewAttendance from "./ViewAttendance";
+import ViewLeave from "./ViewLeave";
 
 const customStyles = {
     columns: {
@@ -31,9 +31,9 @@ const customStyles = {
     },
 };
 
-function ListAllAttendance() {
+function ListAllLeave() {
     const [txt, setTxt] = useState("");
-    const [attendanceData, setAttendanceData] = useState({
+    const [leaveData, setLeaveData] = useState({
         user:{
             name:'',
             employee_code:'',
@@ -53,7 +53,7 @@ function ListAllAttendance() {
     })
 
     const {data, isPending, error} = useGet(
-        "GET", "http://127.0.0.1:8000/api/attendance"
+        "GET", "http://127.0.0.1:8000/api/leave"
     );
 
     const navigate = useNavigate();
@@ -65,7 +65,6 @@ function ListAllAttendance() {
             navigate("/login");
     }, [user]);
 
-
     function search(rows) {
         return rows.filter((row) =>
             row.user.name.toLowerCase().includes(txt.toLowerCase())
@@ -74,7 +73,7 @@ function ListAllAttendance() {
 
     const columns = [
         {
-            name: "Vacation ID",
+            name: "Leave ID",
             selector: (row) => row.id,
             sortable: true,
         },
@@ -121,7 +120,7 @@ function ListAllAttendance() {
                                 style={{cursor: "pointer", color: "green"}}
                                 data-bs-toggle="modal"
                                 data-bs-target="#viewModal"
-                                onClick={() => setAttendanceData(record)}
+                                onClick={() => setLeaveData(record)}
                             ></i>
                         </div>
                     </>
@@ -130,31 +129,33 @@ function ListAllAttendance() {
         },
     ];
 
+
     return (
         <div>
-            <div className="row">
-                {isPending && (
-                    <>
-                        <div className="alert alert-primary" role="alert">
+            <div>
+                <div className="row">
+                    {isPending && (
+                        <>
+                            <div className="alert alert-primary" role="alert">
             <span
                 className="spinner-border text-info spinner-border-m me-2"
                 role="status"
             >
               <span className="visually-hidden">Loading...</span>
             </span>
-                            Getting Data pleas wait!
-                        </div>
-                    </>
-                )}
-                {error && (
-                    <>
-                        <div className="alert alert-danger" role="alert">
-                            we'r sry , {error} ..pls try again later!
-                        </div>
-                    </>
-                )}
-                {data && (
-                    <>
+                                Getting Data pleas wait!
+                            </div>
+                        </>
+                    )}
+                    {error && (
+                        <>
+                            <div className="alert alert-danger" role="alert">
+                                we'r sry , {error} ..pls try again later!
+                            </div>
+                        </>
+                    )}
+                    {data && (
+                        <>
                         <div className="row ">
                             <div className="offset-6 col-3 input-group-sm ">
                                 <input
@@ -166,8 +167,8 @@ function ListAllAttendance() {
                                 />
                             </div>
                         </div>
-                        <ViewAttendance
-                            record={attendanceData}
+                        <ViewLeave
+                            record={leaveData}
                         />
                         <DataTable
                             columns={columns}
@@ -175,12 +176,13 @@ function ListAllAttendance() {
                             pagination
                             customStyles={customStyles}
                         />
-                    </>
-                )}
+                        </>
+                    )}
 
+                </div>
         </div>
         </div>
     );
 }
 
-export default ListAllAttendance;
+export default ListAllLeave;
