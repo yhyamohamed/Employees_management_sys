@@ -16,7 +16,7 @@ class StoreAbsenceRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'=>'exists:users',
+            'user_id'=>'exists:users,id',
         ];
     }
 }

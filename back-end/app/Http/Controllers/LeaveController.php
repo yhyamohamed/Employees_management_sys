@@ -6,7 +6,10 @@ use App\Http\Requests\StoreAbsenceRequest;
 use App\Http\Requests\StoreLeaveRequest;
 use App\Http\Requests\UpdateAbsenceRequest;
 use App\Http\Requests\UpdateLeaveRequest;
+use App\Models\Attendance;
 use App\Models\Leave;
+use App\Models\OverTime;
+use Carbon\Carbon;
 
 class LeaveController extends Controller
 {
@@ -19,6 +22,17 @@ class LeaveController extends Controller
     public function store(StoreAbsenceRequest $request)
     {
         $created_entry = Leave::create($request->all());
+
+        $attendance = Attendance::where('user_id', $request->user_id)->first()->get();
+
+        $time = $created_entry->created_at->diffInHours($attendance[0]->created_at);
+
+        if($time > 8) {
+            OverTime::create([
+                'user_id' => $request->user_id,
+                'time' => $time - 8,
+            ]);
+        }
 
         if ($created_entry) {
             return response()->json($created_entry, 200);
