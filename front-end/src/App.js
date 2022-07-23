@@ -1,7 +1,7 @@
 import "./App.css";
 import {Routes, Route} from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-
+import Home from "./components/Home";
 
 import {createContext, useEffect, useState} from "react";
 import Login from "./components/Login";
@@ -54,9 +54,10 @@ function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <>
           <Routes>
-            <Route exact path="/" element={<LandingPage />}></Route>
-            <Route exact path="/login" element={<Login />}></Route>
-            <Route path="*" element={<MainRoutes />}></Route>
+            <Route exact path="/" element={<LandingPage />}/>
+            <Route exact path="/login" element={<Login />}/>
+            <Route path="*" element={<MainRoutes />}/>
+            <Route path="/home" element={<Home />} />
           </Routes>
         </>
       </UserContext.Provider>

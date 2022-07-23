@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./components/Home";
+
 import ListAllUsers from "./components/users/ListAllUsers";
 import ListAllTasks from "./components/tasks/ListAllTasks";
 import ListAllVacations from "./components/vacations/ListAllVacations";
@@ -25,7 +25,7 @@ const MainRoutes = () => {
       <Navbar />
       <div className="container mt-5 bg-info p-1">
         <Routes>
-          <Route path="/home" element={<Home />} />
+          
           <Route path="/users" element={<ListAllUsers />} />
           <Route path="/tasks" element={<ListAllTasks />} />
           <Route path="/vacations" element={<ListAllVacations />} />
