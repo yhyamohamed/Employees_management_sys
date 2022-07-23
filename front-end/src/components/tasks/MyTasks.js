@@ -53,16 +53,19 @@ function MyTasks() {
       navigate("/login");
   }, [user]);
 
-  const { data, isPending, error } = useGet(
+  const { data, isPending, error ,refetch} = useGet(
     "GET",
     "http://127.0.0.1:8000/api/mytasks", user.token
   );
-
+  const handleChange = ()=>{
+    refetch({})
+}
   function search(rows) {
     return rows.filter((row) =>
       row.name.toLowerCase().includes(txt.toLowerCase())
     );
   }
+  
 
   const columns = [
     {
@@ -209,6 +212,7 @@ function MyTasks() {
             <CreateTaskModal
               setSuccess={setSuccess}
               user={user}
+              handleChange={handleChange}
             />
             <ViewTask
               record={currentTask}
@@ -216,10 +220,12 @@ function MyTasks() {
             <EditTaskModal
               task={currentTask}
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
             <DeleteTaskModal
               id={currentTask.id}
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
           </div>
           <DataTable columns={columns} data={search(data)} pagination customStyles={customStyles} />

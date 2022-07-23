@@ -61,10 +61,13 @@ function MyComplaints() {
       navigate("/login");
   }, [user]);
   
-  const { data, isPending, error } = useGet(
+  const { data, isPending, error,refetch } = useGet(
     "GET",
     "http://127.0.0.1:8000/api/mycomplaints", user.token
   );
+  const handleChange = ()=>{
+    refetch({})
+}
 
 
   
@@ -219,6 +222,7 @@ function MyComplaints() {
             </div>
             <CreateMyComplaintModal
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
             <ViewComplaint
               record={currentComplaint}
@@ -226,10 +230,12 @@ function MyComplaints() {
             <EditComplaintModal
               complaint={currentComplaint}
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
             <DeleteComplaintModal
               id={currentComplaint.id}
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
           </div>
           <DataTable columns={columns} data={search(data)} pagination

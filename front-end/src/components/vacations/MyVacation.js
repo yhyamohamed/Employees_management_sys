@@ -61,9 +61,12 @@ const customStyles = {
               navigate("/login");
       }, [user]);
     
-    const { data, isPending, error } = useGet(
+    const { data, isPending, error,refetch } = useGet(
       "GET","http://127.0.0.1:8000/api/myvacations", user.token
     );
+    const handleChange = ()=>{
+      refetch({})
+  }
     
    
   
@@ -183,10 +186,15 @@ const customStyles = {
                      <DeleteVacationModal
                             id={currentID}
                             setSuccess={setSuccess}
+                            handleChange={handleChange}
+
                         />
                       <EditVacationModal 
                          vacation={viewVacationData}
-                         setSuccess={setSuccess}/>
+                         setSuccess={setSuccess}
+                         handleChange={handleChange}
+                         />
+                         
                   </div>
                   <DataTable
                       columns={columns}
