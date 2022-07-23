@@ -91,7 +91,7 @@ function ListAllComplaints() {
     },
     {
       name: 'Department',
-      selector: row => row.department.name,
+      selector: row => row.department?row.department?.name:"deleted",
       sortable: true
     },
     {
@@ -202,7 +202,7 @@ function ListAllComplaints() {
                 ></button>
               </div>
             )}
-            <div className="offset-6 col-3 input-group-sm mb-1">
+            <div className="offset-6 col-3 input-group-sm mb-2">
               <input
                 className="form-control "
                 type="text"
@@ -211,7 +211,7 @@ function ListAllComplaints() {
                 onChange={(e) => setTxt(e.target.value)}
               />
             </div>
-            <div className=" col-2 me-1 ">
+            <div className=" col-2 me-1 mb-2 ">
               <button
                 className="btn btn-sm btn-success"
                 data-bs-toggle="modal"
