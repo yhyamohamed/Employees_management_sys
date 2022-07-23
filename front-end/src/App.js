@@ -19,6 +19,9 @@ import APIService from "./services/APIService";
 import ListAllAttendance from "./components/attendance/ListAllAtendance";
 import ListAllLeave from "./components/leave/ListAllLeave";
 import ListAllOvertime from "./components/overtime/ListAllOvertime";
+import MyAttendance from "./components/attendance/MyAttendance";
+import MyLeave from "./components/leave/MyLeave";
+import MyOvertime from "./components/overtime/MyOvertime";
 
 export const UserContext = createContext();
 
@@ -76,6 +79,9 @@ function App() {
                         <Route path="/attendance" element={<ListAllAttendance/>}></Route>
                         <Route path="/leave" element={<ListAllLeave/>}></Route>
                         <Route path="/over-time" element={<ListAllOvertime/>}></Route>
+                        <Route path="/myovertime" element={<MyOvertime/>}></Route>
+                        <Route path="/myattendance" element={<MyAttendance/>}></Route>
+                        <Route path="/myleave" element={<MyLeave/>}></Route>
                         <Route path="/myvacation" element={<MyVacation/>}></Route>
                         <Route path="/mycomplaints" element={<MyComplaints/>}></Route>
                         <Route path="/mytasks" element={<MyTasks/>}></Route>

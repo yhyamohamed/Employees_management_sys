@@ -49,6 +49,21 @@ const Navbar = () => {
                                         </Link>
                                     </li>
                                     <li className="nav-item active ">
+                                        <Link className="nav-link" to="/myattendance">
+                                            My Attendance
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active ">
+                                        <Link className="nav-link" to="/myleave">
+                                            My Leave
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active ">
+                                        <Link className="nav-link" to="/myovertime">
+                                            My Overtime
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active ">
                                         <Link className="nav-link" to="/over-time">
                                             ALL-Overtime
                                         </Link>
