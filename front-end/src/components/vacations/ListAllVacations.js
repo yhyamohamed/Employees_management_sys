@@ -56,7 +56,7 @@ const ListAllVacations = () => {
     })
 
     const {data, isPending, error,refetch} = useGet(
-        "GET", "http://127.0.0.1:8000/api/vacations"
+        "GET", "http://127.0.0.1:8000/api/vacations", localStorage.getItem('token')
     );
 
     const navigate = useNavigate();
@@ -89,7 +89,7 @@ const ListAllVacations = () => {
         },
         {
             name: "Department",
-            selector: (row) => row.department.name,
+            selector: (row) => row.department?row.department?.name:"deleted",
         },
         {
             name: "Duration",
