@@ -66,6 +66,8 @@ function ListAllComplaints() {
   useEffect(() => {
     if (!user.authenticated)
       navigate("/login");
+    if(user.employee_group !== 'admin' && user.employee_group !== 'higher-management' && user.employee_group !== 'middle-management')
+      navigate('/home');
   }, [user]);
 
 
