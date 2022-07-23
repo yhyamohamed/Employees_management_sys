@@ -4,7 +4,8 @@ import useGet from "../../custumHooks/useGet";
 import {useNavigate} from "react-router-dom";
 import {UserContext} from "../../App";
 import DataTable from "react-data-table-component";
-import ViewLeave from "./ViewLeave";
+import ViewOvertime from "./ViewOvertime";
+
 
 const customStyles = {
     columns: {
@@ -31,9 +32,11 @@ const customStyles = {
     },
 };
 
-function ListAllLeave() {
+
+function ListAllOvertime() {
     const [txt, setTxt] = useState("");
-    const [leaveData, setLeaveData] = useState({
+    const [overtimeData, setOvertimeData] = useState({
+        duration:'',
         user: {
             name: '',
             employee_code: '',
@@ -53,7 +56,7 @@ function ListAllLeave() {
     })
 
     const {data, isPending, error} = useGet(
-        "GET", "http://127.0.0.1:8000/api/leave"
+        "GET", "http://127.0.0.1:8000/api/over-time"
     );
 
     const navigate = useNavigate();
@@ -73,7 +76,7 @@ function ListAllLeave() {
 
     const columns = [
         {
-            name: "Leave ID",
+            name: "Overtime ID",
             selector: (row) => row.id,
             sortable: true,
         },
@@ -85,6 +88,11 @@ function ListAllLeave() {
         {
             name: "Name",
             selector: (row) => row.user.name,
+            sortable: true,
+        },
+        {
+            name: "Overtime (in hours)",
+            selector: (row) => row.duration,
             sortable: true,
         },
         {
@@ -120,7 +128,7 @@ function ListAllLeave() {
                                 style={{cursor: "pointer", color: "green"}}
                                 data-bs-toggle="modal"
                                 data-bs-target="#viewModal"
-                                onClick={() => setLeaveData(record)}
+                                onClick={() => setOvertimeData(record)}
                             ></i>
                         </div>
                     </>
@@ -128,7 +136,6 @@ function ListAllLeave() {
             },
         },
     ];
-
 
     return (
         <div>
@@ -167,8 +174,8 @@ function ListAllLeave() {
                                     />
                                 </div>
                             </div>
-                            <ViewLeave
-                                record={leaveData}
+                            <ViewOvertime
+                                record={overtimeData}
                             />
                             <DataTable
                                 columns={columns}
@@ -185,4 +192,4 @@ function ListAllLeave() {
     );
 }
 
-export default ListAllLeave;
+export default ListAllOvertime;
