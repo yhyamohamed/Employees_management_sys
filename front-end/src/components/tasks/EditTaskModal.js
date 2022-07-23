@@ -122,6 +122,24 @@ function EditTaskModal({task, setSuccess,handleChange}) {
                                 >
                                 </textarea>
                             </div>
+                            <div className="mb-3">
+                                <label htmlFor="status" className="form-label">
+                                    Priority
+                                </label>
+                                <select
+                                    className="d-block w-100"
+                                    id="status"
+                                    value={data.status}
+                                    onChange={(e) =>
+                                        setData({ ...data, status: e.target.value })
+                                    }
+                                >
+                                    <option value="opened">opened</option>
+                                    <option value="done">done</option>
+                                    <option value="waiting">waiting</option>
+                                    <option value="need-help">need-help</option>
+                                </select>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button
