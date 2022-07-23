@@ -39,7 +39,10 @@ const customStyles = {
 
 const ListAllDepartments = () => {
 
-    const {data, isPending, error} = useGet("GET", "http://127.0.0.1:8000/api/departments");
+    const { data, isPending, error,refetch } = useGet(
+      "GET",
+      "http://127.0.0.1:8000/api/departments"
+    );
     const [txt, setTxt] = useState("");
     const [success, setSuccess] = useState('');
     const [createMessage, setCreateMessage] = useState(null);
@@ -60,7 +63,9 @@ const ListAllDepartments = () => {
     const navigate = useNavigate();
 
     const {user} = useContext(UserContext);
-
+const handleChange = ()=>{
+    refetch({})
+}
     useEffect(() => {
         if(!user.authenticated)
             navigate("/login");
@@ -135,91 +140,96 @@ const ListAllDepartments = () => {
     ];
 
     return (
-        <div className="row">
-            {isPending && (
-                <>
-                    <div className="alert alert-primary" role="alert">
-            <span
+      <div className="row">
+        {isPending && (
+          <>
+            <div className="alert alert-primary" role="alert">
+              <span
                 className="spinner-border text-info spinner-border-m me-2"
                 role="status"
-            >
-              <span className="visually-hidden text-center">Loading...</span>
-            </span>
-                        <span>Getting Data pleas wait!</span>
-                    </div>
-
-                </>
+              >
+                <span className="visually-hidden text-center">Loading...</span>
+              </span>
+              <span>Getting Data pleas wait!</span>
+            </div>
+          </>
+        )}
+        {error && (
+          <>
+            <div className="alert alert-danger" role="alert">
+              we'r sry , {error} ..pls try again later!
+            </div>
+          </>
+        )}
+        {data && (
+          <>
+            <div className="row ">
+              {createMessage && (
+                <div className="col-12 " role="alert">
+                  <h6 className="p-2 ms-5 text-success">{createMessage}</h6>
+                </div>
+              )}
+            </div>
+            {success && (
+              <div
+                className="alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                {success}
+                <button
+                  onClick={() => setSuccess("")}
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
             )}
-            {error && (
-                <>
-                    <div className="alert alert-danger" role="alert">
-                        we'r sry , {error} ..pls try again later!
-                    </div>
-                </>
-            )}
-            {data && (
-                <>
-                    <div className="row ">
-                        {createMessage && (
-                            <div className="col-12 " role="alert">
-                                <h6 className="p-2 ms-5 text-success">{createMessage}</h6>
-                            </div>
-                        )}
-                    </div>
-                    {success && (
-                        <div
-                            className="alert alert-success alert-dismissible fade show"
-                            role="alert"
-                        >
-                            {success}
-                            <button
-                                onClick={() => setSuccess("")}
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="alert"
-                                aria-label="Close"
-                            ></button>
-                        </div>)}
-                    <div className="row ">
-                        <div className="offset-6 col-3 input-group-sm ">
-                            <input
-                                className="form-control "
-                                type="text"
-                                placeholder="type to search"
-                                value={txt}
-                                onChange={(e) => setTxt(e.target.value)}
-                            />
-                        </div>
-                        <div className=" col-2 me-1 ">
-                            <button className="btn btn-sm btn-success " data-bs-toggle="modal"
-                                    data-bs-target="#modal">Add new department
-                            </button>
-                        </div>
-                        <CreateDepartmentModal
-                            setSuccess={setSuccess}
-                            setCreateMessage={setCreateMessage}
-                        />
-                        <ViewDepartment
-                            record={viewData}
-                        />
-                        <EditDepartmentModal
-                            department={viewData}
-                            setSuccess={setSuccess}
-                            />
-                        <DeleteDepartmentModal
-                            id={currentID}
-                            setSuccess={setSuccess}
-                        />
-                    </div>
-                    <DataTable
-                        columns={columns}
-                        data={search(data)}
-                        pagination
-                        customStyles={customStyles}
-                    />
-                </>
-            )}
-        </div>
+            <div className="row ">
+              <div className="offset-6 col-3 input-group-sm ">
+                <input
+                  className="form-control "
+                  type="text"
+                  placeholder="type to search"
+                  value={txt}
+                  onChange={(e) => setTxt(e.target.value)}
+                />
+              </div>
+              <div className=" col-2 me-1 ">
+                <button
+                  className="btn btn-sm btn-success "
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal"
+                >
+                  Add new department
+                </button>
+              </div>
+              <CreateDepartmentModal
+                setSuccess={setSuccess}
+                setCreateMessage={setCreateMessage}
+                handleChange={handleChange}
+              />
+              <ViewDepartment record={viewData} />
+              <EditDepartmentModal
+                department={viewData}
+                setSuccess={setSuccess}
+                handleChange={handleChange}
+              />
+              <DeleteDepartmentModal
+                id={currentID}
+                setSuccess={setSuccess}
+                handleChange={handleChange}
+              />
+            </div>
+            <DataTable
+              columns={columns}
+              data={search(data)}
+              pagination
+              customStyles={customStyles}
+            />
+          </>
+        )}
+      </div>
     );
 };
 

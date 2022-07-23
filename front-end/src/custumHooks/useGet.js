@@ -5,6 +5,7 @@ const useGet = (METHOD,URL, TOKEN = '') => {
   const [data, SetData] = useState(null);
   const [isPending, SetIsPending] = useState(true);
   const [error, SetError] = useState(false);
+  const [shouldRefetch, refetch] = useState({}); 
 
   useEffect(() => {
     const abortReq = new AbortController();
@@ -45,8 +46,8 @@ const useGet = (METHOD,URL, TOKEN = '') => {
     return () => {
       abortReq.abort();
     };
-  }, [METHOD,URL]);
-  return { data, isPending, error };
+  }, [METHOD, URL, shouldRefetch]);
+  return { data, isPending, error, refetch };
 };
 
 export default useGet;

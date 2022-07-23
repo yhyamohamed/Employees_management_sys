@@ -2,7 +2,7 @@ import {useState} from "react";
 import useGet from "../../custumHooks/useGet";
 import APIService from "../../services/APIService";
 
-function CreateDepartmentModal({setSuccess,setCreateMessage }) {
+function CreateDepartmentModal({setSuccess, handleChange }) {
     const [dataModal, setData] = useState({
         name: "",
         manager_id: 0,
@@ -23,7 +23,9 @@ function CreateDepartmentModal({setSuccess,setCreateMessage }) {
         );
         if (result.success) {
             setSuccess('Department created successfully.');
+             handleChange();
             document.getElementById("close-modal").click();
+              
         } else {
             console.log(result,result.error)
             setError(result.error);
