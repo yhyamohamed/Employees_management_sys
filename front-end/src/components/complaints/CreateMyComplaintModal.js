@@ -4,7 +4,7 @@ import useGet from "../../custumHooks/useGet";
 import APIService from "../../services/APIService";
 import { UserContext } from "../../App";
 
-function CreateMyComplaintModal({ setSuccess, setCreateMessage }) {
+function CreateMyComplaintModal({ setSuccess, setCreateMessage ,handleChange}) {
   const [dataModel, setData] = useState({
     id: 0,
     employee_id: '',
@@ -30,11 +30,13 @@ function CreateMyComplaintModal({ setSuccess, setCreateMessage }) {
     setLoading(true);
     const result = await APIService.post(
       "http://127.0.0.1:8000/api/complaints",
+      
       dataModel,
         localStorage.getItem('token')
       );
       if (result.success) {
         setSuccess('Compalint created successfully.');
+        handleChange()
         document.getElementById("close-modal").click();
     } else {
       console.log(result, result.error)
