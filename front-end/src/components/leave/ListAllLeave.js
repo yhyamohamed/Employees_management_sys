@@ -157,7 +157,7 @@ function ListAllLeave() {
                     {data && (
                         <>
                             <div className="row ">
-                                <div className="offset-6 col-3 input-group-sm ">
+                                <div className="offset-6 col-3 input-group-sm mb-1">
                                     <input
                                         className="form-control "
                                         type="text"
