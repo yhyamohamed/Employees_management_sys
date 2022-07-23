@@ -51,19 +51,26 @@ function ListAllComplaints() {
     }
   })
   const [success, setSuccess] = useState('');
-  const { data, isPending, error } = useGet(
+  const { data, isPending, error,refetch } = useGet(
     "GET",
-    "http://127.0.0.1:8000/api/complaints"
+    "http://127.0.0.1:8000/api/complaints",
+      localStorage.getItem('token')
   );
 
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
+  const handleChange = ()=>{
+    refetch({})
+}
 
   useEffect(() => {
     if (!user.authenticated)
       navigate("/login");
+    if(user.employee_group !== 'admin' && user.employee_group !== 'higher-management' && user.employee_group !== 'middle-management')
+      navigate('/home');
   }, [user]);
+
 
   function search(rows) {
     return rows.filter((row) =>
@@ -215,6 +222,7 @@ function ListAllComplaints() {
             </div>
             <CreateComplaintModal
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
             <ViewComplaint
               record={currentComplaint}
@@ -222,10 +230,12 @@ function ListAllComplaints() {
             <EditComplaintModal
               complaint={currentComplaint}
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
             <DeleteComplaintModal
               id={currentComplaint.id}
               setSuccess={setSuccess}
+              handleChange={handleChange}
             />
           </div>
           <DataTable columns={columns} data={search(data)} pagination

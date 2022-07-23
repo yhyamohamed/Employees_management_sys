@@ -10,7 +10,7 @@ import DeleteUserModal from "./DeleteUserModal";
 
 
 const ListAllUsers = () => {
-  const { data, isPending, error } = useGet("GET","http://127.0.0.1:8000/api/users");
+  const { data, isPending, error,refetch } = useGet("GET","http://127.0.0.1:8000/api/users", localStorage.getItem('token'));
   const [txt, setTxt] = useState("");
   const [success, setSuccess] = useState('');
   const [userData,setUserData] = useState({
@@ -37,10 +37,15 @@ const ListAllUsers = () => {
   const navigate = useNavigate();
 
   const {user} = useContext(UserContext);
+  const handleChange = ()=>{
+    refetch({})
+}
 
   useEffect(() => {
     if(!user.authenticated)
         navigate("/login");
+    if(user.employee_group !== 'admin' && user.employee_group !== 'higher-management' && user.employee_group !== 'middle-management')
+      navigate('/home');
   }, [user]);
 
   function search(rows) {
@@ -223,10 +228,14 @@ const ListAllUsers = () => {
           </div>
           <CreateUserModal
             setSuccess={setSuccess}
+            handleChange={handleChange}
+
           />
           <EditUserModal
               record={userData}
               setSuccess={setSuccess}
+              handleChange={handleChange}
+
           />
           <ViewUser
             record={userData}
@@ -234,6 +243,8 @@ const ListAllUsers = () => {
           <DeleteUserModal
               id={userData.id}
               setSuccess={setSuccess}
+              handleChange={handleChange}
+
           />
           <DataTable
             columns={columns}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import useGet from "../../custumHooks/useGet";
 import APIService from "../../services/APIService";
 
-function CreateComplaintModal({ setSuccess, setCreateMessage }) {
+function CreateComplaintModal({ setSuccess, setCreateMessage,handleChange }) {
   const [dataModel, setData] = useState({
     id: 0,
     employee_id: '',
@@ -13,7 +13,7 @@ function CreateComplaintModal({ setSuccess, setCreateMessage }) {
     reasons: '',
   });
 
-  const { data, issPending, error } = useGet('GET', "http://127.0.0.1:8000/api/users")
+  const { data, issPending, error } = useGet('GET', "http://127.0.0.1:8000/api/users", localStorage.getItem('token'))
   const [Error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +26,7 @@ function CreateComplaintModal({ setSuccess, setCreateMessage }) {
     );
     if (result.success) {
       setSuccess('Compalint created successfully.');
+      handleChange()
       document.getElementById("close-modal").click();
     } else {
       console.log(result, result.error)

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import APIService from "../../services/APIService";
 
-function DeleteUserModal({id, setSuccess}) {
+function DeleteUserModal({id, setSuccess,handleChange}) {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -10,6 +10,7 @@ function DeleteUserModal({id, setSuccess}) {
         const result = await APIService.destroy(`http://127.0.0.1:8000/api/users/${id}`, localStorage.getItem("token"));
         if (result.success) {
             setSuccess('User deleted successfully.');
+            handleChange()
             document.getElementById("close-delete-modal").click();
         } else {
             setError(result.error);

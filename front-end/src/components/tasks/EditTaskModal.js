@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import APIService from "../../services/APIService";
 
-function EditTaskModal({task, setSuccess}) {
+function EditTaskModal({task, setSuccess,handleChange}) {
     const [data, setData] = useState(task);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -15,6 +15,7 @@ function EditTaskModal({task, setSuccess}) {
         );
         if (result.success) {
             setSuccess('Task updated successfully.');
+            handleChange()
             document.getElementById("close-edit-modal").click();
         } else {
             setError(result.error);

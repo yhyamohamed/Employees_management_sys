@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import APIService from "../../services/APIService";
 
-function EditUserModal({record, setSuccess}) {
+function EditUserModal({record, setSuccess,handleChange}) {
     const [data, setData] = useState(record);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -16,6 +16,7 @@ function EditUserModal({record, setSuccess}) {
         );
         if (result.success) {
             setSuccess('User updated successfully.');
+            handleChange()
             document.getElementById("close-edit-modal").click();
         } else {
             setError(result.error);

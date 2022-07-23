@@ -1,7 +1,7 @@
 import { useState } from "react";
 import APIService from "../../services/APIService";
 
-function CreateTaskModal({setSuccess, user}) {
+function CreateTaskModal({setSuccess, user,handleChange}) {
   const [data, setData] = useState({
     priority: 1,
     status: "opened",
@@ -20,6 +20,7 @@ function CreateTaskModal({setSuccess, user}) {
     );
     if (result.success) {
       setSuccess('Task created successfully.');
+      handleChange()
      document.getElementById("close-modal").click();
     } else {
       setError(result.error);

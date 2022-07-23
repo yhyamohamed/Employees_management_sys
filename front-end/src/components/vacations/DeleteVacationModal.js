@@ -1,7 +1,7 @@
 import { useState } from "react";
 import APIService from "../../services/APIService";
 
-function DeleteVacationModal({id, setSuccess}) {
+function DeleteVacationModal({id, setSuccess, handleChange}) {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -11,6 +11,7 @@ function DeleteVacationModal({id, setSuccess}) {
         if (result.success) {
             setSuccess('Vacation deleted successfully.');
             document.getElementById("close-delete-modal").click();
+            handleChange()
         } else {
             setError(result.error);
         }

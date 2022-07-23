@@ -1,7 +1,7 @@
 import {useState} from "react";
 import APIService from "../../services/APIService";
 
-function CreateVacationModal({setSuccess,setCreateMessage}) {
+function CreateVacationModal({setSuccess,handleChange}) {
   const [data, setData] = useState({ status: 'pending' });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,6 +15,7 @@ function CreateVacationModal({setSuccess,setCreateMessage}) {
     );
     if (result.success) {
       setSuccess('vacation created successfully.');
+      handleChange();
      document.getElementById("close-modal").click();
     } else {
       setError(result.error);

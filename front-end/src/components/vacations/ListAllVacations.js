@@ -55,17 +55,23 @@ const ListAllVacations = () => {
 
     })
 
-    const {data, isPending, error} = useGet(
-        "GET", "http://127.0.0.1:8000/api/vacations"
+    const {data, isPending, error,refetch} = useGet(
+        "GET", "http://127.0.0.1:8000/api/vacations", localStorage.getItem('token')
     );
 
     const navigate = useNavigate();
 
     const {user} = useContext(UserContext);
 
+    const handleChange = ()=>{
+        refetch({})
+    }
+
     useEffect(() => {
         if(!user.authenticated)
             navigate("/login");
+        if(user.employee_group !== 'admin' && user.employee_group !== 'higher-management' && user.employee_group !== 'middle-management')
+            navigate('/home');
     }, [user]);
 
 
@@ -217,17 +223,20 @@ const ListAllVacations = () => {
                         </div>
                         <CreateVacationModal
                             setSuccess={setSuccess}
+                            handleChange={handleChange}
                         />
                         <DeleteVacationModal
                             id={currentID}
                             setSuccess={setSuccess}
+                            handleChange={handleChange}
                         />
                         <ViewVacation
                             record={viewVacationData}
                         />
                         <EditVacationModal 
                          vacation={viewVacationData}
-                         setSuccess={setSuccess}/>
+                         setSuccess={setSuccess}
+                         handleChange={handleChange}/>
                     </div>
                     <DataTable
                         columns={columns}

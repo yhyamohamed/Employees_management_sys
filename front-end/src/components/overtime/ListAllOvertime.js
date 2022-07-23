@@ -56,7 +56,7 @@ function ListAllOvertime() {
     })
 
     const {data, isPending, error} = useGet(
-        "GET", "http://127.0.0.1:8000/api/over-time"
+        "GET", "http://127.0.0.1:8000/api/over-time", localStorage.getItem('token')
     );
 
     const navigate = useNavigate();
@@ -66,6 +66,8 @@ function ListAllOvertime() {
     useEffect(() => {
         if (!user.authenticated)
             navigate("/login");
+        if(user.employee_group !== 'admin' && user.employee_group !== 'higher-management' && user.employee_group !== 'middle-management')
+            navigate('/home');
     }, [user]);
 
     function search(rows) {

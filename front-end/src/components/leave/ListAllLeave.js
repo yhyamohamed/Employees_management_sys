@@ -53,7 +53,7 @@ function ListAllLeave() {
     })
 
     const {data, isPending, error} = useGet(
-        "GET", "http://127.0.0.1:8000/api/leave"
+        "GET", "http://127.0.0.1:8000/api/leave", localStorage.getItem('token')
     );
 
     const navigate = useNavigate();
@@ -63,6 +63,8 @@ function ListAllLeave() {
     useEffect(() => {
         if (!user.authenticated)
             navigate("/login");
+        if(user.employee_group !== 'admin' && user.employee_group !== 'higher-management' && user.employee_group !== 'middle-management')
+            navigate('/home');
     }, [user]);
 
     function search(rows) {
