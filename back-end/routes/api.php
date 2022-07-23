@@ -6,7 +6,10 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\MyAttendanceController;
 use App\Http\Controllers\MyComplaintsController;
+use App\Http\Controllers\MyLeaveController;
+use App\Http\Controllers\MyOvertimeController;
 use App\Http\Controllers\MyTasksController;
 use App\Http\Controllers\OverTimeController;
 use App\Http\Controllers\TaskController;
@@ -30,11 +33,14 @@ Route::resource('/tasks', TaskController::class);
 Route::resource('/mytasks', MyTasksController::class);
 Route::resource('/vacations', VacationController::class);
 Route::resource('/myvacations', MyVacationController::class);
+Route::resource('/myovertime', MyOvertimeController::class);
 Route::resource('/complaints', ComplaintController::class);
 Route::resource('/mycomplaints', MyComplaintsController::class);
 Route::resource('/attendance', AttendanceController::class);
+Route::resource('/myattendance', MyAttendanceController::class);
 Route::resource('/absence', AbsenceController::class);
 Route::resource('/leave', LeaveController::class);
+Route::resource('/myleave', MyLeaveController::class);
 Route::resource('/over-time', OverTimeController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
