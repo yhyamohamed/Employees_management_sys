@@ -31,7 +31,7 @@ Route::get('/managers',[ManagerController::class,'index']);
 Route::resource('/departments', DepartmentController::class);
 Route::resource('/tasks', TaskController::class);
 Route::resource('/mytasks', MyTasksController::class);
-Route::resource('/vacations', VacationController::class);
+Route::resource('/vacations', VacationController::class)->middleware(['auth:sanctum']);
 Route::resource('/myvacations', MyVacationController::class);
 Route::resource('/myovertime', MyOvertimeController::class);
 Route::resource('/complaints', ComplaintController::class);

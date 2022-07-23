@@ -14,7 +14,7 @@ class VacationPolicy
 
     public function viewAny(User $user)
     {
-        return  ( $user->employee_group === 'higher-management' || $user->employee_group === 'middle-management' )?
+        return  ( $user->employee_group === 'higher-management' || $user->employee_group === 'admin' ||$user->employee_group === 'middle-management' )?
             Response::allow()
             : Response::deny('You can not view this data.');
     }
