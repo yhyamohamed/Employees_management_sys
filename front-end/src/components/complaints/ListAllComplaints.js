@@ -53,7 +53,8 @@ function ListAllComplaints() {
   const [success, setSuccess] = useState('');
   const { data, isPending, error,refetch } = useGet(
     "GET",
-    "http://127.0.0.1:8000/api/complaints"
+    "http://127.0.0.1:8000/api/complaints",
+      localStorage.getItem('token')
   );
 
   const navigate = useNavigate();

@@ -53,7 +53,7 @@ function ListAllAttendance() {
     })
 
     const {data, isPending, error} = useGet(
-        "GET", "http://127.0.0.1:8000/api/attendance"
+        "GET", "http://127.0.0.1:8000/api/attendance", localStorage.getItem('token')
     );
 
     const navigate = useNavigate();

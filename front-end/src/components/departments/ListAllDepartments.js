@@ -41,7 +41,8 @@ const ListAllDepartments = () => {
 
     const { data, isPending, error,refetch } = useGet(
       "GET",
-      "http://127.0.0.1:8000/api/departments"
+      "http://127.0.0.1:8000/api/departments",
+        localStorage.getItem('token')
     );
     const [txt, setTxt] = useState("");
     const [success, setSuccess] = useState('');

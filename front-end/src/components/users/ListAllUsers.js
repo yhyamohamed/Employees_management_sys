@@ -10,7 +10,7 @@ import DeleteUserModal from "./DeleteUserModal";
 
 
 const ListAllUsers = () => {
-  const { data, isPending, error,refetch } = useGet("GET","http://127.0.0.1:8000/api/users");
+  const { data, isPending, error,refetch } = useGet("GET","http://127.0.0.1:8000/api/users", localStorage.getItem('token'));
   const [txt, setTxt] = useState("");
   const [success, setSuccess] = useState('');
   const [userData,setUserData] = useState({

@@ -53,7 +53,7 @@ function ListAllLeave() {
     })
 
     const {data, isPending, error} = useGet(
-        "GET", "http://127.0.0.1:8000/api/leave"
+        "GET", "http://127.0.0.1:8000/api/leave", localStorage.getItem('token')
     );
 
     const navigate = useNavigate();

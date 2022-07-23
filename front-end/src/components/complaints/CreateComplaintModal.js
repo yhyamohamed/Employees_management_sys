@@ -13,7 +13,7 @@ function CreateComplaintModal({ setSuccess, setCreateMessage,handleChange }) {
     reasons: '',
   });
 
-  const { data, issPending, error } = useGet('GET', "http://127.0.0.1:8000/api/users")
+  const { data, issPending, error } = useGet('GET', "http://127.0.0.1:8000/api/users", localStorage.getItem('token'))
   const [Error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
