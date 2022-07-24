@@ -9,7 +9,7 @@ function CreateComplaintModal({ setSuccess, setCreateMessage,handleChange }) {
     department_id: '',
     subject: '',
     body: '',
-    status: '',
+    status: 'pending',
     reasons: '',
   });
 
@@ -88,7 +88,7 @@ function CreateComplaintModal({ setSuccess, setCreateMessage,handleChange }) {
                 }
               ></textarea>
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label htmlFor="status" className="form-label">
                 Status
               </label>
@@ -102,7 +102,7 @@ function CreateComplaintModal({ setSuccess, setCreateMessage,handleChange }) {
                 <option value="reviewing">Reviewing</option>
                 <option value="solved">Solved</option>
               </select>
-            </div>
+            </div> */}
             <div className="mb-3">
               <label htmlFor="reasons" className="form-label">
                 Reasons
