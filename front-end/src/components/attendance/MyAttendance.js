@@ -84,13 +84,13 @@ function MyAttendance() {
       sortable: true,
     },
     {
-      name: "Phone Number",
-      selector: (row) => row.user.phone,
+      name: "Date of Attendance",
+      selector: (row) => row.created_at.slice(0,10),
       sortable: true,
     },
     {
-      name: "Employee Group",
-      selector: (row) => row.user.employee_group,
+      name: "Time",
+      selector: (row) => row.created_at.slice(11,16),
       sortable: true,
     },
     {

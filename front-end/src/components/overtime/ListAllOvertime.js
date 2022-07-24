@@ -93,6 +93,16 @@ function ListAllOvertime() {
             sortable: true,
         },
         {
+            name: "Date of Overtime",
+            selector: (row) => row.created_at.slice(0,10),
+            sortable: true,
+        },
+        {
+            name: "Time",
+            selector: (row) => row.created_at.slice(11,16),
+            sortable: true,
+        },
+        {
             name: "Overtime (in hours)",
             selector: (row) => row.duration,
             sortable: true,
