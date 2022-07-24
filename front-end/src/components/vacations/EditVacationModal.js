@@ -215,12 +215,13 @@ function EditVacationModal({vacation, setSuccess,handleChange}) {
                                     className="d-block w-100"
                                     id="status"
                                     // value={data.status}
+                                    defaultValue={'none'}
                                     onChange={(e) =>
                                         setData({ ...data, status: e.target.value })
                                     }
                                 >
+                                    <option value="none" disabled hidden>------</option>
                                     <option value="approved">Approved</option>
-                                    <option selected disabled hidden>------</option>
                                     <option value="rejected">Rejected</option>
                                 </select>
                             </div>

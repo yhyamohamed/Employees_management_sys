@@ -1,9 +1,12 @@
-import {useState} from "react";
+import { useState } from "react";
+import useGet from "../../custumHooks/useGet";
 import APIService from "../../services/APIService";
 
-function CreateVacationModal({setSuccess,handleChange}) {
-  const [data, setData] = useState({ status: 'pending' });
-  const [error, setError] = useState(null);
+function CreateVacationModal({ setSuccess, handleChange }) {
+  const [dataModel, setData] = useState({ status: 'pending' });
+  const { data, issPending, error } = useGet('GET', "http://127.0.0.1:8000/api/users", localStorage.getItem('token'))
+
+  const [err, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -11,13 +14,13 @@ function CreateVacationModal({setSuccess,handleChange}) {
     setLoading(true);
     const result = await APIService.post(
       "http://127.0.0.1:8000/api/vacations",
-      data,
-        localStorage.getItem('token')
+      dataModel,
+      localStorage.getItem('token')
     );
     if (result.success) {
       setSuccess('vacation created successfully.');
       handleChange();
-     document.getElementById("close-modal").click();
+      document.getElementById("close-modal").click();
     } else {
       setError(result.error);
     }
@@ -43,36 +46,22 @@ function CreateVacationModal({setSuccess,handleChange}) {
             ></button>
           </div>
           <div className="modal-body">
-            {error && (
+            {err && (
               <div className="alert alert-danger" role="alert">
-                <small>{error}</small>
+                <small>{err}</small>
               </div>
             )}
             <div className="mb-3">
-              <label htmlFor="code" className="form-label">
-                Employee ID
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="code"
-                onChange={(e) =>
-                  setData({ ...data, employee_id: e.target.value })
+              <label htmlFor="employee_id" className="form-label">Employee Name</label>
+              <select className="d-block w-100" id="employee_id" defaultValue={'none'}
+                onChange={(e) => setData({ ...dataModel, employee_id: e.target.value, department_id: data.filter(obj => obj.id == e.target.value)[0].department_id })}>
+                <option value="none" disabled hidden>Employee Name</option>
+                {data &&
+                  data.map(user => (
+                    <option key={user.id} value={user.id}>{user.name}</option>
+                  ))
                 }
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="code" className="form-label">
-                Department ID
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="code"
-                onChange={(e) =>
-                  setData({ ...data, department_id: e.target.value })
-                }
-              />
+              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
@@ -85,7 +74,7 @@ function CreateVacationModal({setSuccess,handleChange}) {
                 max="7"
                 placeholder="max 7 days"
                 id="duration"
-                onChange={(e) => setData({ ...data, duration: e.target.value })}
+                onChange={(e) => setData({ ...dataModel, duration: e.target.value })}
               />
             </div>
             <div className="mb-3">
@@ -96,7 +85,7 @@ function CreateVacationModal({setSuccess,handleChange}) {
                 className="form-control"
                 id="description"
                 rows="3"
-                onChange={(e) => setData({ ...data, reasons: e.target.value })}
+                onChange={(e) => setData({ ...dataModel, reasons: e.target.value })}
               ></textarea>
             </div>
             <div className="mb-3">
@@ -110,7 +99,7 @@ function CreateVacationModal({setSuccess,handleChange}) {
                   name="paid"
                   id="paid1"
                   value="1"
-                  onChange={(e) => setData({ ...data, paid: e.target.value })}
+                  onChange={(e) => setData({ ...dataModel, paid: e.target.value })}
                 />
                 <label className="form-check-label" htmlFor="paid1">
                   Yes
@@ -123,7 +112,7 @@ function CreateVacationModal({setSuccess,handleChange}) {
                   name="paid"
                   id="paid2"
                   value="0"
-                  onChange={(e) => setData({ ...data, paid: e.target.value })}
+                  onChange={(e) => setData({ ...dataModel, paid: e.target.value })}
                 />
                 <label className="form-check-label" htmlFor="paid2">
                   No
@@ -139,7 +128,7 @@ function CreateVacationModal({setSuccess,handleChange}) {
                 className="form-control"
                 id="date"
                 onChange={(e) =>
-                  setData({ ...data, start_date: e.target.value })
+                  setData({ ...dataModel, start_date: e.target.value })
                 }
               />
             </div>
@@ -151,7 +140,7 @@ function CreateVacationModal({setSuccess,handleChange}) {
                 type="date"
                 className="form-control"
                 id="date"
-                onChange={(e) => setData({ ...data, end_date: e.target.value })}
+                onChange={(e) => setData({ ...dataModel, end_date: e.target.value })}
               />
             </div>
           </div>
