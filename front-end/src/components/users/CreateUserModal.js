@@ -1,7 +1,7 @@
 import { useState } from "react";
 import APIService from "../../services/APIService";
 
-function CreateUserModal({setSuccess,handleChange}) {
+function CreateUserModal({ setSuccess, handleChange }) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -136,6 +136,7 @@ function CreateUserModal({setSuccess,handleChange}) {
                                         setData({ ...data, gender: e.target.value })
                                     }
                                 >
+                                    <option value="none" disabled hidden>Select a gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
