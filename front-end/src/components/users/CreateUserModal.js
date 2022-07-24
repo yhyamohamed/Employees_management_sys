@@ -132,11 +132,12 @@ function CreateUserModal({ setSuccess, handleChange }) {
                                 <select
                                     className="d-block w-100"
                                     id="gender"
+                                    defaultValue={'none'}
                                     onChange={(e) =>
                                         setData({ ...data, gender: e.target.value })
                                     }
                                 >
-                                    <option value="none" disabled hidden>Select a gender</option>
+                                    <option value="none" hidden disabled>Select a gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
@@ -148,10 +149,12 @@ function CreateUserModal({ setSuccess, handleChange }) {
                                 <select
                                     className="d-block w-100"
                                     id="employee_group"
+                                    defaultValue={'none'}
                                     onChange={(e) =>
                                         setData({ ...data, employee_group: e.target.value })
                                     }
                                 >
+                                    <option value="none" hidden disabled>Select an Employee Group</option>
                                     <option value="higher-management">higher-management</option>
                                     <option value="middle-management">middle-management</option>
                                     <option value="part-time">part-time</option>
@@ -166,10 +169,12 @@ function CreateUserModal({ setSuccess, handleChange }) {
                                 <select
                                     className="d-block w-100"
                                     id="employee_title"
+                                    defaultValue={'none'}
                                     onChange={(e) =>
                                         setData({ ...data, employee_title: e.target.value })
                                     }
                                 >
+                                    <option value="none" hidden disabled>Select an Employee Title</option>
                                     <option value="dep-manager">dep-manager</option>
                                     <option value="senior">senior</option>
                                     <option value="mid-senior">mid-senior</option>
